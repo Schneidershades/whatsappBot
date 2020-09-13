@@ -13,11 +13,13 @@ class ChatBotController extends Controller
     {
         $from = $request->input('From');
         $body = $request->input('Body');
+        
+        $client = new \GuzzleHttp\Client();
 
         try {
 
             $response = $client->request('GET', "https://api.github.com/users/$body");
-            
+
             $githubResponse = json_decode($response->getBody());
             if ($response->getStatusCode() == 200) {
                 $message = "*Name:* $githubResponse->name\n";
