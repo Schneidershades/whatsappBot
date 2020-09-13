@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Chat;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Twilio\Rest\Client;
 
 class ChatBotController extends Controller
 {
@@ -14,10 +15,10 @@ class ChatBotController extends Controller
         $body = $request->input('Body');
 
         try {
-            $response = Http::get("https://api.github.com/users/$body");
 
+            $response = $client->request('GET', "https://api.github.com/users/$body");
+            
             $githubResponse = json_decode($response->getBody());
-
             if ($response->getStatusCode() == 200) {
                 $message = "*Name:* $githubResponse->name\n";
                 $message .= "*Bio:* $githubResponse->bio\n";
