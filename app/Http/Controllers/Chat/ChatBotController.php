@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Twilio\Rest\Client;
+use App\Models\Chat;
+
 
 class ChatBotController extends Controller
 {
@@ -13,38 +15,68 @@ class ChatBotController extends Controller
     {
         $from = $request->input('From');
         $body = $request->input('Body');
-        
+
         $client = new \GuzzleHttp\Client();
 
-        try {
+        $array1 = explode(" ", $body);
 
-            $response = $client->request('GET', "https://api.github.com/users/$body");
+        $chats = Chat::all();
 
-            $githubResponse = json_decode($response->getBody());
-            if ($response->getStatusCode() == 200) {
-                $message = "*Name:* $githubResponse->name\n";
-                $message .= "*Bio:* $githubResponse->bio\n";
-                $message .= "*Lives in:* $githubResponse->location\n";
-                $message .= "*Number of Repos:* $githubResponse->public_repos\n";
-                $message .= "*Followers:* $githubResponse->followers devs\n";
-                $message .= "*Following:* $githubResponse->following devs\n";
-                $message .= "*URL:* $githubResponse->html_url\n";
-                $this->sendWhatsAppMessage($message, $from);
-            } else {
-                $this->sendWhatsAppMessage($githubResponse->message, $from);
+        $replies = [];
+
+        foreach($chats as $chat){
+
+            $array2 = explode(" ", $chat['incoming_message']);
+
+            $similar = array_intersect($array1, $array2);
+
+            $a = round(count($similar));
+
+            $b = count($array1);
+
+            $average = $a/$b*100;
+
+            if($average > 60 && $chat['outgoing_message'] != null){
+                $newdata = array (
+                    'average' => $average,
+                    'reply' => $chat['outgoing_message']
+                );
+
+                array_push($replies, $newdata);
             }
-        } catch (RequestException $th) {
-            $response = json_decode($th->getResponse()->getBody());
-            $this->sendWhatsAppMessage($response->message, $from);
         }
-        return;
+
+        if($replies == null || $replies == []){
+            $newChat = new Chat;
+            $newChat->incoming_message = $body;
+            $newChat->phone = $from;
+            $newChat->save();
+
+            return $this->sendWhatsAppMessage('I am sorry!! I seem not to understand you', $from);
+        }
+
+        $maximum_number = (max(array_column($replies, "average")));
+
+        $message = $this->arraySearch($replies, "average", $maximum_number);
+
+        
+
+        return $this->sendWhatsAppMessage($message['average'], $from);
     }
 
-    /**
-     * Sends a WhatsApp message  to user using
-     * @param string $message Body of sms
-     * @param string $recipient Number of recipient
-     */
+    public function arraySearch($products, $field, $value)
+    {
+       foreach($products as $key => $product)
+       {
+            if ( $product[$field] === $value ){
+                return($product);
+            }
+
+            return false;
+       }
+       return false;
+    }
+
     public function sendWhatsAppMessage(string $message, string $recipient)
     {
         $twilio_whatsapp_number = getenv('TWILIO_WHATSAPP_NUMBER');
