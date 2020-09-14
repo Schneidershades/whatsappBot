@@ -36,7 +36,7 @@ class ChatBotController extends Controller
 
             $average = $a/$b*100;
 
-            if($average > 60 && $chat['outgoing_message'] != null){
+            if($average >= 50 && $chat['outgoing_message'] != null){
                 $newdata = array (
                     'average' => $average,
                     'reply' => $chat['outgoing_message']
