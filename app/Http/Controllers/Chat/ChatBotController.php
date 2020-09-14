@@ -61,7 +61,7 @@ class ChatBotController extends Controller
 
         
 
-        return $this->sendWhatsAppMessage($message['average'], $from);
+        return $this->sendWhatsAppMessage($message['outgoing_message'], $from);
     }
 
     public function arraySearch($products, $field, $value)
