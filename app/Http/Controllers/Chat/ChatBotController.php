@@ -14,7 +14,7 @@ class ChatBotController extends Controller
     public function listenToReplies(Request $request)
     {
         $from = $request->input('From');
-        $body = $request->input('Body');
+        $body = strtolower($request->input('Body'));
 
         $client = new \GuzzleHttp\Client();
 
@@ -46,13 +46,27 @@ class ChatBotController extends Controller
             }
         }
 
+        // $message = "1. About AutoPartz\n";
+        // $message .= "2. Contact AutoPartz\n";
+
+        // $message = "*Address* 55, Akobi Crescent, Off Atunrashe Street, Mushin, Lagos\n";
+        // $message .= "*Phone* 08097772886 (WhatsApp), 09030007004 (WhatsApp)\n";
+        // $message .= "*Email* info@autopartz.com\n";
+        // $message .= "*Website* https://www.autopartz.com\n";
+
+        // dd($message);
+
         if($replies == null || $replies == []){
             $newChat = new Chat;
             $newChat->incoming_message = $body;
             $newChat->phone = $from;
             $newChat->save();
 
-            return $this->sendWhatsAppMessage('I am sorry!! I seem not to understand you', $from);
+            $message = "*Welcome To AutoPartz!!!*\n";
+            $message .= "I am here to assist you\n";
+            $message .= "Please kindly press *menu* to access our support features\n";
+
+            return $this->sendWhatsAppMessage($message, $from);
         }
 
         $maximum_number = (max(array_column($replies, "average")));
@@ -87,4 +101,12 @@ class ChatBotController extends Controller
 
         return $client->messages->create($recipient, array('from' => "whatsapp:$twilio_whatsapp_number", 'body' => $message));
     }
+
+   
+    
+
+    // $message .= "*Address* 55, Akobi Crescent, Off Atunrashe Street, Mushin, Lagos\n";
+    // $message .= "*Phone* 08097772886 (WhatsApp), 09030007004 (WhatsApp)\n";
+    // $message .= "*Email* info@autopartz.com\n";
+    // $message .= "*Website* https://www.autopartz.com\n";
 }
