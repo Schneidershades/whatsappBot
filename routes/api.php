@@ -12,5 +12,5 @@ Route::resource('/brands', 'Api\BrandController');
 Route::resource('/components', 'Api\ComponentController');
 Route::resource('/category', 'Api\CategoryController');
 Route::resource('/models', 'Api\ModelController');
-Route::resource('/makes', 'Api\MakeController');
+Route::resource('/make', 'Api\MakeController');
 Route::resource('/year', 'Api\YearController');
