@@ -8,3 +8,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/chat-bot', 'Chat\ChatBotController@listenToReplies');
+Route::resource('/brand', 'Api\BrandController');
