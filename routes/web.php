@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/tables', function () {
+     return $tables = DB::select('SHOW TABLES'); // returns an array of stdObjects
+});
