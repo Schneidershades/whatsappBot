@@ -13,7 +13,7 @@ class YearController extends Controller
     	return Year::all();
     }
 
-    public function show($year, $phone)
+    public function show($year)
     {
     	return Year::where('year', $year)->get();
     }
