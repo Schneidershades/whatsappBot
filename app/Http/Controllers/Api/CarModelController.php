@@ -10,7 +10,7 @@ class CarModelController extends Controller
 {
     public function index()
     {
-    	return Model::all();
+    	return CarModel::all();
     }
 
     public function show($id)
