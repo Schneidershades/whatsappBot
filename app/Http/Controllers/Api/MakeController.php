@@ -12,4 +12,9 @@ class MakeController extends Controller
     {
     	return Make::all();
     }
+
+    public function show($id);
+    {
+    	
+    }
 }

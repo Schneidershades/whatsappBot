@@ -12,4 +12,9 @@ class YearController extends Controller
     {
     	return Year::all();
     }
+
+    public function show($id);
+    {
+    	
+    }
 }
