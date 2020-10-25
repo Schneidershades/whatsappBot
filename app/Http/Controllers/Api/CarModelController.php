@@ -13,7 +13,7 @@ class CarModelController extends Controller
     	return Model::all();
     }
 
-    public function show($id);
+    public function show($id)
     {
     	
     }
