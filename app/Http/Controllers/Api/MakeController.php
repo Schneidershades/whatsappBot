@@ -13,8 +13,8 @@ class MakeController extends Controller
     	return Make::all();
     }
 
-    public function show($id)
+    public function show($year)
     {
-    	
+    	return Make::where('year', $year)->get();
     }
 }
