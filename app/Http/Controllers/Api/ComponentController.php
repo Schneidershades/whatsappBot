@@ -13,7 +13,7 @@ class ComponentController extends Controller
     	return Component::all();
     }
 
-    public function show($id);
+    public function show($id)
     {
     	
     }

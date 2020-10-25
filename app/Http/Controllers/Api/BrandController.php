@@ -13,7 +13,7 @@ class BrandController extends Controller
     	return Brand::all();
     }
 
-    public function show($id);
+    public function show($id)
     {
     	
     }
