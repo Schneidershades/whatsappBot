@@ -18,3 +18,5 @@ class YearController extends Controller
     	return Year::where('year', $year)->get();
     }
 }
+
+
