@@ -10,14 +10,14 @@ class YearController extends Controller
 {
     public function index()
     {
-    	return Year::all();
+    	return Year::select('yearid', 'year')
+			->distinct()
+			->get();
     }
 
     public function show($year)
     {
-    	return Year::select('year')
-			->distinct()
-			->get();
+    	
     }
 }
 
