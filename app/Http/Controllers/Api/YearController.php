@@ -14,7 +14,7 @@ class YearController extends Controller
 			// ->get();
 
 		return $faces = Year::select('yearid','year')
-	        ->groupBy('yearid','year')
+	        ->groupBy('year')
 	        ->get();
 			
 			// return $user_names = Year::distinct()->get(['yearid', 'year']);
