@@ -11,7 +11,8 @@ class YearController extends Controller
     public function index()
     {
     	return Year::select('yearid', 'year')
-			->distinct()
+			// ->distinct()
+            ->groupBy('year')
 			->get();
     }
 
