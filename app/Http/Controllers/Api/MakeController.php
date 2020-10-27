@@ -15,6 +15,9 @@ class MakeController extends Controller
 
     public function show($year)
     {
-    	return Make::where('year', $year)->get();
+    	return Make::where('year', $year)
+			->select('year')
+			->distinct()
+			->get();
     }
 }

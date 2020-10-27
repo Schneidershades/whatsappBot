@@ -15,7 +15,10 @@ class YearController extends Controller
 
     public function show($year)
     {
-    	return Year::where('year', $year)->get();
+    	return Year::where('year', $year)
+			->select('year')
+			->distinct()
+			->get();
     }
 }
 
