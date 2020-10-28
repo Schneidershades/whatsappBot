@@ -23,8 +23,6 @@ class YearController extends Controller
         return $this->allTables($bodyItems);
 
 
-        
-
   //       if(in_array('find', $bodyItems) && in_array('vehicle', $bodyItems)){
 		// 	return 'ggo';
 		// } 
