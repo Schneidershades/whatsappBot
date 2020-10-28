@@ -8,17 +8,25 @@ use App\Models\Year;
 
 class YearController extends Controller
 {
-    public function index()
+    public function store(Request $request)
     {
+    	$from = $request->input('From');
+        $body = strtolower($request->input('Body'));
+
+        $client = new \GuzzleHttp\Client();
+
+        $array1 = explode(" ", $body);
+
     	$years = Year::select('year')
 			->distinct()
 			->get();
 
-        $replies = [];
+		dd($body);
+  //       $replies = [];
 
-		foreach ($years as $year) {
-            array_push($replies, $year['year']);
-		}
+		// foreach ($years as $year) {
+  //           array_push($replies, $year['year']);
+		// }
 
 		return $replies;
     }
