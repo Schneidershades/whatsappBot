@@ -21,7 +21,12 @@ class YearController extends Controller
 			->distinct()
 			->get();
 
-		dd($body);
+		if($body == strtolower('Find Component')){
+			$message = "Missing Request";
+		}
+
+		dd($message);
+
   //       $replies = [];
 
 		// foreach ($years as $year) {
