@@ -26,7 +26,7 @@ class YearController extends Controller
 		// }
 
 		
-		return ($message);
+		// return ($message);
     }
 
     public function show($year)
