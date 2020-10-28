@@ -125,6 +125,7 @@ class YearController extends Controller
     	$year = Year::where('year', $item)->first();
 
     	if($year!=null){
+    		return $year->year;
     		return array('year' => $year->year);
     	}
 
