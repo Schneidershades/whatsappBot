@@ -17,7 +17,7 @@ class YearController extends Controller
 
         $bodyItems = explode(" ", strtolower($body));
 
-		if(array_search('find', $bodyItems) ){
+		if(in_array('find', $bodyItems) && in_array('vehicle', $bodyItems)){
 			return 'ggo';
 		}  
 
