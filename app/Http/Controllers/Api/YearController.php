@@ -118,26 +118,26 @@ class YearController extends Controller
     	$make = null;
     	$model = null;
     	$component = null;
-    	
-    	$year = Year::where('year', $item)->distinct()->get()->pluck('year')->toArray();
+
+    	$year = Year::where('year', $item)->first();
 
     	if($year!=null){
     		return ['year' => $year->year];
     	}
 
-    	$make = Make::where('company', $item)->distinct()->get()->pluck('company')->toArray();
+    	$make = Make::where('company', $item)->first();
 
     	if($make!=null){
     		return ['make' => $make->company];
     	}
 
-    	$model = CarModel::where('model', $item)->distinct()->get()->pluck('model')->toArray();
+    	$model = CarModel::where('model', $item)->first();
 
     	if($model!=null){
     		return ['model' => $model->model];
     	}
 
-    	$component = Component::where('component', $item)->distinct()->get()->pluck('component')->toArray();
+    	$component = Component::where('component', $item)->first();
 
     	if($component!=null){
     		return ['component' => $component->component];
