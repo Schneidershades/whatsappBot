@@ -21,7 +21,7 @@ class YearController extends Controller
 
         $bodyItems = explode(", ", strtolower($body));
 
-        $container = array(2);
+        $container = array();
 
         foreach ($bodyItems as $bodyItem) {
 
