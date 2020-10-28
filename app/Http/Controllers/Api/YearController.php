@@ -25,7 +25,7 @@ class YearController extends Controller
 
         foreach ($bodyItems as $bodyItem) {
 
-        	array_merge($this->confirmTable($bodyItem), $container);
+        	array_merge($container, $this->confirmTable($bodyItem));
 
         	// array_push($this->confirmTable($bodyItem), $container);
         }
@@ -127,9 +127,9 @@ class YearController extends Controller
     	$year = Year::where('year', $item)->first();
 
     	if($year != null){
-    		return [
+    		return array(
 			  	'year' => $year->year,
-			];
+			);
     	}
 
     	$make = Make::where('company', $item)->first();
