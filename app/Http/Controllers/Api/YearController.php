@@ -15,19 +15,16 @@ class YearController extends Controller
 
         $client = new \GuzzleHttp\Client();
 
-        $array1 = explode(" ", $body);
+        $bodyItems = explode(" ", $body);
 
-    	$years = Year::select('year')
-			->distinct()
-			->get();
+		$key = array_search('green', $bodyItems);
+		$key = array_search('red', $bodyItems);  
 
-		if($body != strtolower('Find Component')){
-			$message = "Missing Request. please use *Find Compnent* to proceed";
-		}
-
-		foreach ($years as $year) {
-           	echo $year->year .",\n";
-		}
+		dd($key);
+		
+		// if($body != strtolower('Find Component')){
+		// 	$message = "Missing Request. please use *Find Component* to proceed";
+		// }
 
 		
 		return ($message);
@@ -35,7 +32,36 @@ class YearController extends Controller
 
     public function show($year)
     {
-    	
+    	$from = $request->input('From');
+        $body = strtolower($request->input('Body'));
+
+        $client = new \GuzzleHttp\Client();
+
+        $array1 = explode(" ", $body);
+
+        if($body != strtolower('Find Component')){
+			$message = "Missing Request. please type *year of ve* to proceed";
+		}
+
+		if((int)$body){
+			$message = "Invalid Request. please input a number to proceed";
+		}
+
+    	$years = Year::where('year', $year)->distinct()->get();
+    }
+
+    public function findYear(){
+
+    	$years = Year::select('year')
+			->distinct()
+			->get();
+
+		$message = null;
+
+		foreach ($years as $year) {
+           	$message =  $year->year .",\n";
+		}
+
     }
 }
 
