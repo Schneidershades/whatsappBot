@@ -21,7 +21,7 @@ class YearController extends Controller
 
         $bodyItems = explode(", ", strtolower($body));
 
-        return $this->allTables(Arr::flatten($bodyItems));
+        return $this->allTables(Arr::flatten(Arr::flatten($bodyItems)));
 
 
   //       if(in_array('find', $bodyItems) && in_array('vehicle', $bodyItems)){
