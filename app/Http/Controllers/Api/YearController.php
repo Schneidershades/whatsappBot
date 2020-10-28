@@ -122,10 +122,10 @@ class YearController extends Controller
     	$model = null;
     	$component = null;
 
-    	$yearItem = Year::where('year', $item)->first()->pluck('year')->toArray();
+    	$year = Year::where('year', $item)->first();
 
     	if($year!=null){
-    		dd(['year' => $yearItem]);
+    		dd(['year' => $year->year]);
     	}
 
     	$make = Make::where('company', $item)->first();
