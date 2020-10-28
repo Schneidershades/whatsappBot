@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Year;
 use App\Models\Make;
-use App\Models\Model;
+use App\Models\CarModel;
 use App\Models\Component;
 
 class YearController extends Controller
@@ -99,7 +99,7 @@ class YearController extends Controller
     {
     	$year = Year::whereIn('year', $items)->distinct()->get()->pluck('year')->toArray();
     	$make = Make::whereIn('company', $items)->distinct()->get()->pluck('company')->toArray();
-    	$model = Model::whereIn('model', $items)->distinct()->get()->pluck('model')->toArray();
+    	$model = CarModel::whereIn('model', $items)->distinct()->get()->pluck('model')->toArray();
     	$component = Component::whereIn('component', $items)->distinct()->get()->pluck('component')->toArray();
 
     	$collection = array_merge($year, $make, $model, $component);
@@ -111,7 +111,7 @@ class YearController extends Controller
     {
     	$year = Year::where('year', $year)->distinct()->get()->pluck('year')->toArray();
     	$make = Make::where('company', $year)->distinct()->get()->pluck('company')->toArray();
-    	$model = Model::where('model', $year)->distinct()->get()->pluck('model')->toArray();
+    	$model = CarModel::where('model', $year)->distinct()->get()->pluck('model')->toArray();
     	$component = Component::where('component', $year)->distinct()->get()->pluck('component')->toArray();
 
     	$collection = array_merge($year, $make, $model, $component);
