@@ -24,7 +24,7 @@ class YearController extends Controller
         $container = [];
 
         foreach ($bodyItems as $bodyItem) {
-        	return $this->confirmTable($bodyItem);
+        	return $this->confirmTable($bodyItem->toArray());
         	array_push($this->confirmTable($bodyItem), $container);
         }
 
