@@ -15,13 +15,12 @@ class YearController extends Controller
 
         $client = new \GuzzleHttp\Client();
 
-        $bodyItems = explode(" ", $body);
+        $bodyItems = explode(" ", strtolower($body));
 
-		$key = array_search('green', $bodyItems);
-		$key = array_search('red', $bodyItems);  
+		if(array_search('find', $bodyItems) && array_search('vehicle', $bodyItems)){
+			return 'ggo';
+		}  
 
-		dd($key);
-		
 		// if($body != strtolower('Find Component')){
 		// 	$message = "Missing Request. please use *Find Component* to proceed";
 		// }
