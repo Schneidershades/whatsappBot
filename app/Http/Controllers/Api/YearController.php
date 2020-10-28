@@ -95,6 +95,7 @@ class YearController extends Controller
 
     public function allTables($items)
     {
+    	dd($items);
     	$year = Year::whereIn('year', $items)->distinct()->get()->pluck('year')->toArray();
     	$make = Make::whereIn('company', $items)->distinct()->get()->pluck('company')->toArray();
     	$model = CarModel::whereIn('model', $items)->distinct()->get()->pluck('model')->toArray();
