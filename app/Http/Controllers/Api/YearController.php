@@ -18,7 +18,7 @@ class YearController extends Controller
         $bodyItems = explode(" ", strtolower($body));
 
 
-        return $this->allTables($items);
+        return $this->allTables($bodyItems);
 
   //       if(in_array('find', $bodyItems) && in_array('vehicle', $bodyItems)){
 		// 	return 'ggo';
@@ -35,8 +35,6 @@ class YearController extends Controller
 		// 	// array_keys($bodyItems, "blue")
 			
 		// }
-
-
 
 		 
 
@@ -93,6 +91,18 @@ class YearController extends Controller
 
 
     public function allTables($items)
+    {
+    	$year = Year::where('year', $year)->distinct()->get()->pluck('year')->toArray();
+    	$make = Make::where('company', $year)->distinct()->get()->pluck('company')->toArray();
+    	$model = Model::where('model', $year)->distinct()->get()->pluck('model')->toArray();
+    	$component = Component::where('component', $year)->distinct()->get()->pluck('component')->toArray();
+
+    	$collection = array_merge($year, $make, $model, $component);
+
+		return array_intersect($items, $collection);
+    }
+
+    public function confirmTable($items)
     {
     	$year = Year::where('year', $year)->distinct()->get()->pluck('year')->toArray();
     	$make = Make::where('company', $year)->distinct()->get()->pluck('company')->toArray();
