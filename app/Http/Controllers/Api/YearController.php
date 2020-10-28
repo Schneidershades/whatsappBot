@@ -24,7 +24,7 @@ class YearController extends Controller
         $container = [];
 
         foreach ($bodyItems as $bodyItem) {
-        	$d = $this->confirmTable($bodyItem);
+        	dd($this->confirmTable($bodyItem));
 
         	// array_push($this->confirmTable($bodyItem), $container);
         }
@@ -126,7 +126,7 @@ class YearController extends Controller
     	$year = Year::where('year', $item)->first();
 
     	if($year != null){
-    		return array [
+    		return [
 			  	'year' => $year->year,
 			];
     	}
