@@ -21,10 +21,11 @@ class YearController extends Controller
 
         $bodyItems = explode(", ", strtolower($body));
 
-        $container = [];
+        $container = array();
 
         foreach ($bodyItems as $bodyItem) {
-        	dd($this->confirmTable($bodyItem));
+
+        	array_merge($this->confirmTable($bodyItem), $container)
 
         	// array_push($this->confirmTable($bodyItem), $container);
         }
