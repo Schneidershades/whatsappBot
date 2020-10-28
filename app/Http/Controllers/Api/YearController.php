@@ -125,7 +125,7 @@ class YearController extends Controller
     	$yearItem = Year::where('year', $item)->first()->pluck('year')->toArray();
 
     	if($year!=null){
-    		return ['year' => $yearItem];
+    		return dd(['year' => $yearItem]);
     	}
 
     	$make = Make::where('company', $item)->first();
