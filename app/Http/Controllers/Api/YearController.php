@@ -22,7 +22,7 @@ class YearController extends Controller
 			->get();
 
 		if($body != strtolower('Find Component')){
-			$message = "Missing Request";
+			$message = "Missing Request. please use *Find Vehicle to proceed*";
 		}
 
 		dd($message);
