@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Year;
+use App\Models\Make;
+use App\Models\Model;
+use App\Models\Component;
 
 class YearController extends Controller
 {
