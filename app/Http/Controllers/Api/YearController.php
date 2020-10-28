@@ -17,9 +17,37 @@ class YearController extends Controller
 
         $bodyItems = explode(" ", strtolower($body));
 
-		if(in_array('find', $bodyItems) && in_array('vehicle', $bodyItems)){
+
+        return $this->allTables($items);
+
+  //       if(in_array('find', $bodyItems) && in_array('vehicle', $bodyItems)){
+		// 	return 'ggo';
+		// } 
+
+
+		// if(
+		// 		in_array('year', $bodyItems) 
+		// 	&& 	in_array('make', $bodyItems) 
+		// 	&& 	in_array('model', $bodyItems) 
+		// 	&& 	in_array('component', $bodyItems)
+		// )
+		// {
+		// 	// array_keys($bodyItems, "blue")
+			
+		// }
+
+
+
+		 
+
+
+		if(in_array('year', $bodyItems) && in_array('vehicle', $bodyItems)){
 			return 'ggo';
-		}  
+		} 
+
+		if(in_array('year', $bodyItems) && in_array('vehicle', $bodyItems)){
+			return 'ggo';
+		} 
 
 		// if($body != strtolower('Find Component')){
 		// 	$message = "Missing Request. please use *Find Component* to proceed";
@@ -61,6 +89,19 @@ class YearController extends Controller
            	$message =  $year->year .",\n";
 		}
 
+    }
+
+
+    public function allTables($items)
+    {
+    	$year = Year::where('year', $year)->distinct()->get()->pluck('year')->toArray();
+    	$make = Make::where('company', $year)->distinct()->get()->pluck('company')->toArray();
+    	$model = Model::where('model', $year)->distinct()->get()->pluck('model')->toArray();
+    	$component = Component::where('component', $year)->distinct()->get()->pluck('component')->toArray();
+
+    	$collection = array_merge($year, $make, $model, $component);
+
+		return array_intersect($items, $collection);
     }
 }
 
