@@ -21,7 +21,7 @@ class YearController extends Controller
 			->distinct()
 			->get();
 
-		if($body == strtolower('Find Component')){
+		if($body != strtolower('Find Component')){
 			$message = "Missing Request";
 		}
 
