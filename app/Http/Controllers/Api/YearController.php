@@ -15,7 +15,7 @@ class YearController extends Controller
 
         $client = new \GuzzleHttp\Client();
 
-        return $bodyItems = explode(" ", strtolower($body));
+        $bodyItems = explode(" ", strtolower($body));
 
 		if(array_search('find', $bodyItems) && array_search('vehicle', $bodyItems)){
 			return 'ggo';
