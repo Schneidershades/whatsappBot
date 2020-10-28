@@ -21,7 +21,13 @@ class YearController extends Controller
 
         $bodyItems = explode(", ", strtolower($body));
 
-        return $this->allTables(array_values($bodyItems));
+        $container = [];
+
+        foreach ($bodyItems as $bodyItem) {
+        	return $this->allTables($bodyItem);
+        }
+
+
 
 
   //       if(in_array('find', $bodyItems) && in_array('vehicle', $bodyItems)){
@@ -93,30 +99,45 @@ class YearController extends Controller
 
     }
 
+  //   public function allTables($items)
+  //   {
+  //   	// dd($items);
+  //   	$year = Year::whereIn('year', $items)->distinct()->get()->pluck('year')->toArray();
+  //   	$make = Make::whereIn('company', $items)->distinct()->get()->pluck('company')->toArray();
+  //   	$model = CarModel::whereIn('model', $items)->distinct()->get()->pluck('model')->toArray();
+  //   	$component = Component::whereIn('component', $items)->distinct()->get()->pluck('component')->toArray();
 
-    public function allTables($items)
+  //   	$collection = array_merge($year, $make, $model, $component);
+
+		// return array_intersect($items, $collection);
+  //   }
+
+    public function confirmTable($item)
     {
-    	dd($items);
-    	$year = Year::whereIn('year', $items)->distinct()->get()->pluck('year')->toArray();
-    	$make = Make::whereIn('company', $items)->distinct()->get()->pluck('company')->toArray();
-    	$model = CarModel::whereIn('model', $items)->distinct()->get()->pluck('model')->toArray();
-    	$component = Component::whereIn('component', $items)->distinct()->get()->pluck('component')->toArray();
+    	$year = Year::where('year', $item)->distinct()->get()->pluck('year')->toArray();
 
-    	$collection = array_merge($year, $make, $model, $component);
+    	if($year){
+    		return ['year' => $year->year];
+    	}
 
-		return array_intersect($items, $collection);
-    }
+    	$make = Make::where('company', $item)->distinct()->get()->pluck('company')->toArray();
 
-    public function confirmTable($items)
-    {
-    	$year = Year::where('year', $year)->distinct()->get()->pluck('year')->toArray();
-    	$make = Make::where('company', $year)->distinct()->get()->pluck('company')->toArray();
-    	$model = CarModel::where('model', $year)->distinct()->get()->pluck('model')->toArray();
-    	$component = Component::where('component', $year)->distinct()->get()->pluck('component')->toArray();
+    	if($make){
+    		return ['make' => $make->company];
+    	}
 
-    	$collection = array_merge($year, $make, $model, $component);
+    	$model = CarModel::where('model', $item)->distinct()->get()->pluck('model')->toArray();
 
-		return array_intersect($items, $collection);
+    	if($model){
+    		return ['model' => $model->model];
+    	}
+
+    	$component = Component::where('component', $item)->distinct()->get()->pluck('component')->toArray();
+
+    	if($component){
+    		return ['component' => $component->component];
+    	}
+
     }
 }
 
