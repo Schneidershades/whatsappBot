@@ -26,7 +26,7 @@ class YearController extends Controller
 		}
 
 		foreach ($years as $year) {
-           	echo $year->year .', ';
+           	echo $year->year .",\n";
 		}
 
 		
