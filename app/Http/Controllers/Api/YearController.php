@@ -18,7 +18,7 @@ class YearController extends Controller
 
         $client = new \GuzzleHttp\Client();
 
-        $bodyItems = explode(" ", strtolower($body));
+        $bodyItems = explode(", ", strtolower($body));
 
         return $this->allTables($bodyItems);
 
