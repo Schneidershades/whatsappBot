@@ -25,7 +25,8 @@ class YearController extends Controller
 
         foreach ($bodyItems as $bodyItem) {
 
-        	array_merge($container, $this->confirmTable($bodyItem));
+        	return is_array($this->confirmTable($bodyItem));
+        	// array_merge($container+ );
 
         	// array_push($this->confirmTable($bodyItem), $container);
         }
