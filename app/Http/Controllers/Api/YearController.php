@@ -22,18 +22,15 @@ class YearController extends Controller
 			->get();
 
 		if($body != strtolower('Find Component')){
-			$message = "Missing Request. please use *Find Vehicle to proceed*";
+			$message = "Missing Request. please use *Find Compnent* to proceed";
 		}
 
-		dd($message);
+		foreach ($years as $year) {
+           	echo $year->year .', ';
+		}
 
-  //       $replies = [];
-
-		// foreach ($years as $year) {
-  //           array_push($replies, $year['year']);
-		// }
-
-		return $replies;
+		
+		return ($message);
     }
 
     public function show($year)
