@@ -8,6 +8,7 @@ use App\Models\Year;
 use App\Models\Make;
 use App\Models\CarModel;
 use App\Models\Component;
+use Illuminate\Support\Arr;
 
 class YearController extends Controller
 {
@@ -20,7 +21,7 @@ class YearController extends Controller
 
         $bodyItems = explode(", ", strtolower($body));
 
-        return $this->allTables(array_flatten($bodyItems));
+        return $this->allTables(Arr::flatten($bodyItems));
 
 
   //       if(in_array('find', $bodyItems) && in_array('vehicle', $bodyItems)){
