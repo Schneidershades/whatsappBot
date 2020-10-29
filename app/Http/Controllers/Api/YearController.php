@@ -42,19 +42,19 @@ class YearController extends Controller
 
         foreach ($containers as $container) {
         	if($container['yearid']){
-        		$keyYear[] = $container['yearid'];
+        		$keyYear = $container['yearid'];
         	}
 
         	if($container['modelid']){
-        		$keyModel[] = $container['modelid'];
+        		$keyModel = $container['modelid'];
         	}
 
         	if($container['makeid']){
-        		$keyMake[] = $container['makeid'];
+        		$keyMake = $container['makeid'];
         	}
         }
 
-        dd( $keyYear, $keyModel, $keyMake);
+        dd($keyYear, $keyModel, $keyMake);
 
         $search = $this->yearSearch();
 
