@@ -33,12 +33,15 @@ class SearchController extends Controller
 
 	    	return $message;
 		}
+
+
     }
 
     public function allCarYears()
     {
     	$year = Year::select('year')
 	    		->distinct()
+	    		->orderBy('year')
 	    		->get()
 	    		->pluck('year')
 	    		->toArray();
