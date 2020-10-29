@@ -28,8 +28,10 @@ class SearchController extends Controller
 	    	$message = null;
 
 	    	foreach($years as $year){
-	    		$message =  $year .'<br>'
+	    		$message =  $year .'<br>';
 	    	}
+
+	    	return $message;
 		}
     }
 
