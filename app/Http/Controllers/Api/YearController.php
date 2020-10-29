@@ -29,18 +29,19 @@ class YearController extends Controller
         	}
         }
 
-        // return $containers;
+        return Arr::flatten($containers);
 
-        foreach ($containers as $container) {
-        	// return ($container['year']);
-        	// if(array_key_exists('year', $container)){
-        	// 	// return $container['year'] .' '. $container['yearid'];
-        	// }
+        // foreach ($containers as $container) {
+        // 	// return ($container['year']);
+        // 	// if(array_key_exists('year', $container)){
+        // 	// 	// return $container['year'] .' '. $container['yearid'];
+        // 	// }
         	
-        	return $container['year'] .' '. $container['modelid'].' '. $container['makeid'];
+        // 	// return $container['year'] .' '. $container['modelid'].' '. $container['makeid'];
 
-        	// $this->yearSearch($container['year'], $container['year']);
-        }
+        // 	// $this->yearSearch($container['year'], $container['year']);
+        	
+        // }
 
 
 
