@@ -21,7 +21,7 @@ class YearController extends Controller
 
         $bodyItems = explode(", ", strtolower($body));
 
-        $container = array();
+        $containers = array();
 
         foreach ($bodyItems as $bodyItem) {
         	if($this->confirmTable($bodyItem) != null){
@@ -29,7 +29,11 @@ class YearController extends Controller
         	}
         }
 
-        return dd($container);
+        foreach ($containers as $container) {
+        	if(array_key_exists('year', $container) && array_key_exists('make', $container) &&array_key_exists('model', $container) && array_key_exists('component', $container)){
+        		return 'ggg';
+        	}
+        }
 
 
 
