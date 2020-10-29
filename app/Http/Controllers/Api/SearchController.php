@@ -86,27 +86,27 @@ class SearchController extends Controller
 		    	// return $this->sendWhatsAppMessage($message, $from);
 			}
 
-			if(in_array('2000', $bodyItems)){
+			// if(in_array('2000', $bodyItems)){
 
-		    	$message = null;
+		 //    	$message = null;
 
-				$phone = BotSearchRequest::where('phone', $from)
-					->where('terminate', 'no')
-					->where('finished', 'no')
-					->first();
+			// 	$phone = BotSearchRequest::where('phone', $from)
+			// 		->where('terminate', 'no')
+			// 		->where('finished', 'no')
+			// 		->first();
 
-				if(!$phone){
-					return 'ss';
-				}
+			// 	if(!$phone){
+			// 		return 'ss';
+			// 	}
 
 				
 
-				$phone->save();
+			// 	$phone->save();
 
 
 		    	
-		    	// return $this->sendWhatsAppMessage($message, $from);
-			}
+		 //    	// return $this->sendWhatsAppMessage($message, $from);
+			// }
         }
 
 
