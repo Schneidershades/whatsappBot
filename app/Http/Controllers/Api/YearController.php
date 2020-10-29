@@ -30,7 +30,7 @@ class YearController extends Controller
         }
 
         foreach ($containers as $container) {
-        	return gettype($container);
+        	return ($container['year']);
         	// if(array_key_exists('year', $container)){
         	// 	return 'ggg';
         	// }
