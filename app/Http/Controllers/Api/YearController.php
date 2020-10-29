@@ -34,8 +34,6 @@ class YearController extends Controller
         	}
         }
 
-        // return array_keys($containers);
-
         $keyYear = null;
         $keyModel = null;
         $keyMake = null;
@@ -54,9 +52,9 @@ class YearController extends Controller
         	}
         }
 
-        dd($keyYear, $keyModel, $keyMake);
+        $search = $this->yearSearch($keyYear, $keyMake, $keyModel);
 
-        $search = $this->yearSearch();
+        dd($search);
 
         if($search == null){
         	return 'We have no '. $containers[2]['modelid'] .' in '. $containers[2]['makeid'];
@@ -170,17 +168,6 @@ class YearController extends Controller
 
     	return $year;
     }
-
-
-    public function searchForId($id, $array, $target) {
-	   	foreach ($array as $key => $val) {
-	       	if ($val[$target] === $id) {
-	           	return $key;
-	       	}
-	   	}
-	   	return null;
-	}
-
 
 }
 
