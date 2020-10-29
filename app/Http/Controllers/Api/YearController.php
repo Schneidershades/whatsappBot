@@ -23,7 +23,7 @@ class YearController extends Controller
 
         $container = array();
 
-        dd($this->confirmTable(...$bodyItems));
+        dd($this->confirmTable($bodyItems));
 
         // foreach ($bodyItems as $bodyItem) {
 
@@ -104,7 +104,7 @@ class YearController extends Controller
 
     }
 
-    public function allTables(...$items)
+    public function allTables($items)
     {
     	dd($items);
     	$year = Year::whereIn('year', $items)->distinct()->get()->pluck('year')->toArray();
