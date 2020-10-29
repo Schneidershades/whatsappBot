@@ -112,7 +112,7 @@ class YearController extends Controller
     	$model = CarModel::whereIn('model', $items)->distinct()->get()->pluck('model')->toArray();
     	$component = Component::whereIn('component', $items)->distinct()->get()->pluck('component')->toArray();
 
-    	$collection = array_merge($year, $make, $model, $component);
+    	$collection = array_merge($make, $model, $component);
 
 		return array_intersect($items, $collection);
     }
