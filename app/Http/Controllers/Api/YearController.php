@@ -37,27 +37,38 @@ class YearController extends Controller
         $keyYear = null;
         $keyModel = null;
         $keyMake = null;
+        $keyComponent = null;
+        $keyYearName = null;
+        $keyModelName = null;
+        $keyMakeName = null;
+        $keyMakeName = null;
 
         foreach ($containers as $container) {
         	if(array_key_exists('yearid', $container)){
         		$keyYear = $container['yearid'];
+        		$keyYearName = $container['year'];
         	}
 
         	if(array_key_exists('modelid', $container)){
         		$keyModel = $container['modelid'];
+        		$keyModelName = $container['model'];
         	}
 
         	if(array_key_exists('makeid', $container)){
         		$keyMake = $container['makeid'];
+        		$keyMakeName = $container['make'];
+        	}
+
+        	if(array_key_exists('component_id', $container)){
+        		$keyMake = $container['component_id'];
+        		$keyMakeName = $container['component'];
         	}
         }
 
         $search = $this->yearSearch($keyYear, $keyMake, $keyModel);
 
-        dd($search);
-
         if($search == null){
-        	return 'We have no '. $containers[2]['modelid'] .' in '. $containers[2]['makeid'];
+        	return 'We have no '. $keyModelName .' in '. $keyMakeName;
         }
 
 
