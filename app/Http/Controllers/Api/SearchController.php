@@ -31,7 +31,7 @@ class SearchController extends Controller
 
 	        	$phone = $this->dbSavedRequest($from, $body);
 
-	        	dd($phone);
+	        	dd($phone->stage_model);
 
 	        	if($body == 'cancel'){
 			    	$phone->terminate = true;
@@ -143,10 +143,10 @@ class SearchController extends Controller
 			->first();
 
 		if(!$phone){
-			$newChat = new BotSearchRequest;
-            $newChat->phone = $from;
-            $newChat->request_received = $body;
-            $newChat->save();
+			$phone = new BotSearchRequest;
+            $phone->phone = $from;
+            $phone->request_received = $body;
+            $phone->save();
 		}
 
 		return $phone;
