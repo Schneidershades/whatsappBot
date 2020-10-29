@@ -31,8 +31,6 @@ class SearchController extends Controller
 
 	        	$phone = $this->dbSavedRequest($from, $body);
 
-	        	dd($phone->stage_model);
-
 	        	if($body == 'cancel'){
 			    	$phone->terminate = true;
 			    	$phone->finished = true;
