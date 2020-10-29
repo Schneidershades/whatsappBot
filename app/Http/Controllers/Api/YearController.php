@@ -12,6 +12,11 @@ use Illuminate\Support\Arr;
 
 class YearController extends Controller
 {
+	public function index()
+	{
+		return Year::all();
+	}
+
     public function store(Request $request)
     {
     	$from = $request->input('From');
