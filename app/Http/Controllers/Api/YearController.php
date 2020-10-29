@@ -37,13 +37,13 @@ class YearController extends Controller
         // return array_keys($containers);
 
         $keyYear = 'yearid';
-		$year = isset($array[$keyYear]) ? array_value($array[$keyYear]) : null;
+		$year = isset($array[$keyYear]) ? array_key($array[$keyYear]) : null;
 
         $keyMake = 'makeid';
-		$year = isset($array[$keyMake]) ? array_value($array[$keyMake]) : null;
+		$year = isset($array[$keyMake]) ? array_key($array[$keyMake]) : null;
 
         $keyModel = 'modelid';
-		$year = isset($array[$keyModel]) ? array_value($array[$keyModel]) : null;
+		$year = isset($array[$keyModel]) ? array_key($array[$keyModel]) : null;
 
         return dd($keyYear, $keyMake, $keyModel);
 
