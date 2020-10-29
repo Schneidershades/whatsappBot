@@ -8,7 +8,7 @@ Route::get('/', function () {
 });
 
 Route::get('/tables', function () {
-	Schema::drop('oauth_auth_codes');
+	// Schema::drop('oauth_auth_codes');
 	Schema::drop('migrations');
     return $tables = DB::select('SHOW TABLES'); // returns an array of stdObjects
 });
