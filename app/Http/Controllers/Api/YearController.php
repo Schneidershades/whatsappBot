@@ -29,12 +29,14 @@ class YearController extends Controller
         	}
         }
 
-        foreach ($containers as $container) {
-        	// return ($container['year']);
-        	if(array_key_exists('year', $container)){
-        		return 'ggg';
-        	}
-        }
+        return $containers;
+        
+        // foreach ($containers as $container) {
+        // 	// return ($container['year']);
+        // 	if(!array_key_exists('year', $container)){
+        // 		return 'The Year is not availeblw';
+        // 	}
+        // }
 
 
 
@@ -134,26 +136,36 @@ class YearController extends Controller
 
     	if($year!=null){
     		return array (
-			  	'year' => $year->year,
+			  	'yearid' => $year->yearid,
+			  	'year' => $year->year
 			);
     	}
 
     	$make = Make::where('company', $item)->first();
 
     	if($make!=null){
-    		return ['make' => $make->company];
+    		return [
+    			'makeid' => $make->makeid,
+    			'make' => $make->company
+    		];
     	}
 
     	$model = CarModel::where('model', $item)->first();
 
     	if($model!=null){
-    		return ['model' => $model->model];
+    		return [
+    			'modelid' => $model->modelid,
+    			'model' => $model->model
+    		];
     	}
 
     	$component = Component::where('component', $item)->first();
 
     	if($component!=null){
-    		return ['component' => $component->component];
+    		return [
+    			'componentid' => $component->componentid,
+    			'component' => $component->component
+    		];
     	}
 
     }
