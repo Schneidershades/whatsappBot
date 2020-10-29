@@ -34,7 +34,7 @@ class YearController extends Controller
         	}
         }
 
-        return array_keys($containers, );
+        // return array_keys($containers);
 
         $keyYear = 'yearid';
 		$year = isset($array[$keyYear]) ? $array[$keyYear] : null;
