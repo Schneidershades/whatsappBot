@@ -28,48 +28,95 @@ class YearController extends Controller
 
         $containers = array();
 
-        foreach ($bodyItems as $bodyItem) {
-        	if($this->confirmTable($bodyItem) != null){
-        		$containers[] = $this->confirmTable($bodyItem);
-        	}
-        }
+        if(in_array('yearId', $bodyItems)){
+	    	$year = Year::where('year', $bodyItems[0])->pluck('makeid')->toArray();
 
-        $keyYear = null;
-        $keyModel = null;
-        $keyMake = null;
-        $keyComponent = null;
-        $keyYearName = null;
-        $keyModelName = null;
-        $keyMakeName = null;
-        $keyMakeName = null;
+	    	$make = Make::whereIn('makeid', $year)->get();
 
-        foreach ($containers as $container) {
-        	if(array_key_exists('yearid', $container)){
-        		$keyYear = $container['yearid'];
-        		$keyYearName = $container['year'];
-        	}
+	    	return $make;
+		}
 
-        	if(array_key_exists('modelid', $container)){
-        		$keyModel = $container['modelid'];
-        		$keyModelName = $container['model'];
-        	}
+		if(in_array('makeId', $bodyItems)){
 
-        	if(array_key_exists('makeid', $container)){
-        		$keyMake = $container['makeid'];
-        		$keyMakeName = $container['make'];
-        	}
+	    	return $year = Year::whereIn('year', $items)
+	    		->distinct()
+	    		->get()
+	    		->pluck('year')
+	    		->toArray();
+		}
 
-        	if(array_key_exists('component_id', $container)){
-        		$keyMake = $container['component_id'];
-        		$keyMakeName = $container['component'];
-        	}
-        }
 
-        $search = $this->yearSearch($keyYear, $keyMake, $keyModel);
+		elseif(in_array('Selected', $bodyItems) && Yea){
 
-        if($search == null){
-        	return 'We have no '. $keyModelName .' in '. $keyMakeName;
-        }
+	    	return $year = Year::whereIn('year', $items)
+	    		->distinct()
+	    		->get()
+	    		->pluck('year')
+	    		->toArray();
+	    	
+	  //   	$make = Make::whereIn('company', $items)->distinct()->get()->pluck('company')->toArray();
+	  //   	$model = CarModel::whereIn('model', $items)->distinct()->get()->pluck('model')->toArray();
+	  //   	$component = Component::whereIn('component', $items)->distinct()->get()->pluck('component')->toArray();
+
+	  //   	$collection = array_merge($year, $make, $model, $component);
+
+			// return array_intersect($items, $collection);
+
+		}
+
+		else{
+			foreach ($bodyItems as $bodyItem) {
+	        	if($this->confirmTable($bodyItem) != null){
+	        		$containers[] = $this->confirmTable($bodyItem);
+	        	}
+	        }
+
+	        $keyYear = null;
+	        $keyModel = null;
+	        $keyMake = null;
+	        $keyComponent = null;
+	        $keyYearName = null;
+	        $keyModelName = null;
+	        $keyMakeName = null;
+	        $keyMakeName = null;
+
+	        foreach ($containers as $container) {
+	        	if(array_key_exists('yearid', $container)){
+	        		$keyYear = $container['yearid'];
+	        		$keyYearName = $container['year'];
+	        	}
+
+	        	if(array_key_exists('modelid', $container)){
+	        		$keyModel = $container['modelid'];
+	        		$keyModelName = $container['model'];
+	        	}
+
+	        	if(array_key_exists('makeid', $container)){
+	        		$keyMake = $container['makeid'];
+	        		$keyMakeName = $container['make'];
+	        	}
+
+	        	if(array_key_exists('component_id', $container)){
+	        		$keyMake = $container['component_id'];
+	        		$keyMakeName = $container['component'];
+	        	}
+	        }
+
+
+	        if($keyYear == null){
+	        	$message =  'No Year Result';
+	        }elseif($keyModel == null){
+	        	$message =  'No Year Result';
+	        }elseif($keyMake == null){
+	        	$message =  'No Year Result';
+	        }
+
+	        $search = $this->yearSearch($keyYear, $keyMake, $keyModel);
+
+	        if($search == null){
+	        	return 'We have no '. $keyModelName .' in '. $keyMakeName;
+	        }
+		}
 
 
 
@@ -111,19 +158,6 @@ class YearController extends Controller
 		}
 
     }
-
-  //   public function allTables($items)
-  //   {
-  //   	// dd($items);
-  //   	$year = Year::whereIn('year', $items)->distinct()->get()->pluck('year')->toArray();
-  //   	$make = Make::whereIn('company', $items)->distinct()->get()->pluck('company')->toArray();
-  //   	$model = CarModel::whereIn('model', $items)->distinct()->get()->pluck('model')->toArray();
-  //   	$component = Component::whereIn('component', $items)->distinct()->get()->pluck('component')->toArray();
-
-  //   	$collection = array_merge($year, $make, $model, $component);
-
-		// return array_intersect($items, $collection);
-  //   }
 
     public function confirmTable($item)
     {
