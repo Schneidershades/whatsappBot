@@ -34,7 +34,17 @@ class YearController extends Controller
         	}
         }
 
-        return array_keys($containers);
+        // return array_keys($containers);
+
+        $keyYear = array();
+        $keyModel = array();
+        $keyMake = array();
+
+        foreach ($containers as $container) {
+        	if($container){
+        		dd($container);
+        	}
+        }
 
         $search = $this->yearSearch(
     		$containers[0]['yearid'], 
