@@ -34,6 +34,8 @@ class YearController extends Controller
         	}
         }
 
+        return $containers;
+
         $search = $this->yearSearch(
     		$containers[0]['yearid'], 
     		$containers[1]['makeid'], 
