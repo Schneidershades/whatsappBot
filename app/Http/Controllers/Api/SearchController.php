@@ -11,7 +11,7 @@ use App\Models\Component;
 
 class SearchController extends Controller
 {
-    public function store()
+    public function store(Request $request)
     {
     	$from = $request->input('From');
         $body = strtolower($request->input('Body'));
