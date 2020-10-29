@@ -23,14 +23,14 @@ class YearController extends Controller
 
         $container = array();
 
-        foreach ($bodyItems as $bodyItem) {
+        dd($this->confirmTable(...$bodyItems));
 
-        	array_push($this->confirmTable($bodyItem), $container[]);
+        // foreach ($bodyItems as $bodyItem) {
 
-        	// array_push($this->confirmTable($bodyItem), $container);
-        }
+        // 	// array_push(, $container);
+        // }
 
-        dd($container);
+        // dd($container);
 
 
 
@@ -104,53 +104,53 @@ class YearController extends Controller
 
     }
 
-  //   public function allTables($items)
-  //   {
-  //   	// dd($items);
-  //   	$year = Year::whereIn('year', $items)->distinct()->get()->pluck('year')->toArray();
-  //   	$make = Make::whereIn('company', $items)->distinct()->get()->pluck('company')->toArray();
-  //   	$model = CarModel::whereIn('model', $items)->distinct()->get()->pluck('model')->toArray();
-  //   	$component = Component::whereIn('component', $items)->distinct()->get()->pluck('component')->toArray();
-
-  //   	$collection = array_merge($year, $make, $model, $component);
-
-		// return array_intersect($items, $collection);
-  //   }
-
-    public function confirmTable($item)
+    public function allTables(...$items)
     {
-    	$year = null;
-    	$make = null;
-    	$model = null;
-    	$component = null;
+    	dd($items);
+    	$year = Year::whereIn('year', $items)->distinct()->get()->pluck('year')->toArray();
+    	$make = Make::whereIn('company', $items)->distinct()->get()->pluck('company')->toArray();
+    	$model = CarModel::whereIn('model', $items)->distinct()->get()->pluck('model')->toArray();
+    	$component = Component::whereIn('component', $items)->distinct()->get()->pluck('component')->toArray();
 
-    	$year = Year::where('year', $item)->first();
+    	$collection = array_merge($year, $make, $model, $component);
 
-    	if($year != null){
-    		return array(
-			  	'year' => $year->year,
-			);
-    	}
-
-    	$make = Make::where('company', $item)->first();
-
-    	if($make!=null){
-    		return ['make' => $make->company];
-    	}
-
-    	$model = CarModel::where('model', $item)->first();
-
-    	if($model!=null){
-    		return ['model' => $model->model];
-    	}
-
-    	$component = Component::where('component', $item)->first();
-
-    	if($component!=null){
-    		return ['component' => $component->component];
-    	}
-
+		return array_intersect($items, $collection);
     }
+
+   //  public function confirmTable(...$item)
+   //  {
+   //  	$year = null;
+   //  	$make = null;
+   //  	$model = null;
+   //  	$component = null;
+
+   //  	$year = Year::where('year', $item)->first();
+
+   //  	if($year != null){
+   //  		return array(
+			//   	'year' => $year->year,
+			// );
+   //  	}
+
+   //  	$make = Make::where('company', $item)->first();
+
+   //  	if($make!=null){
+   //  		return ['make' => $make->company];
+   //  	}
+
+   //  	$model = CarModel::where('model', $item)->first();
+
+   //  	if($model!=null){
+   //  		return ['model' => $model->model];
+   //  	}
+
+   //  	$component = Component::where('component', $item)->first();
+
+   //  	if($component!=null){
+   //  		return ['component' => $component->component];
+   //  	}
+
+   //  }
 }
 
 
