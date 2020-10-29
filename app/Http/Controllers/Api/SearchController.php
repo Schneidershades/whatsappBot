@@ -46,7 +46,7 @@ class SearchController extends Controller
 					$years = $this->allCarYears();
 
 			    	foreach($years as $year){
-			    		$message .= $year->yearid.' - '. $year->year ." \n ";
+			    		$message .= $year->year ." \n ";
 			    	}
 
 			    	$phone->stage_model = 'year';
@@ -153,11 +153,12 @@ class SearchController extends Controller
 
     public function allCarYears()
     {
-    	$year = Year::unique(['id', 'year'])
+    	$year = Year::select('year')
+	    		->distinct()
 	    		->orderBy('year')
 	    		->get()
-	    		// ->pluck('year')
-	    		// ->toArray()
+	    		->pluck('year')
+	    		->toArray()
 	    		;
 	    return $year;
     }
