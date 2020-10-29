@@ -41,15 +41,15 @@ class YearController extends Controller
         $keyMake = null;
 
         foreach ($containers as $container) {
-        	if($container['yearid']){
+        	if(array_key_exists('yearid', $container)){
         		$keyYear = $container['yearid'];
         	}
 
-        	if($container['modelid']){
+        	if(array_key_exists('modelid', $container)){
         		$keyModel = $container['modelid'];
         	}
 
-        	if($container['makeid']){
+        	if(array_key_exists('modelid', $container)){
         		$keyMake = $container['makeid'];
         	}
         }
