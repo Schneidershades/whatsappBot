@@ -19,79 +19,110 @@ class SearchController extends Controller
 
         $client = new \GuzzleHttp\Client();
 
-        $bodyItems = explode(" ", strtolower($body));
 
-        $containers = array();
+        // $bodyItems = explode(" ", strtolower($body));
+        // str_word_count("Hello world!")
 
-        if(in_array('search', $bodyItems)){
+        if(str_word_count($body) == 1){
 
-        	$message = null;
+	        if($body == 'search'){
 
-        	$phone = $this->dbSavedRequest($from, $body);
-        	
-			if($phone->stage_model == 'year'){
-				$years = $this->allCarYears();
+	        	$message = null;
 
-		    	foreach($years as $year){
-		    		$message .= $year ." \n ";
-		    	}
+	        	$phone = $this->dbSavedRequest($from, $body);
 
-		    	return $message;
+	        	if($body == 'cancel'){
+			    	$phone->terminate = true;
+			    	$phone->finished = true;
+			    	$phone->save();
+	        	}
+	        	
+				if($phone->stage_model == 'new'){
+
+					if(!(int)$body){
+						$message .= 'Invalid year selection';
+					}
+
+					$years = $this->allCarYears();
+
+			    	foreach($years as $year){
+			    		$message .= $year->yearid.' - '. $year->year ." \n ";
+			    	}
+
+			    	$phone->stage_model = 'year';
+			    	$phone->year = $body;
+			    	$phone->save();
+
+			    	return $message;
+				}
+
+				if($phone->stage_model == 'year'){
+					$yearItems = Year::where('year', $year)->get()->pluck('makeid')->toArray();
+
+					if($yearItems){
+			    		$phone->year_id = $body;
+					}
+
+					$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
+
+					foreach($makeids as $make){
+			    		$message .= $make ." \n ";
+			    	}
+
+			    	$phone->stage_model = 'make';
+			    	$phone->save();
+
+			    	return $message;
+				}
+
+				// if($phone->stage_model == 'make'){
+				// 	$yearItems = Make::where('company', $year)->get()->pluck('makeid')->toArray();
+				// 	$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
+
+				// 	foreach($makeids as $make){
+			 //    		$message .= $make ." \n ";
+			 //    	}
+
+			 //    	return $message;
+				// }
+
+				if($phone->stage_model == 'component'){
+					
+				}
+
+
+		    	
+
+		    	// return $this->sendWhatsAppMessage($message, $from);
 			}
 
-			if($phone->stage_model == 'years'){
-				$yearItems = Year::where('year', $year)->get()->pluck('makeid')->toArray();
-				$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
+			if(in_array('2000', $bodyItems)){
 
-				foreach($makeids as $make){
-		    		$message .= $make ." \n ";
-		    	}
+		    	$message = null;
 
-		    	return $message;
-			}
+				$phone = BotSearchRequest::where('phone', $from)
+					->where('terminate', 'no')
+					->where('finished', 'no')
+					->first();
 
-			// if($phone->stage_model == 'make'){
-			// 	$yearItems = Make::where('company', $year)->get()->pluck('makeid')->toArray();
-			// 	$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
+				if(!$phone){
+					return 'ss';
+				}
 
-			// 	foreach($makeids as $make){
-		 //    		$message .= $make ." \n ";
-		 //    	}
-
-		 //    	return $message;
-			// }
-
-			if($phone->stage_model == 'component'){
 				
+
+				$phone->save();
+
+
+		    	
+		    	// return $this->sendWhatsAppMessage($message, $from);
 			}
+        }
 
 
-	    	
+        
 
-	    	// return $this->sendWhatsAppMessage($message, $from);
-		}
-
-		if(in_array('2000', $bodyItems)){
-
-	    	$message = null;
-
-			$phone = BotSearchRequest::where('phone', $from)
-				->where('terminate', 'no')
-				->where('finished', 'no')
-				->first();
-
-			if(!$phone){
-				return 'ss';
-			}
-
-			
-
-			$phone->save();
-
-
-	    	
-	    	// return $this->sendWhatsAppMessage($message, $from);
-		}
+        
 
 
 
