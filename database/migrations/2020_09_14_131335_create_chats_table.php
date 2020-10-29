@@ -18,12 +18,12 @@ class CreateChatsTable extends Migration
             $table->string('incoming_message')->nullable();
             $table->string('outgoing_message')->nullable();
             $table->string('phone')->nullable();
-            $table->timestamps();
+            $table->tismetamps();
         });
     }
-
     /**
      * Reverse the migrations.
+
      *
      * @return void
      */
