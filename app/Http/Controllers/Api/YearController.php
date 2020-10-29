@@ -29,10 +29,17 @@ class YearController extends Controller
         	}
         }
 
-        return $containers;
-        
+        $search = $this->yearSearch(
+    		$containers[0]['yearid'], 
+    		$containers[1]['makeid'], 
+    		$containers[2]['modelid']
+        );
 
-		
+        if($search == null){
+        	return 'We have no '. $containers[2]['modelid'] .' in '. $containers[2]['makeid'];
+        }
+
+
 
 		// if(in_array('year', $bodyItems) && in_array('vehicle', $bodyItems)){
 		// 	return 'ggo';
@@ -131,9 +138,14 @@ class YearController extends Controller
 
     }
 
-    public function yearSearch()
+    public function yearSearch($year, $makeid, $modelid)
     {
+    	$year = Year::where('yearid', $year)
+    		->where('modelid', $modelid)
+    		->where('makeid', $makeid)
+    		->first();
 
+    	return $year;
     }
 
 
