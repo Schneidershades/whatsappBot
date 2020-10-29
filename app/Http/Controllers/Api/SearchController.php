@@ -153,7 +153,7 @@ class SearchController extends Controller
 
     public function allCarYears()
     {
-    	$year = Year::select('year')
+    	$year = Year::select('id','year')
 	    		->distinct()
 	    		->orderBy('year')
 	    		->get()
