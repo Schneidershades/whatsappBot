@@ -25,7 +25,7 @@ class YearController extends Controller
 
         foreach ($bodyItems as $bodyItem) {
         	if($this->confirmTable($bodyItem) != null){
-        		$container[] = $this->confirmTable($bodyItem);
+        		$containers[] = $this->confirmTable($bodyItem);
         	}
         }
 
