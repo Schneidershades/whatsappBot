@@ -30,10 +30,10 @@ class YearController extends Controller
         }
 
         foreach ($containers as $container) {
-        	// return $container;
-        	if(array_key_exists('year', $container) && array_key_exists('make', $container) &&array_key_exists('model', $container) && array_key_exists('component', $container)){
-        		return 'ggg';
-        	}
+        	return gettype($container);
+        	// if(array_key_exists('year', $container)){
+        	// 	return 'ggg';
+        	// }
         }
 
 
