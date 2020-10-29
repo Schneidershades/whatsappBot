@@ -49,7 +49,7 @@ class YearController extends Controller
         		$keyModel = $container['modelid'];
         	}
 
-        	if(array_key_exists('modelid', $container)){
+        	if(array_key_exists('makeid', $container)){
         		$keyMake = $container['makeid'];
         	}
         }
