@@ -44,7 +44,7 @@ class SearchController extends Controller
 				if($phone->stage_model == 'year'){
 
 					if(!$phone->year){
-						$this->newStage($body);
+						return $this->newStage($body);
 					}
 
 					$yearItems = Year::where('year', $phone->year)->get()->pluck('makeid')->toArray();
