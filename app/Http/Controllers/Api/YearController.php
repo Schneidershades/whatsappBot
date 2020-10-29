@@ -36,21 +36,27 @@ class YearController extends Controller
 
         // return array_keys($containers);
 
-        $keyYear = array();
-        $keyModel = array();
-        $keyMake = array();
+        $keyYear = null;
+        $keyModel = null;
+        $keyMake = null;
 
         foreach ($containers as $container) {
-        	if($container){
-        		dd($container);
+        	if($container['yearid']){
+        		$keyYear[] = $container['yearid'];
+        	}
+
+        	if($container['modelid']){
+        		$keyModel[] = $container['modelid'];
+        	}
+
+        	if($container['makeid']){
+        		$keyMake[] = $container['makeid'];
         	}
         }
 
-        $search = $this->yearSearch(
-    		$containers[0]['yearid'], 
-    		$containers[1]['makeid'], 
-    		$containers[2]['modelid']
-        );
+        dd( $keyYear, $keyModel, $keyMake);
+
+        $search = $this->yearSearch();
 
         if($search == null){
         	return 'We have no '. $containers[2]['modelid'] .' in '. $containers[2]['makeid'];
