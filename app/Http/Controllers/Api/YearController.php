@@ -34,17 +34,22 @@ class YearController extends Controller
         	}
         }
 
-        return $containers;
+        return array_keys($containers, );
 
-        $search = $this->yearSearch(
-    		$containers[0]['yearid'], 
-    		$containers[1]['makeid'], 
-    		$containers[2]['modelid']
-        );
+        $keyYear = 'yearid';
+		$year = isset($array[$keyYear]) ? $array[$keyYear] : null;
 
-        if($search == null){
-        	return 'We have no '. $containers[2]['modelid'] .' in '. $containers[2]['makeid'];
-        }
+        $keyMake = 'makeid';
+		$year = isset($array[$keyMake]) ? $array[$keyMake] : null;
+
+        $keyModel = 'modelid';
+		$year = isset($array[$keyModel]) ? $array[$keyModel] : null;
+
+        return dd($keyYear, $keyMake, $keyModel);
+
+        // if($search == null){
+        // 	return 'We have no '. $containers[2]['modelid'] .' in '. $containers[2]['makeid'];
+        // }
 
 
 
@@ -154,6 +159,16 @@ class YearController extends Controller
 
     	return $year;
     }
+
+
+    public function searchForId($id, $array, $target) {
+	   	foreach ($array as $key => $val) {
+	       	if ($val[$target] === $id) {
+	           	return $key;
+	       	}
+	   	}
+	   	return null;
+	}
 
 
 }
