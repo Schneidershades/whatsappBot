@@ -33,9 +33,13 @@ class YearController extends Controller
 
         foreach ($containers as $container) {
         	// return ($container['year']);
-        	if(array_key_exists('year', $container)){
-        		return $container['year'] .' '. $container['yearid'];
-        	}
+        	// if(array_key_exists('year', $container)){
+        	// 	// return $container['year'] .' '. $container['yearid'];
+        	// }
+        	
+        	return $container['year'] .' '. $container['modelid'].' '. $container['makeid'];
+
+        	// $this->yearSearch($container['year'], $container['year']);
         }
 
 
@@ -169,6 +173,13 @@ class YearController extends Controller
     	}
 
     }
+
+    public function yearSearch()
+    {
+
+    }
+
+
 }
 
 
