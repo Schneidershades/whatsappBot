@@ -28,9 +28,9 @@ class CreateBotSearchRequestsTable extends Migration
             $table->string('component')->default();
             $table->string('component_category_id')->default();
             $table->string('component_category')->default();
-            $table->string('finished')->default('no');
+            $table->boolean('finished')->default(false);
             $table->integer('session')->default(400);
-            $table->string('terminate')->default('no');
+            $table->boolean('terminate')->default(false);
             $table->timestamps();
         });
     }

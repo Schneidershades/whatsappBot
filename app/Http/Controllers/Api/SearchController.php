@@ -24,23 +24,49 @@ class SearchController extends Controller
         $containers = array();
 
         if(in_array('search', $bodyItems)){
-	    	$years = $this->allCarYears();
 
-	    	$message = null;
+        	$message = null;
 
-	    	if($replies == null || $replies == []){
-	            $newChat = new BotSearchRequest;
-	            $newChat->phone = $from;
-	            $newChat->request_received = $body;
-	            $newChat->save();
-	        }
+        	$phone = $this->dbSavedRequest($from, $body);
+        	
+			if($phone->stage_model == 'year'){
+				$years = $this->allCarYears();
+
+		    	foreach($years as $year){
+		    		$message .= $year ." \n ";
+		    	}
+
+		    	return $message;
+			}
+
+			if($phone->stage_model == 'years'){
+				$yearItems = Year::where('year', $year)->get()->pluck('makeid')->toArray();
+				$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
+
+				foreach($makeids as $make){
+		    		$message .= $make ." \n ";
+		    	}
+
+		    	return $message;
+			}
+
+			// if($phone->stage_model == 'make'){
+			// 	$yearItems = Make::where('company', $year)->get()->pluck('makeid')->toArray();
+			// 	$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
+
+			// 	foreach($makeids as $make){
+		 //    		$message .= $make ." \n ";
+		 //    	}
+
+		 //    	return $message;
+			// }
+
+			if($phone->stage_model == 'component'){
+				
+			}
 
 
-	    	foreach($years as $year){
-	    		$message .= $year ." \n ";
-	    	}
-
-	    	return $message;
+	    	
 
 	    	// return $this->sendWhatsAppMessage($message, $from);
 		}
@@ -58,24 +84,7 @@ class SearchController extends Controller
 				return 'ss';
 			}
 
-			if($phone->stage_model == 'year'){
-				$yearItems = Year::where('year', $year)->get()->pluck('makeid')->toArray();
-				$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
-
-				foreach($makeids as $make){
-		    		$message .= $make ." \n ";
-		    	}
-
-		    	return $message;
-			}
-
-			if($phone->stage_model == 'make'){
-				
-			}
-
-			if($phone->stage_model == 'component'){
-				
-			}
+			
 
 			$phone->save();
 
@@ -90,6 +99,24 @@ class SearchController extends Controller
 
 
 
+
+    }
+
+    public function dbSavedRequest($from, $body)
+    {
+    	$phone = BotSearchRequest::where('phone', $from)
+			->where('terminate', false)
+			->where('finished', false)
+			->first();
+
+		if(!$phone){
+			$newChat = new BotSearchRequest;
+            $newChat->phone = $from;
+            $newChat->request_received = $body;
+            $newChat->save();
+		}
+
+		return $phone;
 
     }
 
