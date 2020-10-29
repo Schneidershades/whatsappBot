@@ -8,15 +8,15 @@ Route::get('/', function () {
 });
 
 Route::get('/tables', function () {
-	Schema::drop('oauth_access_tokens');
-	Schema::drop('oauth_auth_codes');
-	Schema::drop('oauth_clients');
-	Schema::drop('oauth_personal_access_clients');
-	Schema::drop('oauth_refresh_tokens');
-	Schema::drop('telescope_entries');
-	Schema::drop('telescope_entries_tags');
-	Schema::drop('telescope_monitoring');
-	Schema::drop('migrations');
+	// Schema::drop('oauth_access_tokens');
+	// Schema::drop('oauth_auth_codes');
+	// Schema::drop('oauth_clients');
+	// Schema::drop('oauth_personal_access_clients');
+	// Schema::drop('oauth_refresh_tokens');
+	// Schema::drop('telescope_entries');
+	// Schema::drop('telescope_entries_tags');
+	// Schema::drop('telescope_monitoring');
+	// Schema::drop('migrations');
     return $tables = DB::select('SHOW TABLES'); // returns an array of stdObjects
 });
 
