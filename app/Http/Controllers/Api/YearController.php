@@ -29,58 +29,14 @@ class YearController extends Controller
         	}
         }
 
-        return Arr::flatten($containers);
-
-        // foreach ($containers as $container) {
-        // 	// return ($container['year']);
-        // 	// if(array_key_exists('year', $container)){
-        // 	// 	// return $container['year'] .' '. $container['yearid'];
-        // 	// }
-        	
-        // 	// return $container['year'] .' '. $container['modelid'].' '. $container['makeid'];
-
-        // 	// $this->yearSearch($container['year'], $container['year']);
-        	
-        // }
-
-
-
-
-
-
-  //       if(in_array('find', $bodyItems) && in_array('vehicle', $bodyItems)){
-		// 	return 'ggo';
-		// } 
-
-
-		// if(
-		// 		in_array('year', $bodyItems) 
-		// 	&& 	in_array('make', $bodyItems) 
-		// 	&& 	in_array('model', $bodyItems) 
-		// 	&& 	in_array('component', $bodyItems)
-		// )
-		// {
-		// 	// array_keys($bodyItems, "blue")
-			
-		// }
-
-		 
-
-
-		if(in_array('year', $bodyItems) && in_array('vehicle', $bodyItems)){
-			return 'ggo';
-		} 
-
-		if(in_array('year', $bodyItems) && in_array('vehicle', $bodyItems)){
-			return 'ggo';
-		} 
-
-		// if($body != strtolower('Find Component')){
-		// 	$message = "Missing Request. please use *Find Component* to proceed";
-		// }
+        return $containers;
+        
 
 		
-		// return ($message);
+
+		// if(in_array('year', $bodyItems) && in_array('vehicle', $bodyItems)){
+		// 	return 'ggo';
+		// } 
     }
 
     public function show($year)
