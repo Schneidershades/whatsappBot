@@ -38,26 +38,16 @@ class SearchController extends Controller
 	        	}
 	        	
 				if($phone->stage_model == 'new'){
-
-					if((int)$body){
-						$message .= 'Invalid year selection';
-					}
-
-					$years = $this->allCarYears();
-
-			    	foreach($years as $year){
-			    		$message .= $year->year ." \n ";
-			    	}
-
-			    	$phone->stage_model = 'year';
-			    	$phone->year = $body;
-			    	$phone->save();
-
-			    	return $message;
+					$this->newStage($body);
 				}
 
 				if($phone->stage_model == 'year'){
-					$yearItems = Year::where('year', $year)->get()->pluck('makeid')->toArray();
+
+					if(!$phone->year){
+						$this->newStage($body);
+					}
+
+					$yearItems = Year::where('year', $phone->year)->get()->pluck('makeid')->toArray();
 
 					if($yearItems){
 			    		$phone->year_id = $body;
@@ -161,5 +151,24 @@ class SearchController extends Controller
 	    		->toArray()
 	    		;
 	    return $year;
+    }
+
+    public function newStage($body)
+    {
+    	if((int)$body){
+			$message .= 'Invalid year selection';
+		}
+
+		$years = $this->allCarYears();
+
+    	foreach($years as $year){
+    		$message .= $year->year ." \n ";
+    	}
+
+    	$phone->stage_model = 'year';
+    	$phone->year = $body;
+    	$phone->save();
+
+    	return $message;
     }
 }
