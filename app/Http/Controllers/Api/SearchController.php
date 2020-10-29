@@ -31,6 +31,8 @@ class SearchController extends Controller
 
 	        	$phone = $this->dbSavedRequest($from, $body);
 
+	        	dd($phone);
+
 	        	if($body == 'cancel'){
 			    	$phone->terminate = true;
 			    	$phone->finished = true;
@@ -39,7 +41,7 @@ class SearchController extends Controller
 	        	
 				if($phone->stage_model == 'new'){
 
-					if(!(int)$body){
+					if((int)$body){
 						$message .= 'Invalid year selection';
 					}
 
