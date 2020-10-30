@@ -94,7 +94,7 @@ class SearchController extends Controller
 
 		 //    	$message = null;
 
-			// 	$phone = BotSearchRequest::where('phone', $from)
+			// 	$phone = Search::where('phone', $from)
 			// 		->where('terminate', 'no')
 			// 		->where('finished', 'no')
 			// 		->first();
@@ -135,7 +135,7 @@ class SearchController extends Controller
 			->first();
 
 		if(!$phone){
-			$phone = new BotSearchRequest;
+			$phone = new Search;
             $phone->phone = $from;
             $phone->request_received = $body;
             $phone->save();
