@@ -49,10 +49,12 @@ class SearchController extends Controller
 
 			if(is_numeric($body)){
 
-    			$message .= "$phone->year is your Selected year \n \n";
-    			$message .= "Please Select a your company manufacturer \n ";
+    			
 
 				if($phone->stage_model == 'year' || $phone->make == null){
+					
+					$message .= "$phone->year is your Selected year \n \n";
+    				$message .= "Please Select a your company manufacturer \n ";
 
 					$yearItems = Year::where('year', $body)
 								->select('makeid')
