@@ -80,7 +80,10 @@ class SearchController extends Controller
 
 				if($phone->stage_model == 'make'){
 
-					dd('dd');
+					dd($body);
+
+    				$message .= "$phone->year is your Selected year \n \n";
+    				$message .= "Please Select a your company manufacturer \n ";
 
 					$makeId =  Make::where('makeid', $body)->first();
 
