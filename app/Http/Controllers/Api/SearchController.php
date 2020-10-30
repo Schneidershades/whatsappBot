@@ -157,6 +157,8 @@ class SearchController extends Controller
 
     public function newStage($body)
     {
+    	$message = null;
+    	
     	if((int)$body){
 			$message .= 'Invalid year selection';
 		}
