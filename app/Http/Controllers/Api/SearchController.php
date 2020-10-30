@@ -25,29 +25,29 @@ class SearchController extends Controller
 
         if(str_word_count($body) == 1 || is_numeric($body)){
 
+        	$message = null;
+
+        	$phone = $this->dbSavedRequest($from, $body);
+
+        	if($body == 'cancel'){
+		    	$phone->terminate = true;
+		    	$phone->finished = true;
+		    	$phone->save();
+
+		    	$message .= "Search Session was cancelled. Type Search to proceed to new search";
+        	}
+
 	        if($body == 'search'){
-
-	        	$message = null;
-
-	        	$phone = $this->dbSavedRequest($from, $body);
-
-	        	if($body == 'cancel'){
-			    	$phone->terminate = true;
-			    	$phone->finished = true;
-			    	$phone->save();
-	        	}
-
+	        	
 		    	$phone->stage_model = 'year';
 		    	$phone->save();
 
-	        	
 				if($phone->stage_model == 'new' || $phone->year == null){
-					return $this->newStage($from, $body);
+					$message .= $this->newStage($from, $body);
 				}
+			}
 
-				return $phone;
-
-
+			if(is_numeric($body)){
 
 				if($phone->stage_model == 'year'){
 
@@ -88,8 +88,15 @@ class SearchController extends Controller
 					
 				}
 
+
+
+				return $message;
+
+
 		    	// return $this->sendWhatsAppMessage($message, $from);
 			}
+
+
 
 			// if(in_array('2000', $bodyItems)){
 
