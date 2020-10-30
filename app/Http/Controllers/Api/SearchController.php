@@ -158,8 +158,8 @@ class SearchController extends Controller
 
     	$message .= "Please Select a year \n "
 
-    	if((int)$body){
-			$message .= 'Invalid year selection';
+    	if(!(int)$body){
+			return $message = 'Invalid year selection';
 		}
 
 		$years = $this->allCarYears();
