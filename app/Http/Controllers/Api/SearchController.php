@@ -197,7 +197,7 @@ class SearchController extends Controller
 
     	$message .= "Please Select a year \n ";
 
-    	if(is_numeric($body)){
+    	if(!is_numeric($body)){
 			$message .= 'Invalid year selection';
 		}
 
