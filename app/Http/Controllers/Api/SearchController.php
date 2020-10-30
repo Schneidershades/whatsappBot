@@ -49,9 +49,7 @@ class SearchController extends Controller
 
 			if(is_numeric($body)){
 
-    			
-
-				if($phone->stage_model == 'year' && $phone->make == null){
+				if($phone->stage_model == 'year' && $phone->year == null){
 
 					$message .= "$phone->year is your Selected year \n \n";
     				$message .= "Please Select a your company manufacturer \n ";
@@ -78,9 +76,9 @@ class SearchController extends Controller
 			    	$phone->save();
 				}
 
-				dd($phone);
+				// dd($phone);
 
-				if($phone->stage_model == 'make'){
+				if($phone->stage_model == 'make' &&  $phone->make == null){
 
 					$makeId =  Make::where('makeid', $body)->first();
 
