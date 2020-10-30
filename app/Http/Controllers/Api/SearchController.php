@@ -37,7 +37,9 @@ class SearchController extends Controller
 			    	$phone->save();
 	        	}
 
-	        	return $phone;
+		    	$phone->stage_model = 'year';
+		    	$phone->save();
+
 	        	
 				if($phone->stage_model == 'new' || $phone->year == null){
 					return $this->newStage($from, $body);
@@ -63,7 +65,7 @@ class SearchController extends Controller
 			    		$message .= $make ." \n ";
 			    	}
 
-			    	$phone->stage_model = 'make';
+			    	// $phone->stage_model = 'make';
 			    	$phone->save();
 
 			    	return $message;
@@ -171,10 +173,6 @@ class SearchController extends Controller
     	}
 
     	$phone = $this->dbSavedRequest($from, $body);
-
-    	$phone->stage_model = 'year';
-    	$phone->year = $body;
-    	$phone->save();
 
     	return $message;
     }
