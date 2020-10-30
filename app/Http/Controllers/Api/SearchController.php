@@ -38,7 +38,7 @@ class SearchController extends Controller
         	}
 
 	        if($body == 'search'){
-	        	
+
 		    	$phone->stage_model = 'year';
 		    	$phone->save();
 
@@ -47,54 +47,59 @@ class SearchController extends Controller
 				}
 			}
 
-			if(is_numeric($body)){
 
-				if($phone->stage_model == 'year'){
 
-					if(!$phone->year){
-						return $this->newStage($from, $body);
-					}
+			// if(is_numeric($body)){
 
-					$yearItems = Year::where('year', $phone->year)->get()->pluck('makeid')->toArray();
+			// 	if($phone->stage_model == 'year'){
 
-					if($yearItems){
-			    		$phone->year_id = $body;
-					}
+			// 		if(!$phone->year){
+			// 			return $this->newStage($from, $body);
+			// 		}
 
-					$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
+			// 		$yearItems = Year::where('year', $phone->year)->get()->pluck('makeid')->toArray();
 
-					foreach($makeids as $make){
-			    		$message .= $make ." \n ";
-			    	}
+			// 		if($yearItems){
+			//     		$phone->year_id = $body;
+			// 		}
 
-			    	// $phone->stage_model = 'make';
-			    	$phone->save();
+			// 		$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
 
-			    	return $message;
-				}
+			// 		foreach($makeids as $make){
+			//     		$message .= $make ." \n ";
+			//     	}
 
-				// if($phone->stage_model == 'make'){
-				// 	$yearItems = Make::where('company', $year)->get()->pluck('makeid')->toArray();
-				// 	$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
+			//     	// $phone->stage_model = 'make';
+			//     	$phone->save();
 
-				// 	foreach($makeids as $make){
-			 //    		$message .= $make ." \n ";
-			 //    	}
+			//     	return $message;
+			// 	}
 
-			 //    	return $message;
-				// }
+			// 	// if($phone->stage_model == 'make'){
+			// 	// 	$yearItems = Make::where('company', $year)->get()->pluck('makeid')->toArray();
+			// 	// 	$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
 
-				if($phone->stage_model == 'component'){
+			// 	// 	foreach($makeids as $make){
+			//  //    		$message .= $make ." \n ";
+			//  //    	}
+
+			//  //    	return $message;
+			// 	// }
+
+			// 	if($phone->stage_model == 'component'){
 					
-				}
+			// 	}
 
 
 
-				return $message;
+			// 	return $message;
 
 
-		    	// return $this->sendWhatsAppMessage($message, $from);
-			}
+		 //    	// return $this->sendWhatsAppMessage($message, $from);
+			// }
+			// 
+			// 
+			return $message;
 
 
 
