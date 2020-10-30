@@ -82,9 +82,6 @@ class SearchController extends Controller
 					
 				}
 
-
-		    	
-
 		    	// return $this->sendWhatsAppMessage($message, $from);
 			}
 
