@@ -206,11 +206,12 @@ class SearchController extends Controller
     public function makeStage($body, $phone)
     {
     	dd($phone->year);
-    	
+
     	$phone = $this->dbSavedRequest($phone->phone, $body);
     	$message = null;
 
-    	$message .= "$phone->year is your Selected year \n \n";
+
+		$message .= "Year : $phone->year \n ";
 		$message .= "Please Select a your company manufacturer \n ";
 
 		$yearItems = Year::where('year', $body)
