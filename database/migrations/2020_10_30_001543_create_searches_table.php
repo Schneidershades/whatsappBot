@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBotSearchRequestsTable extends Migration
+class CreateSearchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateBotSearchRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bot_search_requests', function (Blueprint $table) {
+        Schema::create('searches', function (Blueprint $table) {
             $table->id();
             $table->string('phone')->nullable();
             $table->string('request_received')->nullable();
@@ -42,6 +42,6 @@ class CreateBotSearchRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bot_search_requests');
+        Schema::dropIfExists('searches');
     }
 }
