@@ -78,11 +78,12 @@ class SearchController extends Controller
 					$models = CarModel::where('makeid', $makeId->id)->get();
 
     				if($models->isEmpty() || $models == null || $models == []){
+
     					$phone->terminate = true;
 				    	$phone->finished = true;
 				    	$phone->save();
 
-						return $mesage .= "Model: Sorry!!! We have no models available in $makeId->company  \n ";
+						return $message .= "Model: Sorry!!! We have no models available in $makeId->company  \n ";
 					}
 
     				$message .= "Models: Please Select a your manufacturer model \n ";
