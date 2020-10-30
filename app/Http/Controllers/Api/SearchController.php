@@ -164,7 +164,7 @@ class SearchController extends Controller
 		$years = $this->allCarYears();
 
     	foreach($years as $year){
-    		$message .= $year->year ." \n ";
+    		$message .= $year ." \n ";
     	}
 
     	$phone->stage_model = 'year';
