@@ -77,9 +77,7 @@ class SearchController extends Controller
 
 					$models = CarModel::where('makeid', $makeId->id)->get();
 
-					dd($models);
-
-    				if($models == null){
+    				if($models == null || $models == []){
 						return $mesage = "Model: Sorry!!! We have no models available in $makeId->company  \n ";
 					}
 
