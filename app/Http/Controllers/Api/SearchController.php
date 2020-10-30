@@ -71,13 +71,16 @@ class SearchController extends Controller
 						// return $this->sendWhatsAppMessage($message, $from);
 					}
 
-					$models = CarModel::where('makeid', $makeId->id)->get();
-
     				$message .= "Year : $phone->year \n ";
     				$message .= "Manufacturer : $makeId->company \n ";
 
+
+					$models = CarModel::where('makeid', $makeId->id)->get();
+
+					dd($models);
+
     				if($models == null){
-						return $mesage = "Models: We have no models available in $makeId->company  \n ";
+						return $mesage = "Model: Sorry!!! We have no models available in $makeId->company  \n ";
 					}
 
     				$message .= "Models: Please Select a your manufacturer model \n ";
@@ -86,7 +89,6 @@ class SearchController extends Controller
 			    		$message .= $model->modelid . " - " . $makeId->make.' - '. $model->model . " \n ";
 			    	}
 
-					// $message .= $this->makeStage($body, $phone);
 
 					return $message;
 					// return $this->sendWhatsAppMessage($message, $from);
@@ -206,7 +208,7 @@ class SearchController extends Controller
     public function makeStage($body, $phone)
     {
     	$message = null;
-    	
+
 		$message .= "Year selected : $phone->year \n ";
 		$message .= "Please Select a your company manufacturer \n ";
 
