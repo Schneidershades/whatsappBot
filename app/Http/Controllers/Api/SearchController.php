@@ -49,11 +49,9 @@ class SearchController extends Controller
 
 			if(is_numeric($body)){
 
-				if($phone->stage_model == 'year'){
+				dd($body);
 
-					if(!$phone->year){
-						return $this->newStage($from, $body);
-					}
+				if($phone->stage_model == 'year'){
 
 					$yearItems = Year::where('year', $phone->year)->get()->pluck('makeid')->toArray();
 
@@ -173,7 +171,7 @@ class SearchController extends Controller
     	$message .= "Please Select a year \n ";
 
     	if(is_numeric($body)){
-			return $message = 'Invalid year selection';
+			$message .= 'Invalid year selection';
 		}
 
 		$years = $this->allCarYears();
