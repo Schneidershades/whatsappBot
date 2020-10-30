@@ -45,6 +45,8 @@ class SearchController extends Controller
 					return $this->newStage($from, $body);
 				}
 
+				return $phone;
+
 
 
 				if($phone->stage_model == 'year'){
