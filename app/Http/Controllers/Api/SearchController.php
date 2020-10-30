@@ -197,9 +197,9 @@ class SearchController extends Controller
 
     	$message .= "Please Select a year \n ";
 
-    	if(!is_numeric($body)){
-			$message .= 'Invalid year selection';
-		}
+  //   	if(!is_numeric($body)){
+		// 	$message .= 'Invalid year selection';
+		// }
 
 		$years = $this->allCarYears();
 
