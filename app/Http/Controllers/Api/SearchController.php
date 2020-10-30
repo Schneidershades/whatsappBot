@@ -155,10 +155,10 @@ class SearchController extends Controller
 	    return $year;
     }
 
-    public function newStage($body)
+    public function newStage($from, $body)
     {
     	$message = null;
-    	
+
     	if((int)$body){
 			$message .= 'Invalid year selection';
 		}
@@ -168,6 +168,8 @@ class SearchController extends Controller
     	foreach($years as $year){
     		$message .= $year ." \n ";
     	}
+
+    	$phone = $this->dbSavedRequest($from, $body);
 
     	$phone->stage_model = 'year';
     	$phone->year = $body;
