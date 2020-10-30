@@ -35,6 +35,8 @@ class SearchController extends Controller
 		    	$phone->save();
 
 		    	$message .= "Search Session was cancelled. Type Search to proceed to new search";
+
+				return $this->sendWhatsAppMessage($message, $from);
         	}
 
 	        if($body == 'search'){
@@ -45,13 +47,15 @@ class SearchController extends Controller
 				if($phone->stage_model == 'new' || $phone->year == null){
 					$message .= $this->newStage($from, $body);
 				}
-				return $message;
+				return $this->sendWhatsAppMessage($message, $from);
 			}
 
 			if(is_numeric($body)){
 
 				if($phone->stage_model == 'year' && $phone->year == null){
-					return $this->makeStage($body, $phone);
+					$message .= $this->makeStage($body, $phone);
+
+					return $this->sendWhatsAppMessage($message, $from);
 				}
 
 				if($phone->stage_model == 'make' &&  $phone->make == null){
@@ -59,7 +63,9 @@ class SearchController extends Controller
 					$makeId =  Make::where('makeid', $body)->first();
 
 					if(!$makeId){
-						return $this->makeStage($body, $phone);
+						$message .= $this->makeStage($body, $phone);
+
+						return $this->sendWhatsAppMessage($message, $from);
 					}
 
 					$models = CarModel::where('makeid', $makeId->id)->get();
@@ -78,7 +84,9 @@ class SearchController extends Controller
 			    	}
 
 
-					return $message;
+					$message .= $this->makeStage($body, $phone);
+
+					return $this->sendWhatsAppMessage($message, $from);
 
 			    	// $phone->stage_model = 'make';
 			    	// $phone->save();
