@@ -38,7 +38,7 @@ class SearchController extends Controller
 	        	}
 	        	
 				if($phone->stage_model == 'new' && $phone->year == null){
-					$this->newStage($body);
+					return $this->newStage($body);
 				}
 
 
