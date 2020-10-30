@@ -88,8 +88,9 @@ class SearchController extends Controller
 
 					$models = CarModel::where('makeid', $makeId->id)->get();
 
-					dd($models);
-
+					if(!$models){
+						return $mesage = "We have no models available in $makeId->make";
+					}
 
     				$message .= "$phone->year is your Selected year \n \n";
     				$message .= "$makeId->make is your Selected year \n \n";
