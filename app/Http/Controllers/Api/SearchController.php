@@ -70,6 +70,8 @@ class SearchController extends Controller
 
 					$makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'desc')->get();
 
+					dd($makeids);
+
 					foreach($makeids as $make){
 			    		$message .= $make->makeid .' - ' $make->company." \n ";
 			    	}
