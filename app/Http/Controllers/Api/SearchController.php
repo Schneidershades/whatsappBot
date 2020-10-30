@@ -112,13 +112,15 @@ class SearchController extends Controller
 
 
 
-				return $message;
-
 
 		    	// return $this->sendWhatsAppMessage($message, $from);
 			}
+
+
+
+			return $message;
 			
-			return $this->sendWhatsAppMessage($message, $from);
+			// return $this->sendWhatsAppMessage($message, $from);
 
 
 
