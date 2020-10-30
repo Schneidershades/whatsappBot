@@ -9,6 +9,7 @@ use App\Models\Make;
 use App\Models\CarModel;
 use App\Models\Component;
 use App\Models\Search;
+use Twilio\Rest\Client;
 
 class SearchController extends Controller
 {
@@ -18,7 +19,6 @@ class SearchController extends Controller
         $body = strtolower($request->input('Body'));
 
         $client = new \GuzzleHttp\Client();
-
 
         // $bodyItems = explode(" ", strtolower($body));
         // str_word_count("Hello world!")
@@ -120,8 +120,7 @@ class SearchController extends Controller
 		    	// return $this->sendWhatsAppMessage($message, $from);
 			}
 			
-			
-			return $message;
+			return $this->sendWhatsAppMessage($message, $from);
 
 
 
@@ -211,5 +210,16 @@ class SearchController extends Controller
     	$phone = $this->dbSavedRequest($from, $body);
 
     	return $message;
+    }
+
+    public function sendWhatsAppMessage(string $message, string $recipient)
+    {
+        $twilio_whatsapp_number = getenv('TWILIO_WHATSAPP_NUMBER');
+        $account_sid = env("TWILIO_SID");
+        $auth_token = env("TWILIO_AUTH_TOKEN");
+
+        $client = new Client($account_sid, $auth_token);
+
+        return $client->messages->create($recipient, array('from' => "whatsapp:$twilio_whatsapp_number", 'body' => $message));
     }
 }
