@@ -83,7 +83,7 @@ class SearchController extends Controller
 				    	$phone->finished = true;
 				    	$phone->save();
 
-						return $message .= "Model: Sorry!!! We have no models available in $makeId->company  \n ";
+						return $message .= "Model: Sorry!!! We have no car models available in $makeId->company  \n ";
 					}
 
     				$message .= "Models: Please Select a your manufacturer model \n ";
@@ -111,6 +111,8 @@ class SearchController extends Controller
 
 		    	// return $this->sendWhatsAppMessage($message, $from);
 			}
+
+		    return $message = "Search Session was cancelled. Type Search to proceed to new search";
 
 
 
