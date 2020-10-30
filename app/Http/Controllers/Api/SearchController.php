@@ -51,7 +51,7 @@ class SearchController extends Controller
 
     			
 
-				if($phone->stage_model == 'year' || $phone->make == null){
+				if($phone->stage_model == 'year' && $phone->make == null){
 
 					$message .= "$phone->year is your Selected year \n \n";
     				$message .= "Please Select a your company manufacturer \n ";
