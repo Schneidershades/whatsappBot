@@ -72,8 +72,7 @@ class SearchController extends Controller
 
 
 					foreach($makeids as $make){
-						dd($make);
-			    		// $message .= $make->makeid . ' - '. $make->company." \n ";
+			    		$message .= $make->makeid . " - " . $make->company . " \n ";
 			    	}
 
 			    	// $phone->stage_model = 'make';
