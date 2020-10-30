@@ -90,13 +90,14 @@ class SearchController extends Controller
 
 					$models = CarModel::where('makeid', $makeId->id)->get();
 
-					if($models == null){
-						return $mesage = "We have no models available in $makeId->make";
+    				$message .= "Year : $phone->year \n ";
+    				$message .= "Manufacturer : $makeId->company \n ";
+
+    				if($models == null){
+						return $mesage = "Models: We have no models available in $makeId->company  \n ";
 					}
 
-    				$message .= "$phone->year is your Selected year \n ";
-    				$message .= "$makeId->company is your Selected year \n ";
-    				$message .= "Please Select a your company manufacturer model \n ";
+    				$message .= "Models: Please Select a your manufacturer model \n ";
 
 					foreach($models as $model){
 			    		$message .= $model->modelid . " - " . $makeId->make.' - '. $model->model . " \n ";
