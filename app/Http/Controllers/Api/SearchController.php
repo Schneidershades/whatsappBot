@@ -49,11 +49,9 @@ class SearchController extends Controller
 
 			if(is_numeric($body)){
 
-				dd($body);
-
 				if($phone->stage_model == 'year'){
 
-					$yearItems = Year::where('year', $phone->year)->get()->pluck('makeid')->toArray();
+					$yearItems = Year::where('year', $body)->get()->pluck('makeid')->toArray();
 
 					if($yearItems){
 			    		$phone->year = $body;
