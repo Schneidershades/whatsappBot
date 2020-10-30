@@ -50,42 +50,15 @@ class SearchController extends Controller
 			if(is_numeric($body)){
 
 				if($phone->stage_model == 'year' && $phone->year == null){
-
-					$message .= "$phone->year is your Selected year \n \n";
-    				$message .= "Please Select a your company manufacturer \n ";
-
-					$yearItems = Year::where('year', $body)
-								->select('makeid')
-								->distinct()
-								->get()
-								->pluck('makeid')
-								->toArray();
-
-
-					if($yearItems){
-			    		$phone->year = $body;
-					}
-
-					$makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
-
-					foreach($makeids as $make){
-			    		$message .= $make->makeid . " - " . $make->company . " \n ";
-			    	}
-
-			    	$phone->stage_model = 'make';
-			    	$phone->save();
-
-					return $message;
+					return $this->makeStage($body, $phone);
 				}
 
-				dd($phone);
-
 				if($phone->stage_model == 'make' &&  $phone->make == null){
-
+					
 					$makeId =  Make::where('makeid', $body)->first();
 
 					if(!$makeId){
-						return $message = 'Invalid Item Selection';
+						return $this->makeStage($body, $phone);
 					}
 
 					$models = CarModel::where('makeid', $makeId->id)->get();
@@ -103,7 +76,7 @@ class SearchController extends Controller
 			    		$message .= $model->modelid . " - " . $makeId->make.' - '. $model->model . " \n ";
 			    	}
 
-			    	
+
 					return $message;
 
 			    	// $phone->stage_model = 'make';
@@ -216,6 +189,37 @@ class SearchController extends Controller
     	$phone = $this->dbSavedRequest($from, $body);
 
     	return $message;
+    }
+
+    public function makeStage($body, $phone)
+    {
+    	$message = null;
+
+    	$message .= "$phone->year is your Selected year \n \n";
+		$message .= "Please Select a your company manufacturer \n ";
+
+		$yearItems = Year::where('year', $body)
+					->select('makeid')
+					->distinct()
+					->get()
+					->pluck('makeid')
+					->toArray();
+
+
+		if($yearItems){
+    		$phone->year = $body;
+		}
+
+		$makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+
+		foreach($makeids as $make){
+    		$message .= $make->makeid . " - " . $make->company . " \n ";
+    	}
+
+    	$phone->stage_model = 'make';
+    	$phone->save();
+
+		return $message;
     }
 
     public function sendWhatsAppMessage(string $message, string $recipient)
