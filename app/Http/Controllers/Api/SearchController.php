@@ -38,16 +38,16 @@ class SearchController extends Controller
 	        	}
 	        	
 				if($phone->stage_model == 'new' && $phone->year == null){
-					return $this->newStage($body);
+					return $this->newStage($from, $body);
 				}
 
 
 
 				if($phone->stage_model == 'year'){
 
-					// if(!$phone->year){
-					// 	return $this->newStage($body);
-					// }
+					if(!$phone->year){
+						return $this->newStage($from, $body);
+					}
 
 					$yearItems = Year::where('year', $phone->year)->get()->pluck('makeid')->toArray();
 
