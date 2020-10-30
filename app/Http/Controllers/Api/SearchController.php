@@ -82,11 +82,7 @@ class SearchController extends Controller
 
 				if($phone->stage_model == 'make'){
 
-					dd($body);
-
 					$makeId =  Make::where('makeid', $body)->first();
-
-					dd($makeId->make);
 
 					if(!$makeId){
 						return $message = 'Invalid Item Selection';
@@ -99,7 +95,7 @@ class SearchController extends Controller
 					}
 
     				$message .= "$phone->year is your Selected year \n ";
-    				$message .= "$makeId->make is your Selected year \n ";
+    				$message .= "$makeId->company is your Selected year \n ";
     				$message .= "Please Select a your company manufacturer model \n ";
 
 					foreach($models as $model){
