@@ -86,7 +86,7 @@ class SearchController extends Controller
 			    		$message .= $model->modelid . " - " . $makeId->make.' - '. $model->model . " \n ";
 			    	}
 
-					$message .= $this->makeStage($body, $phone);
+					// $message .= $this->makeStage($body, $phone);
 
 					return $message;
 					// return $this->sendWhatsAppMessage($message, $from);
@@ -205,12 +205,9 @@ class SearchController extends Controller
 
     public function makeStage($body, $phone)
     {
-    	// dd($phone->year);
-    	// $phone = $this->dbSavedRequest($phone->phone, $body);
     	$message = null;
-
-
-		$message .= "Year : $phone->year \n ";
+    	
+		$message .= "Year selected : $phone->year \n ";
 		$message .= "Please Select a your company manufacturer \n ";
 
 		$yearItems = Year::where('year', $body)
