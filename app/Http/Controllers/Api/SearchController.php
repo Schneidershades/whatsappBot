@@ -205,6 +205,7 @@ class SearchController extends Controller
 
     public function makeStage($body, $phone)
     {
+    	$this->dbSavedRequest($phone, $body);
     	$message = null;
 
     	$message .= "$phone->year is your Selected year \n \n";
