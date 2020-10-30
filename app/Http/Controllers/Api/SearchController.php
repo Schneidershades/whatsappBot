@@ -84,7 +84,7 @@ class SearchController extends Controller
 						return $message = 'Invalid Item Selection';
 					}
 
-					$models = Model::where('makeid', $makeId->id)->get();
+					$models = CarModel::where('makeid', $makeId->id)->get();
 
 					foreach($models as $model){
 			    		$message .= $model->modelid . " - " . $makeId->make.' - '. $model->model . " \n ";
