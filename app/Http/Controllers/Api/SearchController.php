@@ -82,13 +82,13 @@ class SearchController extends Controller
 
 					$makeId =  Make::where('makeid', $body)->first();
 
-					dd($makeId);
-
 					if(!$makeId){
 						return $message = 'Invalid Item Selection';
 					}
 
 					$models = CarModel::where('makeid', $makeId->id)->get();
+
+					dd($models);
 
 
     				$message .= "$phone->year is your Selected year \n \n";
