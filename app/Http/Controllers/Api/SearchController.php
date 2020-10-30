@@ -49,12 +49,10 @@ class SearchController extends Controller
 
 			if(is_numeric($body)){
 
-			    	// $phone->stage_model = 'year';
-			    	// $phone->save();
+    			$message .= "$phone->year is your Selected year \n \n";
+    			$message .= "Please Select a your company manufacturer \n ";
 
-			    	// return $phone;
-
-				if($phone->stage_model == 'year'){
+				if($phone->stage_model == 'year' || $phone->make == null){
 
 					$yearItems = Year::where('year', $body)
 								->select('makeid')
@@ -70,27 +68,34 @@ class SearchController extends Controller
 
 					$makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
 
-
 					foreach($makeids as $make){
 			    		$message .= $make->makeid . " - " . $make->company . " \n ";
 			    	}
 
-			    	// $phone->stage_model = 'make';
-			    	// $phone->save();
+			    	$phone->stage_model = 'make';
+			    	$phone->save();
 				}
 
-				// if($phone->stage_model == 'make'){
-				// 	$yearItems = Make::where('company', $year)->get()->pluck('makeid')->toArray();
-				// 	$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
+				if($phone->stage_model == 'make' ||  $phone->make == null){
 
-				// 	foreach($makeids as $make){
-			 //    		$message .= $make ." \n ";
-			 //    	}
+					$makeId =  Make::where('makeid', $body)->first();
 
-			 //    	return $message;
-				// }
+					if(!$makeId==null){
+						return $message = 'Invalid Item Selection';
+					}
 
-				// if($phone->stage_model == 'component'){
+					$models = Model::where('makeid', $makeId->id)->get();
+
+					foreach($models as $model){
+			    		$message .= $model->modelid . " - " . $makeId->make.' - '. $model->model . " \n ";
+			    	}
+
+			    	$phone->stage_model = 'make';
+			    	$phone->save();
+
+				}
+
+				// if($phone->stage_model == 'component' ||  $phone->make == null){
 					
 				// }
 
