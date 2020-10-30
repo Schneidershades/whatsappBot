@@ -36,8 +36,6 @@ class SearchController extends Controller
 			    	$phone->finished = true;
 			    	$phone->save();
 	        	}
-
-	        	return $phone;
 	        	
 				if($phone->stage_model == 'new' && $phone->year == null){
 					return $this->newStage($body);
