@@ -48,13 +48,11 @@ class SearchController extends Controller
 			}
 
 			if(is_numeric($body)){
+				
+			    	// $phone->stage_model = 'year';
+			    	// $phone->save();
 
-
-
-			    	$phone->stage_model = 'year';
-			    	$phone->save();
-
-			    	return $phone;
+			    	// return $phone;
 
 				if($phone->stage_model == 'year'){
 
