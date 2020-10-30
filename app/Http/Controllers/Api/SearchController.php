@@ -8,7 +8,7 @@ use App\Models\Year;
 use App\Models\Make;
 use App\Models\CarModel;
 use App\Models\Component;
-use App\Models\BotSearchRequest;
+use App\Models\Search;
 
 class SearchController extends Controller
 {
@@ -129,7 +129,7 @@ class SearchController extends Controller
 
     public function dbSavedRequest($from, $body)
     {
-    	$phone = BotSearchRequest::where('phone', $from)
+    	$phone = Search::where('phone', $from)
 			->where('terminate', false)
 			->where('finished', false)
 			->first();
