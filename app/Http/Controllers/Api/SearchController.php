@@ -57,6 +57,10 @@ class SearchController extends Controller
 
 					$yearItems = Year::where('year', $phone->year)->get()->pluck('makeid')->toArray();
 
+					if($yearItems){
+			    		$phone->year = $body;
+					}
+
 					$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
 
 					foreach($makeids as $make){
