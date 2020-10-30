@@ -45,6 +45,7 @@ class SearchController extends Controller
 				if($phone->stage_model == 'new' || $phone->year == null){
 					$message .= $this->newStage($from, $body);
 				}
+				return $message;
 			}
 
 			if(is_numeric($body)){
@@ -54,7 +55,7 @@ class SearchController extends Controller
 				}
 
 				if($phone->stage_model == 'make' &&  $phone->make == null){
-					
+
 					$makeId =  Make::where('makeid', $body)->first();
 
 					if(!$makeId){
