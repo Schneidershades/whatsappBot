@@ -68,12 +68,12 @@ class SearchController extends Controller
 			    		$phone->year = $body;
 					}
 
-					$makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'desc')->get();
+					$makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
 
-					dd($makeids);
 
 					foreach($makeids as $make){
-			    		$message .= $make->makeid .' - '. $make->company." \n ";
+						dd($make);
+			    		// $message .= $make->makeid . ' - '. $make->company." \n ";
 			    	}
 
 			    	// $phone->stage_model = 'make';
