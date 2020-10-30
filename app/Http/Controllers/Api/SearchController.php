@@ -23,7 +23,7 @@ class SearchController extends Controller
         // $bodyItems = explode(" ", strtolower($body));
         // str_word_count("Hello world!")
 
-        if(str_word_count($body) == 1){
+        if(str_word_count($body) == 1 || is_numeric($body)){
 
 	        if($body == 'search'){
 
