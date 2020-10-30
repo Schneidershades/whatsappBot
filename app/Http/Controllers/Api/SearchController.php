@@ -74,9 +74,11 @@ class SearchController extends Controller
 
 			    	$phone->stage_model = 'make';
 			    	$phone->save();
+
+					return $message;
 				}
 
-				// dd($phone);
+				dd($phone);
 
 				if($phone->stage_model == 'make' &&  $phone->make == null){
 
@@ -101,10 +103,15 @@ class SearchController extends Controller
 			    		$message .= $model->modelid . " - " . $makeId->make.' - '. $model->model . " \n ";
 			    	}
 
+			    	
+					return $message;
+
 			    	// $phone->stage_model = 'make';
 			    	// $phone->save();
 
 				}
+
+
 
 				// if($phone->stage_model == 'component' ||  $phone->make == null){
 					
@@ -118,7 +125,6 @@ class SearchController extends Controller
 
 
 
-			return $message;
 			
 			// return $this->sendWhatsAppMessage($message, $from);
 
