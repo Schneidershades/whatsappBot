@@ -34,7 +34,7 @@ class SearchController extends Controller
 		    	$phone->finished = true;
 		    	$phone->save();
 
-		    	$message .= "Search Session was cancelled. Type Search to proceed to new search";
+		    	$message = "Search Session was cancelled. Type Search to proceed to new search";
 
 		    	return $message;
 				// return $this->sendWhatsAppMessage($message, $from);
@@ -48,7 +48,8 @@ class SearchController extends Controller
 				if($phone->stage_model == 'new' || $phone->year == null){
 					$message .= $this->newStage($from, $body);
 				}
-				return $this->sendWhatsAppMessage($message, $from);
+				return $message;
+				// return $this->sendWhatsAppMessage($message, $from);
 			}
 
 			if(is_numeric($body)){
