@@ -84,6 +84,8 @@ class SearchController extends Controller
 
 					$makeId =  Make::where('makeid', $body)->first();
 
+					dd($makeId->make);
+
 					if(!$makeId){
 						return $message = 'Invalid Item Selection';
 					}
