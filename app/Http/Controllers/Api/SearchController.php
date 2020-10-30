@@ -37,7 +37,7 @@ class SearchController extends Controller
 			    	$phone->save();
 	        	}
 	        	
-				if($phone->stage_model == 'new' && $phone->year == null){
+				if($phone->stage_model == 'new' || $phone->year == null){
 					return $this->newStage($from, $body);
 				}
 
@@ -155,6 +155,8 @@ class SearchController extends Controller
     public function newStage($from, $body)
     {
     	$message = null;
+
+    	$message .= "Please Select a year \n "
 
     	if((int)$body){
 			$message .= 'Invalid year selection';
