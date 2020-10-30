@@ -77,7 +77,7 @@ class SearchController extends Controller
 
 					$models = CarModel::where('makeid', $makeId->id)->get();
 
-    				if($models == null || $models == []){
+    				if($models->isEmpty() || $models == null || $models == []){
 						return $mesage = "Model: Sorry!!! We have no models available in $makeId->company  \n ";
 					}
 
@@ -86,7 +86,6 @@ class SearchController extends Controller
 					foreach($models as $model){
 			    		$message .= $model->modelid . " - " . $makeId->make.' - '. $model->model . " \n ";
 			    	}
-
 
 					return $message;
 					// return $this->sendWhatsAppMessage($message, $from);
