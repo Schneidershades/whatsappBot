@@ -51,7 +51,7 @@ class SearchController extends Controller
 
 
 
-			    	$phone->stage_model = 'make';
+			    	$phone->stage_model = 'year';
 			    	$phone->save();
 
 			    	return $phone;
@@ -72,8 +72,8 @@ class SearchController extends Controller
 			    		$message .= $make ." \n ";
 			    	}
 
-			    	$phone->stage_model = 'make';
-			    	$phone->save();
+			    	// $phone->stage_model = 'make';
+			    	// $phone->save();
 				}
 
 				// if($phone->stage_model == 'make'){
