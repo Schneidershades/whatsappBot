@@ -88,7 +88,7 @@ class SearchController extends Controller
 
 					$models = CarModel::where('makeid', $makeId->id)->get();
 
-					if(!$models){
+					if($models == null){
 						return $mesage = "We have no models available in $makeId->make";
 					}
 
