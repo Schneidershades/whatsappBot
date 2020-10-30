@@ -52,7 +52,7 @@ class SearchController extends Controller
     			
 
 				if($phone->stage_model == 'year' || $phone->make == null){
-					
+
 					$message .= "$phone->year is your Selected year \n \n";
     				$message .= "Please Select a your company manufacturer \n ";
 
@@ -94,8 +94,8 @@ class SearchController extends Controller
 						return $mesage = "We have no models available in $makeId->make";
 					}
 
-    				$message .= "$phone->year is your Selected year \n \n";
-    				$message .= "$makeId->make is your Selected year \n \n";
+    				$message .= "$phone->year is your Selected year \n ";
+    				$message .= "$makeId->make is your Selected year \n ";
     				$message .= "Please Select a your company manufacturer model \n ";
 
 					foreach($models as $model){
