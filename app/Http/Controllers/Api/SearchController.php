@@ -80,18 +80,20 @@ class SearchController extends Controller
 
 				if($phone->stage_model == 'make'){
 
-					dd($body);
-
-    				$message .= "$phone->year is your Selected year \n \n";
-    				$message .= "Please Select a your company manufacturer \n ";
-
 					$makeId =  Make::where('makeid', $body)->first();
+
+					dd($makeId);
 
 					if(!$makeId){
 						return $message = 'Invalid Item Selection';
 					}
 
 					$models = CarModel::where('makeid', $makeId->id)->get();
+
+
+    				$message .= "$phone->year is your Selected year \n \n";
+    				$message .= "$makeId->make is your Selected year \n \n";
+    				$message .= "Please Select a your company manufacturer model \n ";
 
 					foreach($models as $model){
 			    		$message .= $model->modelid . " - " . $makeId->make.' - '. $model->model . " \n ";
