@@ -76,9 +76,11 @@ class SearchController extends Controller
 			    	$phone->save();
 				}
 
-				dd($phone);
+				// dd($phone);
 
-				if($phone->stage_model == 'make' ||  $phone->make == null){
+				if($phone->stage_model == 'make'){
+
+					dd('dd');
 
 					$makeId =  Make::where('makeid', $body)->first();
 
