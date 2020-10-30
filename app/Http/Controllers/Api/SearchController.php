@@ -78,7 +78,7 @@ class SearchController extends Controller
 			    	$phone->save();
 				}
 
-				// dd($phone);
+				dd($phone);
 
 				if($phone->stage_model == 'make'){
 
