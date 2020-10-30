@@ -47,58 +47,50 @@ class SearchController extends Controller
 				}
 			}
 
+			if(is_numeric($body)){
 
+				if($phone->stage_model == 'year'){
 
-			// if(is_numeric($body)){
+					if(!$phone->year){
+						return $this->newStage($from, $body);
+					}
 
-			// 	if($phone->stage_model == 'year'){
+					$yearItems = Year::where('year', $phone->year)->get()->pluck('makeid')->toArray();
 
-			// 		if(!$phone->year){
-			// 			return $this->newStage($from, $body);
-			// 		}
+					$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
 
-			// 		$yearItems = Year::where('year', $phone->year)->get()->pluck('makeid')->toArray();
+					foreach($makeids as $make){
+			    		$message .= $make ." \n ";
+			    	}
 
-			// 		if($yearItems){
-			//     		$phone->year_id = $body;
-			// 		}
+			    	$phone->stage_model = 'make';
+			    	$phone->save();
+				}
 
-			// 		$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
+				// if($phone->stage_model == 'make'){
+				// 	$yearItems = Make::where('company', $year)->get()->pluck('makeid')->toArray();
+				// 	$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
 
-			// 		foreach($makeids as $make){
-			//     		$message .= $make ." \n ";
-			//     	}
+				// 	foreach($makeids as $make){
+			 //    		$message .= $make ." \n ";
+			 //    	}
 
-			//     	// $phone->stage_model = 'make';
-			//     	$phone->save();
+			 //    	return $message;
+				// }
 
-			//     	return $message;
-			// 	}
-
-			// 	// if($phone->stage_model == 'make'){
-			// 	// 	$yearItems = Make::where('company', $year)->get()->pluck('makeid')->toArray();
-			// 	// 	$makeids = Make::whereIn('makeid', $yearItems)->get()->pluck('company')->toArray();
-
-			// 	// 	foreach($makeids as $make){
-			//  //    		$message .= $make ." \n ";
-			//  //    	}
-
-			//  //    	return $message;
-			// 	// }
-
-			// 	if($phone->stage_model == 'component'){
+				// if($phone->stage_model == 'component'){
 					
-			// 	}
+				// }
 
 
 
-			// 	return $message;
+				return $message;
 
 
-		 //    	// return $this->sendWhatsAppMessage($message, $from);
-			// }
-			// 
-			// 
+		    	// return $this->sendWhatsAppMessage($message, $from);
+			}
+			
+			
 			return $message;
 
 
