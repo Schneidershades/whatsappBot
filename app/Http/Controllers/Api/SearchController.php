@@ -27,11 +27,11 @@ class SearchController extends Controller
         if($phone->stage_model == 'new'){
 
             if($body == "F2"){
-
-                $phone->stage_model = 'yearShortList';
+                // $phone->stage_model = 'yearShortList';
                 $phone->save();
-                return $phone->stage_model;
+                // return $phone->stage_model;
                 // $message .= $this->yearShortList($from, $body);
+                dd($body, $phone->stage_model);
             }
 
         }
