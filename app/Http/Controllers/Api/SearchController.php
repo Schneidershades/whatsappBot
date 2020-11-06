@@ -76,7 +76,7 @@ class SearchController extends Controller
         }
 
         return $message;
-        }
+        
 
     }
 
