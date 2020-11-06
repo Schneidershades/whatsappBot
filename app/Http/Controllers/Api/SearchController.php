@@ -24,6 +24,8 @@ class SearchController extends Controller
 
         $phone = $this->dbSavedRequest($from, $body);
 
+        return $phone->stage_model;
+
         if($phone->stage_model == 'new'){
 
             if($body == "F2"){
@@ -34,7 +36,7 @@ class SearchController extends Controller
 
         }
 
-        return $message;
+        // return $message;
 
         if($phone->stage_model == 'yearShortList' && $phone->year == null){
             // $message .= $this->makeShortList($from, $body);
