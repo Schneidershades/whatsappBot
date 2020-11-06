@@ -20,12 +20,67 @@ class SearchController extends Controller
 
         $client = new \GuzzleHttp\Client();
 
+        $message = null;
+
+        $phone = $this->dbSavedRequest($from, $body);
+
+        if($phone->stage_model = 'new' || $phone->stage_model = 'random' ){
+
+            if($body = "F2"){
+                $phone->stage_model = 'yearShortList';
+                $phone->save();
+
+                $message .= $this->yearShortList($from, $body);
+            }
+
+            $message .=  $this->chatModel($from, $body);
+        }
+
+        if($phone->stage_model = 'yearShortList' && $phone->year == null){
+            $message .= $this->yearShortList($from, $body);
+        }
+
+        if($phone->stage_model = 'yearFullList' && $phone->year == null){
+
+        }
+
+        if($phone->stage_model = 'makeShortList' && $phone->make == null){
+
+        }
+
+        if($phone->stage_model = 'makeFullList' && $phone->make == null){
+
+        }
+
+        if($phone->stage_model = 'modelShortList' && $phone->model == null){
+
+        }
+
+        if($phone->stage_model = 'modelFullList' && $phone->model == null){
+
+        }
+
+        if($phone->stage_model = 'componentShortList' && $phone->component == null){
+
+        }
+
+        if($phone->stage_model = 'componentFullList' && $phone->component == null){
+
+        }
+
+        if($body == 'cancel'){
+            $phone->terminate = true;
+            $phone->finished = true;
+            $phone->save();
+
+            $message .= "Search Session was cancelled. Type menu to proceed";
+        }
+
+
         // $bodyItems = explode(" ", strtolower($body));
         // str_word_count("Hello world!")
 
         if(str_word_count($body) == 1 || is_numeric($body)){
-
-        	$message = null;
 
         	$phone = $this->dbSavedRequest($from, $body);
 
@@ -42,11 +97,12 @@ class SearchController extends Controller
 
 	        if($body == 'search'){
 
-		    	$phone->stage_model = 'year';
+		    	$phone->stage_model = 'yearShortList';
+
 		    	$phone->save();
 
 				if($phone->stage_model == 'new' || $phone->year == null){
-					$message .= $this->newStage($from, $body);
+					$message .= 
 				}
 				return $message;
 				// return $this->sendWhatsAppMessage($message, $from);
@@ -95,14 +151,14 @@ class SearchController extends Controller
 					return $message;
 					// return $this->sendWhatsAppMessage($message, $from);
 
-			    	// $phone->stage_model = 'make';
+			    	// $phone->stage_model = 'component';
 			    	// $phone->save();
 
 				}
 
 
 
-				// if($phone->stage_model == 'component' ||  $phone->make == null){
+				// if($phone->stage_model == 'component' ||  $phone->component == null){
 					
 				// }
 
@@ -113,48 +169,7 @@ class SearchController extends Controller
 			}
 
 		    return $message = "Search Session was cancelled. Type Search to proceed to new search";
-
-
-
-			
-			// return $this->sendWhatsAppMessage($message, $from);
-
-
-
-			// if(in_array('2000', $bodyItems)){
-
-		 //    	$message = null;
-
-			// 	$phone = Search::where('phone', $from)
-			// 		->where('terminate', 'no')
-			// 		->where('finished', 'no')
-			// 		->first();
-
-			// 	if(!$phone){
-			// 		return 'ss';
-			// 	}
-
-				
-
-			// 	$phone->save();
-
-
-		    	
-		 //    	// return $this->sendWhatsAppMessage($message, $from);
-			// }
         }
-
-
-        
-
-        
-
-
-
-
-
-
-
 
     }
 
@@ -176,38 +191,99 @@ class SearchController extends Controller
 
     }
 
-    public function allCarYears()
+    public function shortCarYearsList()
     {
     	$year = Year::select('year')
 	    		->distinct()
 	    		->orderBy('year')
-	    		->get()
+	    		->limit(8)
 	    		->pluck('year')
 	    		->toArray()
 	    		;
 	    return $year;
     }
 
-    public function newStage($from, $body)
+    public function fullCarYearsList()
     {
-    	$message = null;
-
-    	$message .= "Please Select a year \n ";
-
-  //   	if(!is_numeric($body)){
-		// 	$message .= 'Invalid year selection';
-		// }
-
-		$years = $this->allCarYears();
-
-    	foreach($years as $year){
-    		$message .= $year ." \n ";
-    	}
-
-    	$phone = $this->dbSavedRequest($from, $body);
-
-    	return $message;
+        $year = Year::select('year')
+                ->distinct()
+                ->orderBy('year')
+                ->get()
+                ->pluck('year')
+                ->toArray()
+                ;
+        return $year;
     }
+
+    public function yearShortList($from, $body)
+    {
+        $message = null;
+
+        $phone = $this->dbSavedRequest($from, $body);
+
+        if($body == 9){
+            $phone->stage_model = 'yearFullList';
+            $phone->save();
+        }
+
+        if($body == 10){
+            $phone->stage_model = 'random';
+            $phone->terminate = true;
+            $phone->finished = true;
+            $phone->save();
+        }
+
+        if((int)$body && $body >= 1 && $body <= 8){
+            $message .= "Please Select a year \n ";
+
+            $years = $this->shortCarYearsList();
+
+            foreach($years as $year){
+                $message .= $year ." \n ";
+            }
+
+            $message .= "Please Press *9* to view full car list \n ";
+            $message .= "Please Press *10* to go to previous \n ";
+        }
+
+        return $message;
+    }
+
+    public function yearFullList($from, $body)
+    {
+        $message = null;
+
+        $phone = $this->dbSavedRequest($from, $body);
+
+        if($body == 9){
+            $phone->stage_model = 'yearFullList';
+            $phone->save();
+        }
+
+        if($body == 10){
+            $phone->stage_model = 'random';
+            $phone->terminate = true;
+            $phone->finished = true;
+            $phone->save();
+        }
+
+        if((int)$body && $body >= 1 && $body <= 8){
+            $message .= "Please Select a year \n ";
+
+            $years = $this->shortCarYearsList();
+
+            foreach($years as $year){
+                $message .= $year ." \n ";
+            }
+
+            $message .= "Please Press *9* to view full car list \n ";
+            $message .= "Please Press *10* to go to previous \n ";
+        }
+
+        return $message;
+    }
+
+
 
     public function makeStage($body, $phone)
     {
@@ -238,6 +314,66 @@ class SearchController extends Controller
     	$phone->save();
 
 		return $message;
+    }
+
+    public function chatModel()
+    {
+        $array1 = explode(" ", $body);
+
+        $chats = Chat::all();
+
+        $replies = [];
+
+        foreach($chats as $chat){
+
+            $array2 = explode(" ", $chat['incoming_message']);
+
+            $similar = array_intersect($array1, $array2);
+
+            $a = round(count($similar));
+
+            $b = count($array1);
+
+            $average = $a/$b*100;
+
+            if($average >= 50 && $chat['outgoing_message'] != null){
+                $newdata = array (
+                    'average' => $average,
+                    'reply' => $chat['outgoing_message']
+                );
+
+                array_push($replies, $newdata);
+            }
+        }
+
+        // $message = "1. About AutoPartz\n";
+        // $message .= "2. Contact AutoPartz\n";
+
+        // $message = "*Address* 55, Akobi Crescent, Off Atunrashe Street, Mushin, Lagos\n";
+        // $message .= "*Phone* 08097772886 (WhatsApp), 09030007004 (WhatsApp)\n";
+        // $message .= "*Email* info@autopartz.com\n";
+        // $message .= "*Website* https://www.autopartz.com\n";
+
+        // dd($message);
+
+        if($replies == null || $replies == []){
+            $newChat = new Chat;
+            $newChat->incoming_message = $body;
+            $newChat->phone = $from;
+            $newChat->save();
+
+            $message = "*Welcome To AutoPartz!!!*\n";
+            $message .= "I am here to assist you\n";
+            $message .= "Please kindly press *menu* to access our support features\n";
+
+            return $this->sendWhatsAppMessage($message, $from);
+        }
+
+        $maximum_number = (max(array_column($replies, "average")));
+
+        $message = $this->arraySearch($replies, "average", $maximum_number);
+
+        return $message['reply'];
     }
 
     public function sendWhatsAppMessage(string $message, string $recipient)

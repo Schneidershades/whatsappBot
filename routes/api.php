@@ -15,3 +15,4 @@ Route::resource('/models', 'Api\CarModelController');
 Route::resource('/make', 'Api\MakeController');
 Route::resource('/year', 'Api\YearController');
 Route::resource('/search', 'Api\SearchController');
+

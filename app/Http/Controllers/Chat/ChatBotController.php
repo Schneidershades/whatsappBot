@@ -8,9 +8,13 @@ use Illuminate\Support\Facades\Http;
 use Twilio\Rest\Client;
 use App\Models\Chat;
 
-
 class ChatBotController extends Controller
-{
+{   
+    public function store()
+    {
+
+    }
+
     public function listenToReplies(Request $request)
     {
         $from = $request->input('From');
@@ -72,8 +76,6 @@ class ChatBotController extends Controller
         $maximum_number = (max(array_column($replies, "average")));
 
         $message = $this->arraySearch($replies, "average", $maximum_number);
-
-        
 
         return $this->sendWhatsAppMessage($message['reply'], $from);
     }
