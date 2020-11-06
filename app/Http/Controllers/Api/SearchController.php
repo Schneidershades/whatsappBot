@@ -25,12 +25,13 @@ class SearchController extends Controller
         $phone = $this->dbSavedRequest($from, $body);
 
         if($phone->stage_model == 'new'){
+            dd($phone);
             if($body == "F2"){
                 // $phone->stage_model = 'yearShortList';
                 // $phone->save();
                 // return $phone->stage_model;
                 // $message .= $this->yearShortList($from, $body);
-                dd($body, $phone->stage_model);
+                // dd($body, $phone->stage_model);
             }
 
         }
