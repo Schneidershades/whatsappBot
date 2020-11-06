@@ -39,43 +39,43 @@ class SearchController extends Controller
             $message .= $this->makeShortList($from, $body);
         }
 
-        if($phone->stage_model == 'yearFullList' && $phone->year == null){
-            $message .= $this->makeFullList($from, $body);
-        }
+        // if($phone->stage_model == 'yearFullList' && $phone->year == null){
+        //     $message .= $this->makeFullList($from, $body);
+        // }
 
-        if($phone->stage_model == 'makeShortList' && $phone->make == null){
-            $message .= $this->modelShortList($from, $body);
-        }
+        // if($phone->stage_model == 'makeShortList' && $phone->make == null){
+        //     $message .= $this->modelShortList($from, $body);
+        // }
 
-        if($phone->stage_model == 'makeFullList' && $phone->make == null){
-            $message .= $this->modelFullList($from, $body);
-        }
+        // if($phone->stage_model == 'makeFullList' && $phone->make == null){
+        //     $message .= $this->modelFullList($from, $body);
+        // }
 
-        if($phone->stage_model == 'modelShortList' && $phone->model == null){
+        // if($phone->stage_model == 'modelShortList' && $phone->model == null){
 
-        }
+        // }
 
-        if($phone->stage_model == 'modelFullList' && $phone->model == null){
+        // if($phone->stage_model == 'modelFullList' && $phone->model == null){
 
-        }
+        // }
 
-        if($phone->stage_model == 'componentShortList' && $phone->component == null){
+        // if($phone->stage_model == 'componentShortList' && $phone->component == null){
 
-        }
+        // }
 
-        if($phone->stage_model == 'componentFullList' && $phone->component == null){
+        // if($phone->stage_model == 'componentFullList' && $phone->component == null){
 
-        }
+        // }
 
-        if($body == 'cancel'){
-            $phone->terminate = true;
-            $phone->finished = true;
-            $phone->save();
+        // if($body == 'cancel'){
+        //     $phone->terminate = true;
+        //     $phone->finished = true;
+        //     $phone->save();
 
-            $message .= "Search Session was cancelled. Type menu to proceed";
-        }
+        //     $message .= "Search Session was cancelled. Type menu to proceed";
+        // }
 
-        return $message;
+        // return $message;
         
 
     }
@@ -175,130 +175,130 @@ class SearchController extends Controller
         return $message;
     }
 
-    public function makeShortList($body, $phone)
-    {
-        $message = null;
-        $message .= "Year selected : $phone->year \n ";
-        $message .= "Please Select a your company manufacturer \n ";
+  //   public function makeShortList($body, $phone)
+  //   {
+  //       $message = null;
+  //       $message .= "Year selected : $phone->year \n ";
+  //       $message .= "Please Select a your company manufacturer \n ";
 
-        $yearItems = Year::where('year', $body)
-                    ->select('makeid')
-                    ->distinct()
-                    ->limit(8)
-                    ->pluck('makeid')
-                    ->toArray();
+  //       $yearItems = Year::where('year', $body)
+  //                   ->select('makeid')
+  //                   ->distinct()
+  //                   ->limit(8)
+  //                   ->pluck('makeid')
+  //                   ->toArray();
 
-        if($yearItems){
-            $phone->year = $body;
-        }
+  //       if($yearItems){
+  //           $phone->year = $body;
+  //       }
 
-        $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+  //       $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
 
-        foreach($makeids as $make){
-            $message .= $make->makeid . " - " . $make->company . " \n ";
-        }
+  //       foreach($makeids as $make){
+  //           $message .= $make->makeid . " - " . $make->company . " \n ";
+  //       }
 
-        $message .= "Please Press *9* to view full list \n ";
-        $message .= "Please Press *10* to go to previous \n ";
+  //       $message .= "Please Press *9* to view full list \n ";
+  //       $message .= "Please Press *10* to go to previous \n ";
 
-        $phone->stage_model = 'make';
-        $phone->save();
+  //       $phone->stage_model = 'make';
+  //       $phone->save();
 
-        return $message;
-    }
+  //       return $message;
+  //   }
 
-    public function makeFullList($body, $phone)
-    {
-    	$message = null;
-		$message .= "Year selected : $phone->year \n ";
-		$message .= "Please Select a your company manufacturer \n ";
+  //   public function makeFullList($body, $phone)
+  //   {
+  //   	$message = null;
+		// $message .= "Year selected : $phone->year \n ";
+		// $message .= "Please Select a your company manufacturer \n ";
 
-		$yearItems = Year::where('year', $body)
-					->select('makeid')
-					->distinct()
-					->get()
-					->pluck('makeid')
-					->toArray();
-
-
-		if($yearItems){
-    		$phone->year = $body;
-		}
-
-		$makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
-
-		foreach($makeids as $make){
-    		$message .= $make->makeid . " - " . $make->company . " \n ";
-    	}
-
-    	$phone->stage_model = 'make';
-    	$phone->save();
-
-		return $message;
-    }
+		// $yearItems = Year::where('year', $body)
+		// 			->select('makeid')
+		// 			->distinct()
+		// 			->get()
+		// 			->pluck('makeid')
+		// 			->toArray();
 
 
-    public function modelShortList($body, $phone)
-    {
-        $message = null;
-        $message .= "Year selected : $phone->year \n ";
-        $message .= "Please Select a your company manufacturer \n ";
+		// if($yearItems){
+  //   		$phone->year = $body;
+		// }
 
-        $yearItems = Year::where('year', $body)
-                    ->select('makeid')
-                    ->distinct()
-                    ->limit(8)
-                    ->pluck('makeid')
-                    ->toArray();
+		// $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
 
-        if($yearItems){
-            $phone->year = $body;
-        }
+		// foreach($makeids as $make){
+  //   		$message .= $make->makeid . " - " . $make->company . " \n ";
+  //   	}
 
-        $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+  //   	$phone->stage_model = 'make';
+  //   	$phone->save();
 
-        foreach($makeids as $make){
-            $message .= $make->makeid . " - " . $make->company . " \n ";
-        }
-
-        $message .= "Please Press *9* to view full list \n ";
-        $message .= "Please Press *10* to go to previous \n ";
-
-        $phone->stage_model = 'make';
-        $phone->save();
-
-        return $message;
-    }
-
-    public function modelFullList($body, $phone)
-    {
-        $message = null;
-        $message .= "Year selected : $phone->year \n ";
-        $message .= "Please Select a your company manufacturer \n ";
-
-        $yearItems = Year::where('year', $body)
-                    ->select('makeid')
-                    ->distinct()
-                    ->get()
-                    ->pluck('makeid')
-                    ->toArray();
+		// return $message;
+  //   }
 
 
-        if($yearItems){
-            $phone->year = $body;
-        }
+  //   public function modelShortList($body, $phone)
+  //   {
+  //       $message = null;
+  //       $message .= "Year selected : $phone->year \n ";
+  //       $message .= "Please Select a your company manufacturer \n ";
 
-        $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+  //       $yearItems = Year::where('year', $body)
+  //                   ->select('makeid')
+  //                   ->distinct()
+  //                   ->limit(8)
+  //                   ->pluck('makeid')
+  //                   ->toArray();
 
-        foreach($makeids as $make){
-            $message .= $make->makeid . " - " . $make->company . " \n ";
-        }
+  //       if($yearItems){
+  //           $phone->year = $body;
+  //       }
 
-        $phone->stage_model = 'make';
-        $phone->save();
+  //       $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
 
-        return $message;
-    }
+  //       foreach($makeids as $make){
+  //           $message .= $make->makeid . " - " . $make->company . " \n ";
+  //       }
+
+  //       $message .= "Please Press *9* to view full list \n ";
+  //       $message .= "Please Press *10* to go to previous \n ";
+
+  //       $phone->stage_model = 'make';
+  //       $phone->save();
+
+  //       return $message;
+  //   }
+
+  //   public function modelFullList($body, $phone)
+  //   {
+  //       $message = null;
+  //       $message .= "Year selected : $phone->year \n ";
+  //       $message .= "Please Select a your company manufacturer \n ";
+
+  //       $yearItems = Year::where('year', $body)
+  //                   ->select('makeid')
+  //                   ->distinct()
+  //                   ->get()
+  //                   ->pluck('makeid')
+  //                   ->toArray();
+
+
+  //       if($yearItems){
+  //           $phone->year = $body;
+  //       }
+
+  //       $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+
+  //       foreach($makeids as $make){
+  //           $message .= $make->makeid . " - " . $make->company . " \n ";
+  //       }
+
+  //       $phone->stage_model = 'make';
+  //       $phone->save();
+
+  //       return $message;
+  //   }
 
     public function chatModel()
     {
