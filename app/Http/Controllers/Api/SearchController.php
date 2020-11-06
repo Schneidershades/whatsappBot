@@ -31,7 +31,6 @@ class SearchController extends Controller
                 $phone->save();
 
                 return $phone;
-
                 // $message .= $this->yearShortList($from, $body);
             }
 
