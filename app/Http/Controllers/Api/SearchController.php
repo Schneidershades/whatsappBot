@@ -95,6 +95,7 @@ class SearchController extends Controller
 		if(!$phone){
 			$phone = new Search;
             $phone->phone = $from;
+            $phone->stage_model = 'new';
             $phone->request_received = $body;
             $phone->save();
             return $phone;
