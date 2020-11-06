@@ -24,7 +24,7 @@ class SearchController extends Controller
 
         $phone = $this->dbSavedRequest($from, $body);
 
-        if($phone->stage_model = 'new' || $phone->stage_model = 'random' ){
+        if($phone->stage_model = 'new'){
 
             if($body = "F2"){
                 $phone->stage_model = 'yearShortList';
@@ -33,7 +33,6 @@ class SearchController extends Controller
                 $message .= $this->yearShortList($from, $body);
             }
 
-            $message .=  $this->chatModel($from, $body);
         }
 
         if($phone->stage_model = 'yearShortList' && $phone->year == null){
@@ -75,6 +74,8 @@ class SearchController extends Controller
 
             $message .= "Search Session was cancelled. Type menu to proceed";
         }
+
+        return $message;
 
 
         // $bodyItems = explode(" ", strtolower($body));
@@ -242,7 +243,7 @@ class SearchController extends Controller
                 $message .= $year ." \n ";
             }
 
-            $message .= "Please Press *9* to view full car list \n ";
+            $message .= "Please Press *9* to view full list \n ";
             $message .= "Please Press *10* to go to previous \n ";
         }
 
@@ -255,18 +256,6 @@ class SearchController extends Controller
 
         $phone = $this->dbSavedRequest($from, $body);
 
-        if($body == 9){
-            $phone->stage_model = 'yearFullList';
-            $phone->save();
-        }
-
-        if($body == 10){
-            $phone->stage_model = 'random';
-            $phone->terminate = true;
-            $phone->finished = true;
-            $phone->save();
-        }
-
         if((int)$body && $body >= 1 && $body <= 8){
             $message .= "Please Select a year \n ";
 
@@ -275,9 +264,6 @@ class SearchController extends Controller
             foreach($years as $year){
                 $message .= $year ." \n ";
             }
-
-            $message .= "Please Press *9* to view full car list \n ";
-            $message .= "Please Press *10* to go to previous \n ";
         }
 
         return $message;
