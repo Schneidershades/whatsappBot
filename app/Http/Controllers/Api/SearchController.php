@@ -26,7 +26,7 @@ class SearchController extends Controller
 
         if($phone->stage_model = 'new'){
 
-            if($body = "F2"){
+            if($body == "F2"){
                 $phone->stage_model = 'yearShortList';
                 $phone->save();
 
