@@ -97,6 +97,7 @@ class SearchController extends Controller
             $phone->phone = $from;
             $phone->request_received = $body;
             $phone->save();
+            return $phone;
 		}
 
 		return $phone;
