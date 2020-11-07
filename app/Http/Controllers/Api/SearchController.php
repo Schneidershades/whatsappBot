@@ -33,11 +33,9 @@ class SearchController extends Controller
 
         }
 
-        return $message;
-
-        if($phone->stage_model == 'yearShortList' && $phone->year == null){
-            // $message .= $this->makeShortList($from, $body);
-        }
+        // if($phone->stage_model == 'yearShortList' && $phone->year == null){
+        //     // $message .= $this->makeShortList($from, $body);
+        // }
 
         // if($phone->stage_model == 'yearFullList' && $phone->year == null){
         //     $message .= $this->makeFullList($from, $body);
@@ -76,6 +74,9 @@ class SearchController extends Controller
         // }
 
         // return $message;
+        
+
+        return $message;
         
 
     }
