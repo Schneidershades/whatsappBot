@@ -105,7 +105,7 @@ class SearchController extends Controller
     {
     	$year = Year::select('year')
 	    		->distinct()
-	    		->orderBy('year', 'asc')
+	    		->orderBy('year', 'desc')
 	    		->limit(8)
 	    		->pluck('year')
 	    		->toArray()
