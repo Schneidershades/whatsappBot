@@ -28,15 +28,15 @@ class SearchController extends Controller
             if($body == "f2"){
                 $phone->stage_model = 'yearShortList';
                 $phone->save();
-                return $phone;
                 $message .= $this->yearShortList($from, $body);
             }
 
         }
 
-        // if($phone->stage_model == 'yearShortList' && $phone->year == null){
-        //     // $message .= $this->makeShortList($from, $body);
-        // }
+        if($phone->stage_model == 'yearShortList' && $phone->year == null){
+          return $phone;
+            // $message .= $this->makeShortList($from, $body);
+        }
 
         // if($phone->stage_model == 'yearFullList' && $phone->year == null){
         //     $message .= $this->makeFullList($from, $body);
