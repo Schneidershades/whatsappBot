@@ -178,37 +178,37 @@ class SearchController extends Controller
         return $message;
     }
 
-  //   public function makeShortList($body, $phone)
-  //   {
-  //       $message = null;
-  //       $message .= "Year selected : $phone->year \n ";
-  //       $message .= "Please Select a your company manufacturer \n ";
+    public function makeShortList($body, $phone)
+    {
+        $message = null;
+        $message .= "Year selected : $phone->year \n ";
+        $message .= "Please Select a your company manufacturer \n ";
 
-  //       $yearItems = Year::where('year', $body)
-  //                   ->select('makeid')
-  //                   ->distinct()
-  //                   ->limit(8)
-  //                   ->pluck('makeid')
-  //                   ->toArray();
+        $yearItems = Year::where('year', $body)
+                    ->select('makeid')
+                    ->distinct()
+                    ->limit(8)
+                    ->pluck('makeid')
+                    ->toArray();
 
-  //       if($yearItems){
-  //           $phone->year = $body;
-  //       }
+        if($yearItems){
+            $phone->year = $body;
+        }
 
-  //       $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+        $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
 
-  //       foreach($makeids as $make){
-  //           $message .= $make->makeid . " - " . $make->company . " \n ";
-  //       }
+        foreach($makeids as $make){
+            $message .= $make->makeid . " - " . $make->company . " \n ";
+        }
 
-  //       $message .= "Please Press *9* to view full list \n ";
-  //       $message .= "Please Press *10* to go to previous \n ";
+        $message .= "Please Press *9* to view full list \n ";
+        $message .= "Please Press *10* to go to previous \n ";
 
-  //       $phone->stage_model = 'make';
-  //       $phone->save();
+        $phone->stage_model = 'make';
+        $phone->save();
 
-  //       return $message;
-  //   }
+        return $message;
+    }
 
   //   public function makeFullList($body, $phone)
   //   {
