@@ -105,7 +105,7 @@ class SearchController extends Controller
     {
     	$year = Year::select('year')
 	    		->distinct()
-	    		->orderBy('year')
+	    		->orderBy('year', 'asc')
 	    		->limit(8)
 	    		->pluck('year')
 	    		->toArray()
@@ -130,7 +130,7 @@ class SearchController extends Controller
         $message = null;
 
         $phone = $this->dbSavedRequest($from, $body);
-        
+
         $message .= "Please Select a year \n ";
 
         $years = $this->shortCarYearsList();
