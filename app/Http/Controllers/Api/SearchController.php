@@ -131,6 +131,8 @@ class SearchController extends Controller
 
         $phone = $this->dbSavedRequest($from, $body);
 
+        return $phone;
+
         if($body == 9){
             $phone->stage_model = 'yearFullList';
             $phone->save();
