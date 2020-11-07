@@ -130,33 +130,17 @@ class SearchController extends Controller
         $message = null;
 
         $phone = $this->dbSavedRequest($from, $body);
+        
+        $message .= "Please Select a year \n ";
 
-        return $phone;
+        $years = $this->shortCarYearsList();
 
-        if($body == 9){
-            $phone->stage_model = 'yearFullList';
-            $phone->save();
+        foreach($years as $year){
+            $message .= $year ." \n ";
         }
 
-        if($body == 10){
-            $phone->stage_model = 'random';
-            $phone->terminate = true;
-            $phone->finished = true;
-            $phone->save();
-        }
-
-        if((int)$body && $body >= 1 && $body <= 8){
-            $message .= "Please Select a year \n ";
-
-            $years = $this->shortCarYearsList();
-
-            foreach($years as $year){
-                $message .= $year ." \n ";
-            }
-
-            $message .= "Please Press *9* to view full list \n ";
-            $message .= "Please Press *10* to go to previous \n ";
-        }
+        $message .= "Please Press *9* to view full list \n ";
+        $message .= "Please Press *10* to go to previous \n ";
 
         return $message;
     }
