@@ -172,10 +172,10 @@ class SearchController extends Controller
     {   
         $message = null;
 
-        $phone = $this->dbSavedRequest($from, $body);
+        return $phone = $this->dbSavedRequest($from, $body);
 
         if($body == 9 && $phone->stage_model = 'yearShortList'){
-            $message .= $this->yearFullList($from, $body);
+            return $this->yearFullList($from, $body);
         }
 
         if($body == 10 && $phone->stage_model = 'yearShortList'){
@@ -184,10 +184,6 @@ class SearchController extends Controller
             $phone->finished = true;
             $phone->save();
         }
-
-
-        $message .= "Year selected : $phone->year \n ";
-        $message .= "Please Select a your company manufacturer \n ";
 
         $yearItems = Year::where('year', $body)
                     ->select('makeid')
