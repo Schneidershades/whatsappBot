@@ -33,13 +33,13 @@ class SearchController extends Controller
 
         }
 
-        if($phone->stage_model == 'yearShortList' && $phone->year == null){
-            return $this->yearShortList($from, $body);
+        if($phone->stage_model == 'yearShortList' || $phone->year == null){
+            return $this->yearResponse($from, $body);
         }
 
-        // if($phone->stage_model == 'yearFullList' && $phone->year == null){
-        //     $message .= $this->makeFullList($from, $body);
-        // }
+        if($phone->stage_model == 'awaitingYear' && $phone->year == null){
+
+        }
 
         // if($phone->stage_model == 'makeShortList' && $phone->make == null){
         //     $message .= $this->modelShortList($from, $body);
@@ -116,12 +116,12 @@ class SearchController extends Controller
     public function fullCarYearsList()
     {
         $year = Year::select('year')
-                ->distinct()
-                ->orderBy('year')
-                ->get()
-                ->pluck('year')
-                ->toArray()
-                ;
+          ->distinct()
+          ->orderBy('year', 'desc')
+          ->get()
+          ->pluck('year')
+          ->toArray()
+          ;
         return $year;
     }
 
@@ -130,6 +130,8 @@ class SearchController extends Controller
         $message = null;
 
         $phone = $this->dbSavedRequest($from, $body);
+        $phone->stage_model = 'awaitingYear';
+        $phone->save();
 
         $message .= "Please Select a year \n ";
 
@@ -139,8 +141,8 @@ class SearchController extends Controller
             $message .= $year ." \n ";
         }
 
-        $message .= "Please Press *9* to view full list \n ";
-        $message .= "Please Press *10* to go to previous \n ";
+        $message .= "Press *9* to view full list \n ";
+        $message .= "Press *10* to go to previous \n ";
 
         return $message;
     }
@@ -154,7 +156,7 @@ class SearchController extends Controller
         if((int)$body && $body >= 1 && $body <= 8){
             $message .= "Please Select a year \n ";
 
-            $years = $this->shortCarYearsList();
+            $years = $this->fullCarYearsList();
 
             foreach($years as $year){
                 $message .= $year ." \n ";
@@ -164,67 +166,125 @@ class SearchController extends Controller
         return $message;
     }
 
-  //   public function makeShortList($body, $phone)
-  //   {
-  //       $message = null;
-  //       $message .= "Year selected : $phone->year \n ";
-  //       $message .= "Please Select a your company manufacturer \n ";
+    public function yearResponseToMakeTable($from, $body)
+    {   
+        $phone = $this->dbSavedRequest($from, $body);
 
-  //       $yearItems = Year::where('year', $body)
-  //                   ->select('makeid')
-  //                   ->distinct()
-  //                   ->limit(8)
-  //                   ->pluck('makeid')
-  //                   ->toArray();
+        if($body == 9 && $phone->stage_model = 'yearShortList'){
+            return $this->yearFullList($from, $body);
+        }
 
-  //       if($yearItems){
-  //           $phone->year = $body;
-  //       }
+        if($body == 10 && $phone->stage_model = 'yearShortList'){
+            $phone->stage_model = 'random';
+            $phone->terminate = true;
+            $phone->finished = true;
+            $phone->save();
+        }
 
-  //       $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+        $message = null;
+        $message .= "Year selected : $phone->year \n ";
+        $message .= "Please Select a your company manufacturer \n ";
 
-  //       foreach($makeids as $make){
-  //           $message .= $make->makeid . " - " . $make->company . " \n ";
-  //       }
+        $yearItems = Year::where('year', $body)
+                    ->select('makeid')
+                    ->distinct()
+                    ->limit(8)
+                    ->pluck('makeid')
+                    ->toArray();
 
-  //       $message .= "Please Press *9* to view full list \n ";
-  //       $message .= "Please Press *10* to go to previous \n ";
+        if($yearItems){
+            $phone->year = $body;
+        }
 
-  //       $phone->stage_model = 'make';
-  //       $phone->save();
+        $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
 
-  //       return $message;
-  //   }
+        foreach($makeids as $make){
+            $message .= $make->makeid . " - " . $make->company . " \n ";
+        }
 
-  //   public function makeFullList($body, $phone)
-  //   {
-  //   	$message = null;
-		// $message .= "Year selected : $phone->year \n ";
-		// $message .= "Please Select a your company manufacturer \n ";
+        $message .= "Please Press *9* to view full list \n ";
+        $message .= "Please Press *10* to go to previous \n ";
 
-		// $yearItems = Year::where('year', $body)
-		// 			->select('makeid')
-		// 			->distinct()
-		// 			->get()
-		// 			->pluck('makeid')
-		// 			->toArray();
+        $phone->stage_model = 'yearShortList';
+        $phone->save();
+
+        return $message;
+    }
+
+    public function makeShortTable($from, $body)
+    {
+        $message = null;
+        $message .= "Year selected : $phone->year \n ";
+        $message .= "Please Select a your company manufacturer \n ";
+
+        $yearItems = Year::where('year', $body)
+              ->select('makeid')
+              ->distinct()
+              ->limit(8)
+              ->pluck('makeid')
+              ->toArray();
 
 
-		// if($yearItems){
-  //   		$phone->year = $body;
-		// }
+        if($yearItems){
+            $phone->year = $body;
+        }
 
-		// $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+        $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
 
-		// foreach($makeids as $make){
-  //   		$message .= $make->makeid . " - " . $make->company . " \n ";
-  //   	}
+        foreach($makeids as $make){
+            $message .= $make->makeid . " - " . $make->company . " \n ";
+          }
 
-  //   	$phone->stage_model = 'make';
-  //   	$phone->save();
+          $phone->stage_model = 'makeShortList';
+          $phone->save();
 
-		// return $message;
-  //   }
+        return $message;
+    }
+
+    public function makeFullList($body, $phone)
+    {
+      	$message = null;
+    		$message .= "Year selected : $phone->year \n ";
+    		$message .= "Please Select a your company manufacturer \n ";
+
+    		$yearItems = Year::where('year', $body)
+    					->select('makeid')
+    					->distinct()
+    					->get()
+    					->pluck('makeid')
+    					->toArray();
+
+    		if($yearItems){
+        		$phone->year = $body;
+    		}
+
+    		$makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+
+    		foreach($makeids as $make){
+        		$message .= $make->makeid . " - " . $make->company . " \n ";
+        	}
+
+        	$phone->stage_model = 'makeShortList';
+        	$phone->save();
+
+    		return $message;
+    }
+
+    public function makeResponse()
+    {
+        $phone = $this->dbSavedRequest($from, $body);
+
+        if($body == 9 && $phone->stage_model = 'makeShortList'){
+            return $this->yearFullList($from, $body);
+        }
+
+        if($body == 10 && $phone->stage_model = 'makeShortList'){
+            $phone->stage_model = 'random';
+            $phone->terminate = true;
+            $phone->finished = true;
+            $phone->save();
+        }
+    }
 
 
   //   public function modelShortList($body, $phone)
