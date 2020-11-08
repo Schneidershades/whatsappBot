@@ -218,6 +218,7 @@ class SearchController extends Controller
             $phone->stage_model = 'yearShortList';
             $phone->save();
         }else{
+          
             $message .= "Invalid Input \n ";
             $message .= $this->yearShortList($from, $body);
         }
