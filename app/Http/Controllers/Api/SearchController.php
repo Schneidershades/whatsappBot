@@ -15,7 +15,7 @@ class SearchController extends Controller
 {
     public function store(Request $request)
     {
-    	$from = $request->input('From');
+    	  $from = $request->input('From');
         $body = strtolower($request->input('Body'));
 
         $client = new \GuzzleHttp\Client();
@@ -37,9 +37,9 @@ class SearchController extends Controller
             return $this->yearResponseToMakeTable($from, $body);
         }
 
-        // if($phone->stage_model == 'awaitingYear' && $phone->year == null){
+        if($phone->stage_model == 'awaitingYear' && $phone->year == null){
 
-        // }
+        }
 
         // if($phone->stage_model == 'makeShortList' && $phone->make == null){
         //     $message .= $this->modelShortList($from, $body);
@@ -83,34 +83,33 @@ class SearchController extends Controller
 
     public function dbSavedRequest($from, $body)
     {
-    	$phone = Search::where('phone', $from)
-			->where('terminate', false)
-			->where('finished', false)
-			->first();
+    	   $phone = Search::where('phone', $from)
+        			->where('terminate', false)
+        			->where('finished', false)
+        			->first();
 
-		if(!$phone){
-			$phone = new Search;
-            $phone->phone = $from;
-            $phone->stage_model = 'new';
-            $phone->request_received = $body;
-            $phone->save();
-            return $phone;
-		}
+    		if(!$phone){
+    			$phone = new Search;
+          $phone->phone = $from;
+          $phone->stage_model = 'new';
+          $phone->request_received = $body;
+          $phone->save();
+          return $phone;
+    		}
 
-		return $phone;
-
+    		return $phone;
     }
 
     public function shortCarYearsList()
     {
-    	$year = Year::select('year')
-	    		->distinct()
-	    		->orderBy('year', 'desc')
-	    		->limit(8)
-	    		->pluck('year')
-	    		->toArray()
-	    		;
-	    return $year;
+      	$year = Year::select('year')
+  	    		->distinct()
+  	    		->orderBy('year', 'desc')
+  	    		->limit(8)
+  	    		->pluck('year')
+  	    		->toArray()
+  	    		;
+  	    return $year;
     }
 
     public function fullCarYearsList()
@@ -159,8 +158,6 @@ class SearchController extends Controller
 
         if($years){
             $message .= "Please Select a year \n ";
-            // $message .= "Please Press *9* to view full list \n ";
-            // $message .= "Please Press *10* to go to previous \n ";
             
             foreach($years as $year){
                 $message .= $year ." \n ";
@@ -168,6 +165,8 @@ class SearchController extends Controller
 
         }else{
             $message .= "No year found at this moment \n ";
+            $message .= "Please Press *9* to view full list \n ";
+            $message .= "Please Press *10* to go to previous \n ";
         }
 
         return $message;
@@ -241,14 +240,13 @@ class SearchController extends Controller
         }
 
         $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
-
+        
         foreach($makeids as $make){
             $message .= $make->makeid . " - " . $make->company . " \n ";
-          }
-
-          $phone->stage_model = 'makeShortList';
-          $phone->save();
-
+            $phone->stage_model = 'makeShortList';
+            $phone->save();
+        }
+        
         return $message;
     }
 
@@ -273,10 +271,10 @@ class SearchController extends Controller
 
     		foreach($makeids as $make){
         		$message .= $make->makeid . " - " . $make->company . " \n ";
-        	}
 
-        	$phone->stage_model = 'makeShortList';
-        	$phone->save();
+        	  $phone->stage_model = 'makeShortList';
+        	  $phone->save();
+        }
 
     		return $message;
     }
