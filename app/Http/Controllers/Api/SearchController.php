@@ -129,6 +129,8 @@ class SearchController extends Controller
     {
         $message = null;
 
+        dd(2);
+
         $phone = $this->dbSavedRequest($from, $body);
         $phone->stage_model = 'yearShortList';
         $phone->save();
@@ -151,10 +153,11 @@ class SearchController extends Controller
     {
         $message = null;
 
+        dd(3);
+
         $phone = $this->dbSavedRequest($from, $body);
         $phone->stage_model = 'yearFullList';
         $phone->save();
-
 
         $years = $this->fullCarYearsList();
 
@@ -162,7 +165,7 @@ class SearchController extends Controller
             foreach($years as $year){
                 $message .= $year ." \n ";
             }
-            
+
             $message .= "Please Select a year \n ";
             $message .= "Please Press *9* to view full list \n ";
             $message .= "Please Press *10* to go to previous \n ";
@@ -214,9 +217,10 @@ class SearchController extends Controller
 
             $phone->stage_model = 'yearShortList';
             $phone->save();
+        }else{
+            $message .= "Invalid Input \n ";
+            $message .= $this->yearShortList($from, $body);
         }
-
-        
 
         return $message;
     }
