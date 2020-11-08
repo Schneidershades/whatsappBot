@@ -163,10 +163,11 @@ class SearchController extends Controller
                 $message .= $year ." \n ";
             }
 
-        }else{
-            $message .= "No year found at this moment \n ";
             $message .= "Please Press *9* to view full list \n ";
             $message .= "Please Press *10* to go to previous \n ";
+
+        }else{
+            $message .= "No year found at this moment \n ";
         }
 
         return $message;
@@ -240,13 +241,13 @@ class SearchController extends Controller
         }
 
         $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
-        
+
         foreach($makeids as $make){
             $message .= $make->makeid . " - " . $make->company . " \n ";
             $phone->stage_model = 'makeShortList';
             $phone->save();
         }
-        
+
         return $message;
     }
 
