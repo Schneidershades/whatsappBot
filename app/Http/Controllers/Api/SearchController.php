@@ -175,7 +175,7 @@ class SearchController extends Controller
         $phone = $this->dbSavedRequest($from, $body);
 
         if($body == 9 && $phone->stage_model = 'yearShortList'){
-            $message .=  $this->yearFullList($from, $body);
+            $message .= $this->yearFullList($from, $body);
         }
 
         if($body == 10 && $phone->stage_model = 'yearShortList'){
