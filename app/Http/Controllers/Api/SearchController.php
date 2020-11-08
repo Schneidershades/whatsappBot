@@ -155,12 +155,19 @@ class SearchController extends Controller
         $phone->stage_model = 'yearFullList';
         $phone->save();
 
-        $message .= "Please Select a year \n ";
 
         $years = $this->fullCarYearsList();
 
-        foreach($years as $year){
-            $message .= $year ." \n ";
+        if($years){
+            foreach($years as $year){
+                $message .= $year ." \n ";
+            }
+            
+            $message .= "Please Select a year \n ";
+            $message .= "Please Press *9* to view full list \n ";
+            $message .= "Please Press *10* to go to previous \n ";
+        }else{
+            $message .= "No year found at this moment \n ";
         }
 
         return $message;
