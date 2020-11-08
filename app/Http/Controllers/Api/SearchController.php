@@ -154,15 +154,13 @@ class SearchController extends Controller
         $phone = $this->dbSavedRequest($from, $body);
         $phone->stage_model = 'yearFullList';
         $phone->save();
+        
+        $message .= "Please Select a year \n ";
 
-        if((int)$body && $body >= 1 && $body <= 8){
-            $message .= "Please Select a year \n ";
+        $years = $this->fullCarYearsList();
 
-            $years = $this->fullCarYearsList();
-
-            foreach($years as $year){
-                $message .= $year ." \n ";
-            }
+        foreach($years as $year){
+            $message .= $year ." \n ";
         }
 
         return $message;
