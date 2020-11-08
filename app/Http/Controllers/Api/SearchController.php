@@ -33,7 +33,7 @@ class SearchController extends Controller
 
         }
 
-        if($phone->stage_model == 'yearShortList' || $phone->year == null){
+        if($phone->stage_model == 'yearShortList' || $phone->stage_model == 'yearFullList' && $phone->year == null){
             return $this->yearResponseToMakeTable($from, $body);
         }
 
@@ -130,7 +130,7 @@ class SearchController extends Controller
         $message = null;
 
         $phone = $this->dbSavedRequest($from, $body);
-        $phone->stage_model = 'awaitingYear';
+        $phone->stage_model = 'yearShortList';
         $phone->save();
 
         $message .= "Please Select a year \n ";
@@ -152,6 +152,8 @@ class SearchController extends Controller
         $message = null;
 
         $phone = $this->dbSavedRequest($from, $body);
+        $phone->stage_model = 'yearFullList';
+        $phone->save();
 
         if((int)$body && $body >= 1 && $body <= 8){
             $message .= "Please Select a year \n ";
@@ -182,6 +184,7 @@ class SearchController extends Controller
         }
 
         $message = null;
+
         $message .= "Year selected : $phone->year \n ";
         $message .= "Please Select a your company manufacturer \n ";
 
@@ -194,19 +197,24 @@ class SearchController extends Controller
 
         if($yearItems){
             $phone->year = $body;
+
+            $message .= "Year selected : $phone->year \n ";
+            $message .= "Please Select a your company manufacturer \n ";
+
+            $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+
+            foreach($makeids as $make){
+                $message .= $make->makeid . " - " . $make->company . " \n ";
+            }
+
+            $message .= "Please Press *9* to view full list \n ";
+            $message .= "Please Press *10* to go to previous \n ";
+
+            $phone->stage_model = 'yearShortList';
+            $phone->save();
         }
 
-        $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
-
-        foreach($makeids as $make){
-            $message .= $make->makeid . " - " . $make->company . " \n ";
-        }
-
-        $message .= "Please Press *9* to view full list \n ";
-        $message .= "Please Press *10* to go to previous \n ";
-
-        $phone->stage_model = 'yearShortList';
-        $phone->save();
+        
 
         return $message;
     }
