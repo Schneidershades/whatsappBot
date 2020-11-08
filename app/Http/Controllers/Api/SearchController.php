@@ -163,8 +163,8 @@ class SearchController extends Controller
                 $message .= $year ." \n ";
             }
 
-            $message .= "Please Press *9* to view full list \n ";
-            $message .= "Please Press *10* to go to previous \n ";
+            $message .= "Press *9* to view full list \n ";
+            $message .= "Press *10* to go to previous \n ";
 
         }else{
             $message .= "No year found at this moment \n ";
