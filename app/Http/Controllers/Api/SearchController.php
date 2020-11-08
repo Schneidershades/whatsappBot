@@ -129,8 +129,6 @@ class SearchController extends Controller
     {
         $message = null;
 
-        dd(2);
-
         $phone = $this->dbSavedRequest($from, $body);
         $phone->stage_model = 'yearShortList';
         $phone->save();
@@ -152,8 +150,6 @@ class SearchController extends Controller
     public function yearFullList($from, $body)
     {
         $message = null;
-
-        dd(3);
 
         $phone = $this->dbSavedRequest($from, $body);
         $phone->stage_model = 'yearFullList';
@@ -218,7 +214,6 @@ class SearchController extends Controller
             $phone->stage_model = 'yearShortList';
             $phone->save();
         }else{
-          
             $message .= "Invalid Input \n ";
             $message .= $this->yearShortList($from, $body);
         }
