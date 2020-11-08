@@ -170,10 +170,12 @@ class SearchController extends Controller
 
     public function yearResponseToMakeTable($from, $body)
     {   
+        $message = null;
+
         $phone = $this->dbSavedRequest($from, $body);
 
         if($body == 9 && $phone->stage_model = 'yearShortList'){
-            return $this->yearFullList($from, $body);
+            $message .=  $this->yearFullList($from, $body);
         }
 
         if($body == 10 && $phone->stage_model = 'yearShortList'){
@@ -183,7 +185,6 @@ class SearchController extends Controller
             $phone->save();
         }
 
-        $message = null;
 
         $message .= "Year selected : $phone->year \n ";
         $message .= "Please Select a your company manufacturer \n ";
