@@ -154,7 +154,7 @@ class SearchController extends Controller
         $phone = $this->dbSavedRequest($from, $body);
         $phone->stage_model = 'yearFullList';
         $phone->save();
-        
+
         $message .= "Please Select a year \n ";
 
         $years = $this->fullCarYearsList();
@@ -170,10 +170,10 @@ class SearchController extends Controller
     {   
         $message = null;
 
-        return $phone = $this->dbSavedRequest($from, $body);
+        $phone = $this->dbSavedRequest($from, $body);
 
         if($body == 9 && $phone->stage_model = 'yearShortList'){
-            return $this->yearFullList($from, $body);
+            $message .= $this->yearFullList($from, $body);
         }
 
         if($body == 10 && $phone->stage_model = 'yearShortList'){
