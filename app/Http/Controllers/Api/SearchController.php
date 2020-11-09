@@ -309,7 +309,7 @@ class SearchController extends Controller
 
             $message .= $this->modelShortList($from, $body);
 
-            $phone->stage_model = 'makeShortList';
+            // $phone->stage_model = 'makeShortList';
             $phone->save();
             // return $phone;
         }else{
