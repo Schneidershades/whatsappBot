@@ -30,8 +30,9 @@ class SearchController extends Controller
                 $phone->save();
                 return $this->yearShortList($from, $body);
             }
-
         }
+
+        dd($phone, 12);
 
         if($phone->stage_model == 'yearShortList' || $phone->stage_model == 'yearFullList' && $phone->year == null){
             dd($phone, 1);
