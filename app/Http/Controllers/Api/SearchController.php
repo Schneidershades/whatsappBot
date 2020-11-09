@@ -218,8 +218,8 @@ class SearchController extends Controller
                 $message .= $make->makeid . " - " . $make->company . " \n ";
             }
 
-            $message .= "Please Press *9* to view full list \n ";
-            $message .= "Please Press *10* to go to previous \n ";
+            $message .= "Please Press *f8* to view full list \n ";
+            $message .= "Please Press *f9* to go to previous \n ";
 
             $phone->stage_model = 'makeShortList';
             $phone->save();
@@ -248,7 +248,7 @@ class SearchController extends Controller
 
             $message .= "Year selected : $phone->year \n ";
             $message .= "Please Select a your company manufacturer \n ";
-            
+
             $phone->year = $body;
 
             $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
@@ -258,9 +258,10 @@ class SearchController extends Controller
                 $phone->stage_model = 'makeShortList';
                 $phone->save();
             }
+        }else{
+            $message .= "Invalid Input \n ";
+            $message .= $this->yearShortList($from, $body);
         }
-
-            
 
         // return $message;
         
