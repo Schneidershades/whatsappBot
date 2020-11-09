@@ -244,6 +244,8 @@ class SearchController extends Controller
               ->pluck('makeid')
               ->toArray();
 
+        dd($yearItems);
+
         if($yearItems){
 
             $message .= "Year selected : $phone->year \n ";
@@ -255,8 +257,8 @@ class SearchController extends Controller
 
             foreach($makeids as $make){
                 $message .= $make->makeid . " - " . $make->company . " \n ";
-                $phone->stage_model = 'makeShortList';
-                $phone->save();
+                // $phone->stage_model = 'makeShortList';
+                // $phone->save();
             }
         }else{
             $message .= "No model was found for the selected car manufacturer \n ";
@@ -438,8 +440,6 @@ class SearchController extends Controller
               ->limit(8)
               ->pluck('makeid')
               ->toArray();
-
-        dd($yearItems);
 
         if($yearItems){
             $phone->year = $body;
