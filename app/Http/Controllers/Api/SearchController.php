@@ -362,7 +362,7 @@ class SearchController extends Controller
 
         if($models){
             $phone->year = $body;
-        }
+        } 
 
         $models = CarModel::whereIn('makeid', $models)->get();
 
