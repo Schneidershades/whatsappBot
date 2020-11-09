@@ -182,11 +182,11 @@ class SearchController extends Controller
 
         $phone = $this->dbSavedRequest($from, $body);
 
-        if($body == 'f9' && $phone->stage_model = 'yearShortList'){
+        if($body == 'f8' && $phone->stage_model = 'yearShortList'){
             return $this->yearFullList($from, $body);
         }
 
-        if($body == 'f10' && $phone->stage_model = 'yearShortList'){
+        if($body == 'f9' && $phone->stage_model = 'yearShortList'){
             $phone->stage_model = 'random';
             $phone->terminate = true;
             $phone->finished = true;
@@ -287,11 +287,11 @@ class SearchController extends Controller
     {
         return $phone = $this->dbSavedRequest($from, $body);
 
-        if($body == 'f9' && $phone->stage_model = 'makeShortList'){
+        if($body == 'f8' && $phone->stage_model = 'makeShortList'){
             return $this->makeFullList($from, $body);
         }
 
-        if($body == 'f10' && $phone->stage_model = 'makeShortList'){
+        if($body == 'f9' && $phone->stage_model = 'makeShortList'){
             $phone->stage_model = 'random';
             $phone->terminate = true;
             $phone->finished = true;
