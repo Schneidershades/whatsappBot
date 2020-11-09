@@ -328,13 +328,10 @@ class SearchController extends Controller
             $phone->make = $make->company;
             $phone->make_id = $make->makeid;
 
-            $message .= "Year selected : $phone->year \n ";
-            $message .= "Car Manufacturer Selection : $make->company\n  \n ";
+            
 
             $message .= $this->modelShortList($from, $body);
 
-            $message .= "Press *f9* to go to previous \n ";
-            $message .= "Press *x* to cancel session \n ";
 
             // $phone->stage_model = 'modelShortList';
             $phone->save();
@@ -354,30 +351,32 @@ class SearchController extends Controller
 
         $message = null;
         $message .= "Year selected : $phone->year \n ";
-        $message .= "Please Select a your company manufacturer \n ";
+        $message .= "Car Manufacturer Selection : $make->company\n \n";
 
-        $yearItems = Year::where('year', $phone->year)
-              ->where('makeid', $phone->year)
-              ->select('makeid')
+        $models = Year::where('year', $phone->year)
+              ->where('makeid', $phone->make_id)
+              ->select('modelid')
               ->distinct()
               ->limit(8)
-              ->pluck('makeid')
+              ->pluck('modelid')
               ->toArray();
 
-        if($yearItems){
+        if($models){
             $phone->year = $body;
         }
 
-        $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+        $makeids = Model::whereIn('makeid', $models)->get();
+
+        dd($makeids);
 
         foreach($makeids as $make){
             $message .= $make->makeid . " - " . $make->company . " \n ";
         }
+        
+        $message .= "Press *f9* to go to previous \n ";
+        $message .= "Press *x* to cancel session \n ";
 
-        $message .= "Please Press *9* to view full list \n ";
-        $message .= "Please Press *10* to go to previous \n ";
-
-        $phone->stage_model = 'make';
+        // $phone->stage_model = 'make';
         $phone->save();
 
         return $message;
