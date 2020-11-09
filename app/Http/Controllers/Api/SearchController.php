@@ -249,7 +249,7 @@ class SearchController extends Controller
 
     public function makeFullList($from, $body)
     {
-        dd(990)
+        dd(990);
       	$message = null;
     		$message .= "Year selected : $phone->year \n ";
     		$message .= "Please Select a your company manufacturer \n ";
