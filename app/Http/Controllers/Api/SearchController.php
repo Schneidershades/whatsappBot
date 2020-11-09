@@ -365,7 +365,7 @@ class SearchController extends Controller
             $phone->year = $body;
         }
 
-        $makeids = Model::whereIn('makeid', $models)->get();
+        $makeids = CarModel::whereIn('makeid', $models)->get();
 
         dd($makeids);
 
