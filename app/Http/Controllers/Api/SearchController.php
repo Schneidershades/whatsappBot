@@ -319,23 +319,16 @@ class SearchController extends Controller
         $message = null;
 
         $yearItems = Year::where('year', $phone->year)
-              ->where('makeid', $body)
-              ->select('makeid')
-              ->distinct()
-              ->limit(8)
-              ->pluck('makeid')
-              ->toArray();
+              ->where('makeid', $body)->first();
 
         if($yearItems){ 
 
-            $make = Make::where('makeid', $yearItems)->first();
+            $make = Make::where('makeid', $yearItems->makeid)->first();
 
             $phone->make = $make->company;
 
             $message .= "Year selected : $phone->year \n ";
             $message .= "Car Manufacturer Selection : $make->company\n ";
-
-
 
             // foreach($makeids as $make){
             //     $message .= $make->makeid . " - " . $make->company . " \n ";
@@ -362,16 +355,20 @@ class SearchController extends Controller
 
     public function modelShortList($body, $phone)
     {
+
+        $phone = $this->dbSavedRequest($from, $body);
+
         $message = null;
         $message .= "Year selected : $phone->year \n ";
         $message .= "Please Select a your company manufacturer \n ";
 
-        $yearItems = Year::where('year', $body)
-                    ->select('makeid')
-                    ->distinct()
-                    ->limit(8)
-                    ->pluck('makeid')
-                    ->toArray();
+        $yearItems = Year::where('year', $phone->year)
+              ->where('makeid', $phone->year)
+              ->select('makeid')
+              ->distinct()
+              ->limit(8)
+              ->pluck('makeid')
+              ->toArray();
 
         if($yearItems){
             $phone->year = $body;
