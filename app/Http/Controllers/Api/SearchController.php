@@ -260,7 +260,7 @@ class SearchController extends Controller
             }
         }else{
             $message .= "No model was found for the selected car manufacturer \n ";
-            $message .= $this->yearShortList($from, $body);
+            // $message .= $this->yearShortList($from, $body);
         }
 
         // return $message;
