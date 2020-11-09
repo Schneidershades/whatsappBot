@@ -326,25 +326,29 @@ class SearchController extends Controller
               ->pluck('makeid')
               ->toArray();
 
-        if($yearItems){
-            $phone->year = $body;
+        if($yearItems){ 
+
+            $makeids = Make::where('makeid', $yearItems)->first();
+
+            $phone->make = $make->company;
+
             $message .= "Year selected : $phone->year \n ";
-            $message .= "Please Select a your company manufacturer \n ";
+            $message .= "Car Manufacturer Selection : $make->company\n ";
 
-            $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
 
-            foreach($makeids as $make){
-                $message .= $make->makeid . " - " . $make->company . " \n ";
-            }
 
-            if($makeids->count() > 8){
-              $message .= "Please Press *f8* to view full list \n ";
-            }
+            // foreach($makeids as $make){
+            //     $message .= $make->makeid . " - " . $make->company . " \n ";
+            // }
+
+            // if($makeids->count() > 8){
+            //   $message .= "Please Press *f8* to view full list \n ";
+            // }
             
-            $message .= "Please Press *f9* to go to previous \n ";
+            // $message .= "Please Press *f9* to go to previous \n ";
 
-            $phone->stage_model = 'modelShortList';
-            $phone->save();
+            // $phone->stage_model = 'modelShortList';
+            // $phone->save();
         }else{
             $message .= "Invalid Input \n ";
             $message .= $this->makeShortTable($from, $body);
