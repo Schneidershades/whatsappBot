@@ -368,12 +368,10 @@ class SearchController extends Controller
             $phone->year = $body;
         }
 
-        $makeids = CarModel::whereIn('makeid', $models)->get();
+        $models = CarModel::whereIn('makeid', $models)->get();
 
-        dd($makeids);
-
-        foreach($makeids as $make){
-            $message .= $make->makeid . " - " . $make->company . " \n ";
+        foreach($models as $models){
+            $message .= $models->modelid . " - " . $models->model . " \n ";
         }
         
         $message .= "Press *f9* to go to previous \n ";
