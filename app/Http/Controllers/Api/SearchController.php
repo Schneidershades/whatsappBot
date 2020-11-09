@@ -362,7 +362,7 @@ class SearchController extends Controller
               ->pluck('modelid')
               ->toArray();
 
-        dd($models);
+        // dd($models);
 
         if($models){
             $phone->year = $body;
