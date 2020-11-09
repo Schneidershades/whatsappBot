@@ -330,11 +330,12 @@ class SearchController extends Controller
 
             
 
-            $message .= $this->modelShortList($from, $body);
+            // $message .= $this->modelShortList($from, $body);
 
 
             // $phone->stage_model = 'modelShortList';
             $phone->save();
+            return $phone;
         }else{
             $message .= "Invalid Input \n ";
             $message .= $this->makeShortTable($from, $body);
