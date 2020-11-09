@@ -215,7 +215,7 @@ class SearchController extends Controller
             $message .= "Please Press *9* to view full list \n ";
             $message .= "Please Press *10* to go to previous \n ";
 
-            $phone->stage_model = 'yearShortList';
+            $phone->stage_model = 'makeShortList';
             $phone->save();
         }else{
             $message .= "Invalid Input \n ";
