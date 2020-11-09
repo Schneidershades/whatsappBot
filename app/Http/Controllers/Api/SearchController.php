@@ -361,21 +361,24 @@ class SearchController extends Controller
               ->toArray();
 
         if($models){
-            $phone->year = $body;
+            $models = CarModel::whereIn('makeid', $models)->get();
+
+            dd($models);
+
+            foreach($models as $models){
+                $message .= $models->modelid . " - " . $models->model . " \n ";
+            }
+            
+            $message .= "Please Press *f8* to view full list \n ";
+            $message .= "Press *f9* to go to previous \n ";
+            $message .= "Press *x* to cancel session \n ";
+
+            $phone->stage_model = 'modelShortList';
+
+            $phone->save();
         } 
 
-        $models = CarModel::whereIn('makeid', $models)->get();
-
-        foreach($models as $models){
-            $message .= $models->modelid . " - " . $models->model . " \n ";
-        }
-        
-        $message .= "Press *f9* to go to previous \n ";
-        $message .= "Press *x* to cancel session \n ";
-
-        $phone->stage_model = 'modelShortList';
-
-        $phone->save();
+            
 
         return $message;
     }
