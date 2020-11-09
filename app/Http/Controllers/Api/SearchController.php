@@ -351,7 +351,7 @@ class SearchController extends Controller
 
         $message = null;
         $message .= "Year selected : $phone->year \n ";
-        $message .= "Car Manufacturer Selection : $make->company\n \n";
+        $message .= "Car Manufacturer Selection : $phone->make\n \n";
 
         $models = Year::where('year', $phone->year)
               ->where('makeid', $phone->make_id)
