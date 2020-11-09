@@ -284,7 +284,7 @@ class SearchController extends Controller
 
     public function makeResponseToModelTable($from, $body)
     {
-        $phone = $this->dbSavedRequest($from, $body);
+        return $phone = $this->dbSavedRequest($from, $body);
 
         if($body == 'f9' && $phone->stage_model = 'makeShortList'){
             return $this->makeFullList($from, $body);
