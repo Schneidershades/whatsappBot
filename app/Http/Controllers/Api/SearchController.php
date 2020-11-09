@@ -253,16 +253,14 @@ class SearchController extends Controller
 
             $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
 
-            dd($yearItems);
-
             foreach($makeids as $make){
                 $message .= $make->makeid . " - " . $make->company . " \n ";
             }
-            
+
             // $phone->stage_model = 'makeShortList';
             // $phone->save();
         }else{
-            $message .= "No model was found for the selected car manufacturer \n ";
+            // $message .= "No car was found for the selected car manufacturer \n ";
             // $message .= $this->yearShortList($from, $body);
         }
 
@@ -320,15 +318,15 @@ class SearchController extends Controller
 
         $message = null;
 
-
-        dd(59);
-
-        $yearItems = Year::where('year', $body)
+        $yearItems = Year::where('year', $phone->body)
+              ->where('makeid', $body)
               ->select('makeid')
               ->distinct()
               ->limit(8)
               ->pluck('makeid')
               ->toArray();
+
+        dd($yearItems);
 
         if($yearItems){
             $phone->year = $body;
