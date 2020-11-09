@@ -249,6 +249,8 @@ class SearchController extends Controller
 
     public function makeFullList($from, $body)
     {
+        $phone = $this->dbSavedRequest($from, $body);
+        
       	$message = null;
 
     		$yearItems = Year::where('year', $body)
@@ -262,7 +264,7 @@ class SearchController extends Controller
 
             $message .= "Year selected : $phone->year \n ";
             $message .= "Please Select a your company manufacturer \n ";
-            
+
         		$phone->year = $body;
 
             $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
