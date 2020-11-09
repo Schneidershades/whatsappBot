@@ -306,6 +306,8 @@ class SearchController extends Controller
     {
         $phone = $this->dbSavedRequest($from, $body);
 
+        dd(55);
+
         if($body == 'f8' && $phone->stage_model = 'makeShortList'){
             return $this->makeFullList($from, $body);
         }
