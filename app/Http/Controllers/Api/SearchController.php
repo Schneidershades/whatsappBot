@@ -52,25 +52,6 @@ class SearchController extends Controller
             return $this->componentResponse($from, $body);
         }
 
-        // if($phone->stage_model == 'makeFullList' && $phone->make == null){
-        //     $message .= $this->modelFullList($from, $body);
-        // }
-
-        // if($phone->stage_model == 'modelShortList' && $phone->model == null){
-
-        // }
-
-        // if($phone->stage_model == 'modelFullList' && $phone->model == null){
-
-        // }
-
-        // if($phone->stage_model == 'componentShortList' && $phone->component == null){
-
-        // }
-
-        // if($phone->stage_model == 'componentFullList' && $phone->component == null){
-
-        // }
 
         // if($body == 'cancel'){
         //     $phone->terminate = true;
