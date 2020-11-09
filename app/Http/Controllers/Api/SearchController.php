@@ -345,7 +345,8 @@ class SearchController extends Controller
             //   $message .= "Please Press *f8* to view full list \n ";
             // }
             
-            // $message .= "Please Press *f9* to go to previous \n ";
+            $message .= "Press *f9* to go to previous \n ";
+            $message .= "Press *x* to cancel session \n ";
 
             // $phone->stage_model = 'modelShortList';
             // $phone->save();
