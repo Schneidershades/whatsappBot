@@ -49,7 +49,7 @@ class SearchController extends Controller
         }
 
         if($phone->stage_model == 'componentShortList' || $phone->stage_model == 'componentFullList' && $phone->make == null){
-            return $this->componentResponse($from, $body)
+            return $this->componentResponse($from, $body);
         }
 
         // if($phone->stage_model == 'makeFullList' && $phone->make == null){
