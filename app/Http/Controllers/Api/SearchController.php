@@ -289,7 +289,7 @@ class SearchController extends Controller
 
     public function makeResponseToModelTable($from, $body)
     {
-        return $phone = $this->dbSavedRequest($from, $body);
+        $phone = $this->dbSavedRequest($from, $body);
 
         if($body == 'f8' && $phone->stage_model = 'makeShortList'){
             return $this->makeFullList($from, $body);
