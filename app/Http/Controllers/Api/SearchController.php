@@ -360,13 +360,11 @@ class SearchController extends Controller
               ->pluck('modelid')
               ->toArray();
 
-        // dd($models);
-
         if($models){
             $phone->year = $body;
         }
 
-        $models = CarModel::whereIn('makeid', $models)->limit(8);
+        $models = CarModel::whereIn('makeid', $models)->limit(10);
 
         foreach($models as $models){
             $message .= $models->modelid . " - " . $models->model . " \n ";
@@ -375,7 +373,8 @@ class SearchController extends Controller
         $message .= "Press *f9* to go to previous \n ";
         $message .= "Press *x* to cancel session \n ";
 
-        // $phone->stage_model = 'make';
+        $phone->stage_model = 'modelShortList';
+
         $phone->save();
 
         return $message;
@@ -453,6 +452,7 @@ class SearchController extends Controller
             $message .= "Please Press *f9* to go to previous \n ";
 
             $phone->stage_model = 'modelShortList';
+            
             $phone->save();
         }else{
             $message .= "Invalid Input \n ";
@@ -467,10 +467,6 @@ class SearchController extends Controller
     public function componentResponse()
     {
     }
-
-
-
-
 
     public function chatModel()
     {
