@@ -37,6 +37,7 @@ class SearchController extends Controller
         }
 
         if($phone->stage_model == 'makeShortList' || $phone->stage_model == 'makeFullList' && $phone->make == null){
+            dd(99);
             return $this->makeResponseToModelTable($from, $body);
         }
 
@@ -235,8 +236,8 @@ class SearchController extends Controller
                 $message .= $make->makeid . " - " . $make->company . " \n ";
             }
 
-            // $phone->stage_model = 'makeShortList';
-            // $phone->save();
+            $phone->stage_model = 'makeShortList';
+            $phone->save();
         }else{
             // $message .= "No car was found for the selected car manufacturer \n ";
             // $message .= $this->yearShortList($from, $body);
@@ -308,7 +309,7 @@ class SearchController extends Controller
 
             $message .= $this->modelShortList($from, $body);
 
-            // $phone->stage_model = 'modelShortList';
+            $phone->stage_model = 'makeShortList';
             $phone->save();
             // return $phone;
         }else{
@@ -353,9 +354,6 @@ class SearchController extends Controller
 
             $phone->save();
         } 
-
-            
-
         return $message;
     }
 
