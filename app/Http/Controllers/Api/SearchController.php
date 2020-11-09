@@ -33,12 +33,15 @@ class SearchController extends Controller
 
         }
 
+        return $phone;
+
         if($phone->stage_model == 'yearShortList' || $phone->stage_model == 'yearFullList' && $phone->year == null){
             return $this->yearResponseToMakeTable($from, $body);
         }
 
-        if($phone->stage_model == 'awaitingYear' && $phone->year == null){
-
+        if($phone->stage_model == 'makeShortList' || $phone->stage_model == 'makeFullList' && $phone->year == null){
+            return $phone;
+            // return $this->makeResponseToMakeTable($from, $body);
         }
 
         // if($phone->stage_model == 'makeShortList' && $phone->make == null){
@@ -140,8 +143,8 @@ class SearchController extends Controller
             $message .= $year ." \n ";
         }
 
-        $message .= "Press *9* to view full list \n ";
-        $message .= "Press *10* to go to previous \n ";
+        $message .= "Press *F9* to view full list \n ";
+        $message .= "Press *F8* to go to previous \n ";
 
         return $message;
     }
@@ -181,11 +184,11 @@ class SearchController extends Controller
 
         $phone = $this->dbSavedRequest($from, $body);
 
-        if($body == 9 && $phone->stage_model = 'yearShortList'){
+        if($body == 'f9' && $phone->stage_model = 'yearShortList'){
             return $this->yearFullList($from, $body);
         }
 
-        if($body == 10 && $phone->stage_model = 'yearShortList'){
+        if($body == 'f10' && $phone->stage_model = 'yearShortList'){
             $phone->stage_model = 'random';
             $phone->terminate = true;
             $phone->finished = true;
@@ -237,7 +240,6 @@ class SearchController extends Controller
               ->pluck('makeid')
               ->toArray();
 
-
         if($yearItems){
             $phone->year = $body;
         }
@@ -274,23 +276,24 @@ class SearchController extends Controller
 
     		foreach($makeids as $make){
         		$message .= $make->makeid . " - " . $make->company . " \n ";
-
-        	  $phone->stage_model = 'makeShortList';
-        	  $phone->save();
         }
+
+
+        $phone->stage_model = 'makeShortList';
+        $phone->save();
 
     		return $message;
     }
 
-    public function makeResponse()
+    public function makeResponseToMakeTable()
     {
         $phone = $this->dbSavedRequest($from, $body);
 
-        if($body == 9 && $phone->stage_model = 'makeShortList'){
+        if($body == 'f9' && $phone->stage_model = 'makeShortList'){
             return $this->yearFullList($from, $body);
         }
 
-        if($body == 10 && $phone->stage_model = 'makeShortList'){
+        if($body == 'f10' && $phone->stage_model = 'makeShortList'){
             $phone->stage_model = 'random';
             $phone->terminate = true;
             $phone->finished = true;
