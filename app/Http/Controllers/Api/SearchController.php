@@ -38,7 +38,6 @@ class SearchController extends Controller
         }
 
         if($phone->stage_model == 'makeShortList' || $phone->stage_model == 'makeFullList' && $phone->make == null){
-           
             return $this->makeResponseToModelTable($from, $body);
         }
 
@@ -306,13 +305,12 @@ class SearchController extends Controller
     {
         $phone = $this->dbSavedRequest($from, $body);
 
-        dd(55);
 
-        if($body == 'f8' && $phone->stage_model = 'makeShortList'){
+        if($body == 'f8' && $phone->stage_model == 'makeShortList'){
             return $this->makeFullList($from, $body);
         }
 
-        if($body == 'f9' && $phone->stage_model = 'makeShortList'){
+        if($body == 'f9' && $phone->stage_model == 'makeShortList'){
             $phone->stage_model = 'random';
             $phone->terminate = true;
             $phone->finished = true;
@@ -320,6 +318,9 @@ class SearchController extends Controller
         }
 
         $message = null;
+
+
+        dd(59);
 
         $yearItems = Year::where('year', $body)
               ->select('makeid')
