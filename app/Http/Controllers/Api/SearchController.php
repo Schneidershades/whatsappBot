@@ -222,7 +222,7 @@ class SearchController extends Controller
             $message .= $this->yearShortList($from, $body);
         }
 
-        return $message;
+        dd($phone, 1);
     }
 
     public function makeShortTable($from, $body)
@@ -250,7 +250,9 @@ class SearchController extends Controller
             $phone->save();
         }
 
-        return $message;
+        // return $message;
+        
+        dd($phone, 2);
     }
 
     public function makeFullList($from, $body)
@@ -279,6 +281,8 @@ class SearchController extends Controller
 
         $phone->stage_model = 'makeFullList';
         $phone->save();
+        
+        dd($phone, 3);
 
     		return $message;
     }
@@ -326,6 +330,8 @@ class SearchController extends Controller
             $message .= "Invalid Input \n ";
             $message .= $this->makeShortTable($from, $body);
         }
+        
+        dd($phone, 4);
 
         return $message;
     }
