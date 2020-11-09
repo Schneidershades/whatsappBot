@@ -41,7 +41,6 @@ class SearchController extends Controller
         }
 
         if($phone->stage_model == 'modelShortList' || $phone->stage_model == 'modelFullList' && $phone->make == null){
-            dd(9);
             return $this->modelResponseToComponentTable($from, $body);
         }
 
@@ -341,8 +340,6 @@ class SearchController extends Controller
 
         if($items){
             $models = CarModel::whereIn('makeid', $models)->get();
-
-            dd($models);
 
             foreach($models as $models){
                 $message .= $models->modelid . " - " . $models->model . " \n ";
