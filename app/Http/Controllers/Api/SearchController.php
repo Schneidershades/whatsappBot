@@ -366,7 +366,7 @@ class SearchController extends Controller
             $phone->year = $body;
         }
 
-        $models = CarModel::whereIn('makeid', $models)->get();
+        $models = CarModel::whereIn('makeid', $models)->limit(8);
 
         foreach($models as $models){
             $message .= $models->modelid . " - " . $models->model . " \n ";
