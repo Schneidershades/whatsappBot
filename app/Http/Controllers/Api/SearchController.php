@@ -324,7 +324,7 @@ class SearchController extends Controller
             $message .= "Please Press *f8* to view full list \n ";
             $message .= "Please Press *f9* to go to previous \n ";
 
-            $phone->stage_model = 'modelShortList';
+            $phone->stage_model = 'makeShortList';
             $phone->save();
         }else{
             $message .= "Invalid Input \n ";
