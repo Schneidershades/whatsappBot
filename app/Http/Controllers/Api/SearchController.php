@@ -331,8 +331,7 @@ class SearchController extends Controller
             $message .= "Year selected : $phone->year \n ";
             $message .= "Car Manufacturer Selection : $make->company\n  \n ";
 
-
-            
+            $message .= $this->modelShortList($from, $body);
 
             $message .= "Press *f9* to go to previous \n ";
             $message .= "Press *x* to cancel session \n ";
@@ -349,7 +348,7 @@ class SearchController extends Controller
         return $message;
     }
 
-    public function modelShortList($body, $phone)
+    public function modelShortList($from, $body)
     {
         $phone = $this->dbSavedRequest($from, $body);
 
