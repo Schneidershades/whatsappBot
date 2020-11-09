@@ -253,12 +253,13 @@ class SearchController extends Controller
 
       	$message = null;
 
-    		$yearItems = Year::where('year', $body)
-    					->select('makeid')
-    					->distinct()
-    					->get()
-    					->pluck('makeid')
-    					->toArray();
+    		$yearItems = Year::where('year', $phone->year)
+              ->where('makeid', $body)
+              ->select('makeid')
+              ->distinct()
+              ->get()
+              ->pluck('makeid')
+              ->toArray();
 
         dd($yearItems);
 
