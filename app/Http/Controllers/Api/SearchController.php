@@ -37,7 +37,7 @@ class SearchController extends Controller
             return $this->yearResponseToMakeTable($from, $body);
         }
 
-        if($phone->stage_model == 'makeShortList' || $phone->stage_model == 'makeFullList' && $phone->year == null){
+        if($phone->stage_model == 'makeShortList' || $phone->stage_model == 'makeFullList' && $phone->make == null){
             // dd($phone, 2);
             return $this->makeResponseToModelTable($from, $body);
         }
@@ -222,7 +222,7 @@ class SearchController extends Controller
             $message .= $this->yearShortList($from, $body);
         }
 
-        dd($phone, 1);
+        dd($phone, 1, $message);
     }
 
     public function makeShortTable($from, $body)
@@ -252,7 +252,7 @@ class SearchController extends Controller
 
         // return $message;
         
-        dd($phone, 2);
+        dd($phone, 2, $message);
     }
 
     public function makeFullList($from, $body)
@@ -282,9 +282,9 @@ class SearchController extends Controller
         $phone->stage_model = 'makeFullList';
         $phone->save();
         
-        dd($phone, 3);
+        dd($phone, 3, $message);
 
-    		return $message;
+    		// return $message;
     }
 
     public function makeResponseToModelTable($from, $body)
@@ -331,7 +331,7 @@ class SearchController extends Controller
             $message .= $this->makeShortTable($from, $body);
         }
         
-        dd($phone, 4);
+        dd($phone, 4, $message);
 
         return $message;
     }
