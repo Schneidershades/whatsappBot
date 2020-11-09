@@ -257,9 +257,10 @@ class SearchController extends Controller
 
             foreach($makeids as $make){
                 $message .= $make->makeid . " - " . $make->company . " \n ";
-                // $phone->stage_model = 'makeShortList';
-                // $phone->save();
             }
+            
+            // $phone->stage_model = 'makeShortList';
+            // $phone->save();
         }else{
             $message .= "No model was found for the selected car manufacturer \n ";
             // $message .= $this->yearShortList($from, $body);
