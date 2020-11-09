@@ -352,7 +352,7 @@ class SearchController extends Controller
         $message .= "Car Manufacturer Selection : $phone->make\n \n";
         $message .= "Please Select the $phone->make Model \n ";
 
-        $models = Year::where('year', $phone->year)
+        $items = Year::where('year', $phone->year)
               ->where('makeid', $phone->make_id)
               ->select('modelid')
               ->distinct()
@@ -360,7 +360,9 @@ class SearchController extends Controller
               ->pluck('modelid')
               ->toArray();
 
-        if($models){
+        dd($items);
+
+        if($items){
             $models = CarModel::whereIn('makeid', $models)->get();
 
             dd($models);
