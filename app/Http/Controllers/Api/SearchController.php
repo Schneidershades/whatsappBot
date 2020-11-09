@@ -321,8 +321,8 @@ class SearchController extends Controller
             foreach($makeids as $make){
                 $message .= $make->makeid . " - " . $make->company . " \n ";
             }
-            $message .= "Please Press *9* to view full list \n ";
-            $message .= "Please Press *10* to go to previous \n ";
+            $message .= "Please Press *f8* to view full list \n ";
+            $message .= "Please Press *f9* to go to previous \n ";
 
             $phone->stage_model = 'modelShortList';
             $phone->save();
