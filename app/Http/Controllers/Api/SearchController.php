@@ -339,10 +339,10 @@ class SearchController extends Controller
               ->toArray();
 
         if($items){
-            $models = CarModel::whereIn('makeid', $models)->get();
+            $models = CarModel::whereIn('makeid', $items)->get();
 
-            foreach($models as $models){
-                $message .= $models->modelid . " - " . $models->model . " \n ";
+            foreach($models as $model){
+                $message .= $model->modelid . " - " . $models->mode . " \n ";
             }
             
             $message .= "Please Press *f8* to view full list \n ";
