@@ -328,12 +328,9 @@ class SearchController extends Controller
             $phone->make = $make->company;
             $phone->make_id = $make->makeid;
 
-            
-
             $message .= $this->modelShortList($from, $body);
 
-
-            // $phone->stage_model = 'modelShortList';
+            $phone->stage_model = 'modelShortList';
             $phone->save();
             // return $phone;
         }else{
@@ -353,6 +350,7 @@ class SearchController extends Controller
         $message = null;
         $message .= "Year selected : $phone->year \n ";
         $message .= "Car Manufacturer Selection : $phone->make\n \n";
+        $message .= "Please Select the $phone->make Model \n ";
 
         $models = Year::where('year', $phone->year)
               ->where('makeid', $phone->make_id)
