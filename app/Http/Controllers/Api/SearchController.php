@@ -259,7 +259,7 @@ class SearchController extends Controller
                 $phone->save();
             }
         }else{
-            $message .= "Invalid Input \n ";
+            $message .= "No model was found for the selected car manufacturer \n ";
             $message .= $this->yearShortList($from, $body);
         }
 
