@@ -34,11 +34,12 @@ class SearchController extends Controller
         }
 
         if($phone->stage_model == 'yearShortList' || $phone->stage_model == 'yearFullList' && $phone->year == null){
+            dd($phone, 1);
             return $this->yearResponseToMakeTable($from, $body);
         }
 
         if($phone->stage_model == 'makeShortList' || $phone->stage_model == 'makeFullList' && $phone->year == null){
-            dd($phone);
+            dd($phone, 2);
             return $this->makeResponseToModelTable($from, $body);
         }
 
