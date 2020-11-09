@@ -355,12 +355,12 @@ class SearchController extends Controller
         $message .= "Car Manufacturer Selection : $phone->make\n \n";
 
         $models = Year::where('year', $phone->year)
-              ->where('makeid', $phone->make_id)->get();
-              // ->select('modelid')
-              // ->distinct()
-              // ->limit(8)
-              // ->pluck('modelid')
-              // ->toArray();
+              ->where('makeid', $phone->make_id)
+              ->select('modelid')
+              ->distinct()
+              ->limit(8)
+              ->pluck('modelid')
+              ->toArray();
 
         dd($models);
 
