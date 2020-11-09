@@ -44,6 +44,7 @@ class SearchController extends Controller
         // dd('com');
 
         if($phone->stage_model == 'modelShortList' || $phone->stage_model == 'modelFullList' && $phone->make == null){
+            dd(9);
             return $this->modelResponseToComponentTable($from, $body);
         }
 
