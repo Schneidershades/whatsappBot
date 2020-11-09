@@ -364,7 +364,7 @@ class SearchController extends Controller
             $phone->year = $body;
         }
 
-        $models = CarModel::whereIn('makeid', $models)->limit(10);
+        $models = CarModel::whereIn('makeid', $models)->limit(10)->get();
 
         foreach($models as $models){
             $message .= $models->modelid . " - " . $models->model . " \n ";
@@ -452,7 +452,7 @@ class SearchController extends Controller
             $message .= "Please Press *f9* to go to previous \n ";
 
             $phone->stage_model = 'modelShortList';
-            
+
             $phone->save();
         }else{
             $message .= "Invalid Input \n ";
