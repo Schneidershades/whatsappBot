@@ -353,6 +353,8 @@ class SearchController extends Controller
         $message .= "Year selected : $phone->year \n ";
         $message .= "Car Manufacturer Selection : $phone->make\n \n";
 
+        dd($phone->year, $phone->make_id);
+
         $models = Year::where('year', $phone->year)
               ->where('makeid', $phone->make_id)->get();
               // ->select('modelid')
