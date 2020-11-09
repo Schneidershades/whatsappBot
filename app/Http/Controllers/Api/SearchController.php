@@ -326,14 +326,14 @@ class SearchController extends Controller
               ->pluck('makeid')
               ->toArray();
 
-        dd($yearItems);
-
         if($yearItems){
             $phone->year = $body;
             $message .= "Year selected : $phone->year \n ";
             $message .= "Please Select a your company manufacturer \n ";
 
             $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+
+            dd($makeids);
 
             foreach($makeids as $make){
                 $message .= $make->makeid . " - " . $make->company . " \n ";
