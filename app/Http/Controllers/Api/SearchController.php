@@ -326,23 +326,19 @@ class SearchController extends Controller
             $make = Make::where('makeid', $yearItems->makeid)->first();
 
             $phone->make = $make->company;
+            $phone->make_id = $make->makeid;
 
             $message .= "Year selected : $phone->year \n ";
-            $message .= "Car Manufacturer Selection : $make->company\n ";
+            $message .= "Car Manufacturer Selection : $make->company\n  \n ";
 
-            // foreach($makeids as $make){
-            //     $message .= $make->makeid . " - " . $make->company . " \n ";
-            // }
 
-            // if($makeids->count() > 8){
-            //   $message .= "Please Press *f8* to view full list \n ";
-            // }
             
+
             $message .= "Press *f9* to go to previous \n ";
             $message .= "Press *x* to cancel session \n ";
 
             // $phone->stage_model = 'modelShortList';
-            // $phone->save();
+            $phone->save();
         }else{
             $message .= "Invalid Input \n ";
             $message .= $this->makeShortTable($from, $body);
@@ -355,7 +351,6 @@ class SearchController extends Controller
 
     public function modelShortList($body, $phone)
     {
-
         $phone = $this->dbSavedRequest($from, $body);
 
         $message = null;
