@@ -323,7 +323,7 @@ class SearchController extends Controller
 
     public function modelShortList($from, $body)
     {
-        return $phone = $this->dbSavedRequest($from, $body);
+        $phone = $this->dbSavedRequest($from, $body);
 
         $message = null;
         $message .= "Year selected : $phone->year \n ";
