@@ -233,9 +233,9 @@ class SearchController extends Controller
 
     public function makeShortTable($from, $body)
     {
+        $phone = $this->dbSavedRequest($from, $body);
+
         $message = null;
-        $message .= "Year selected : $phone->year \n ";
-        $message .= "Please Select a your company manufacturer \n ";
 
         $yearItems = Year::where('year', $body)
               ->select('makeid')
@@ -245,16 +245,22 @@ class SearchController extends Controller
               ->toArray();
 
         if($yearItems){
+
+            $message .= "Year selected : $phone->year \n ";
+            $message .= "Please Select a your company manufacturer \n ";
+            
             $phone->year = $body;
+
+            $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+
+            foreach($makeids as $make){
+                $message .= $make->makeid . " - " . $make->company . " \n ";
+                $phone->stage_model = 'makeShortList';
+                $phone->save();
+            }
         }
 
-        $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
-
-        foreach($makeids as $make){
-            $message .= $make->makeid . " - " . $make->company . " \n ";
-            $phone->stage_model = 'makeShortList';
-            $phone->save();
-        }
+            
 
         // return $message;
         
