@@ -287,6 +287,9 @@ class SearchController extends Controller
 
     public function makeResponseToModelTable($from, $body)
     {
+
+        $message = null;
+        
         $phone = $this->dbSavedRequest($from, $body);
 
         if($body == 'f8' && $phone->stage_model == 'makeShortList'){
@@ -300,7 +303,6 @@ class SearchController extends Controller
             $phone->save();
         }
 
-        // $message = null;
 
         // $yearItems = Year::where('year', $phone->year)
         //       ->where('makeid', $body)->first();
