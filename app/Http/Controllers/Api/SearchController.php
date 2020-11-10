@@ -200,7 +200,7 @@ class SearchController extends Controller
             $message .= "Please Press *f8* to view full list \n ";
             $message .= "Press *f9* to go to previous \n ";
             $message .= "Press *x* to cancel session \n ";
-            
+
             $phone->stage_model = 'makeShortList';
             $phone->save();
         }else{
@@ -404,10 +404,11 @@ class SearchController extends Controller
         }
 
         if($body == 'f9' && $phone->stage_model = 'modelShortList'){
-            $phone->stage_model = 'random';
+            $phone->stage_model = 'makeShortList';
             $phone->terminate = true;
             $phone->finished = true;
             $phone->save();
+            return $this->yearShortList($from, $body);
         }
 
         $message = null;
