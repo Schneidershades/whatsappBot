@@ -254,7 +254,6 @@ class SearchController extends Controller
       	$message = null;
 
     		$yearItems = Year::where('year', $phone->year)
-              ->where('makeid', $body)
               ->select('makeid')
               ->distinct()
               ->get()
