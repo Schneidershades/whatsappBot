@@ -124,8 +124,9 @@ class SearchController extends Controller
             $message .= $year ." \n ";
         }
 
-        $message .= "Press *F9* to view full list \n ";
-        $message .= "Press *F8* to go to previous \n ";
+        $message .= "Please Press *f8* to view full list \n ";
+        $message .= "Press *f9* to go to previous \n ";
+        $message .= "Press *x* to cancel session \n ";
 
         return $message;
     }
