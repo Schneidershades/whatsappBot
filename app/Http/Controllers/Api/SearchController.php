@@ -232,8 +232,6 @@ class SearchController extends Controller
             $message .= "Year selected : $phone->year \n ";
             $message .= "Please Select a your company manufacturer \n ";
 
-            $phone->year = $body;
-
             $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
 
             foreach($makeids as $make){
@@ -244,6 +242,15 @@ class SearchController extends Controller
             $phone->save();
         }else{
             $message .= "No car was found for the selected car manufacturer \n ";
+
+            $phone->stage_model = 'yearShortList';
+            $phone->terminate = true;
+            $phone->finished = true;
+            $phone->year = null;
+            $phone->make_id = null;
+            $phone->make = null;
+            $phone->save();
+
             $message .= $this->yearShortList($from, $body);
         }
 
