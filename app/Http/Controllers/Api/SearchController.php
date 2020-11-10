@@ -298,7 +298,7 @@ class SearchController extends Controller
             return $this->makeFullList($from, $body);
         }
 
-        if($body == 'f9' && $phone->stage_model == 'makeShortList'){
+        if($body == 'f9' && $phone->stage_model == 'makeShortList' || $phone->stage_model == 'makeFullList'){
             $phone->stage_model = 'yearShortList';
             $phone->terminate = true;
             $phone->finished = true;
