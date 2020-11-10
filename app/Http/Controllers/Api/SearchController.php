@@ -362,7 +362,7 @@ class SearchController extends Controller
             $models = CarModel::whereIn('makeid', $items)->get();
 
             foreach($models as $model){
-                $message .= $model->modelid . " - " . $models->mode . " \n ";
+                $message .= $model->modelid . " - " . $models->model . " \n ";
             }
             
             $message .= "Please Press *f8* to view full list \n ";
