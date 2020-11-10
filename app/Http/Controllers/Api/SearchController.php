@@ -397,6 +397,7 @@ class SearchController extends Controller
               ->get()
               ->pluck('modelid')
               ->toArray();
+        dd($items);
 
         if($items){
             $models = CarModel::whereIn('makeid', $items)->get();
