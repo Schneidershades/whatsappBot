@@ -299,10 +299,12 @@ class SearchController extends Controller
         }
 
         if($body == 'f9' && $phone->stage_model == 'makeShortList'){
-            $phone->stage_model = 'random';
+            $phone->stage_model = 'yearShortList';
             $phone->terminate = true;
             $phone->finished = true;
+            $phone->year = null;
             $phone->save();
+            return $this->yearShortList($from, $body);
         }
 
         $yearItems = Year::where('year', $phone->year)
@@ -380,17 +382,17 @@ class SearchController extends Controller
 
 
         if($yearItems){
-            $phone->year = $body;
+            $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+
+            foreach($makeids as $make){
+                $message .= $make->makeid . " - " . $make->company . " \n ";
+            }
+
+            $phone->stage_model = 'make';
+            $phone->save();
         }
 
-        $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
-
-        foreach($makeids as $make){
-            $message .= $make->makeid . " - " . $make->company . " \n ";
-        }
-
-        $phone->stage_model = 'make';
-        $phone->save();
+            
 
         return $message;
     }
