@@ -428,6 +428,8 @@ class SearchController extends Controller
 
         if($body == 'f9'){
             $phone->stage_model = 'makeShortList';
+            $phone->make_id = null;
+            $phone->make = null;
             $phone->car_model_id = null;
             $phone->car_model = null;
             $phone->save();
