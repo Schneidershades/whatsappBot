@@ -420,8 +420,8 @@ class SearchController extends Controller
 
         if($body == 'f9'){
             $phone->stage_model = 'makeShortList';
-            $phone->make_id = null;
-            $phone->make = null;
+            $phone->model_id = null;
+            $phone->model = null;
             $phone->save();
             return $this->makeShortTable($from, $body);
         }
