@@ -354,12 +354,12 @@ class SearchController extends Controller
               ->where('makeid', $phone->make_id)
               ->select('modelid')
               ->distinct()
-              ->limit(8)
+              ->get()
               ->pluck('modelid')
               ->toArray();
 
         if($items){
-            $models = CarModel::whereIn('makeid', $items)->get();
+            $models = CarModel::whereIn('makeid', $items)->limit(10);
 
             foreach($models as $model){
                 $message .= $model->modelid . " - " . $model->model . " \n ";
@@ -408,51 +408,53 @@ class SearchController extends Controller
     {
         $phone = $this->dbSavedRequest($from, $body);
 
-        if($body == 'f8' && $phone->stage_model = 'modelShortList'){
-            return $this->makeFullList($from, $body);
+        dd($body)
+
+        if($body == 'f8'){
+            return $this->modelFullList($from, $body);
         }
 
-        if($body == 'f9' && $phone->stage_model = 'modelShortList'){
+        if($body == 'f9'){
             $phone->stage_model = 'makeShortList';
-            $phone->terminate = true;
-            $phone->finished = true;
+            $phone->make_id = null;
+            $phone->make = null;
             $phone->save();
-            return $this->yearShortList($from, $body);
+            return $this->makeShortTable($from, $body);
         }
 
-        $message = null;
+        // $message = null;
 
-        $yearItems = Year::where('year', $body)
-              ->select('makeid')
-              ->distinct()
-              ->limit(8)
-              ->pluck('makeid')
-              ->toArray();
+        // $yearItems = Year::where('year', $body)
+        //       ->select('makeid')
+        //       ->distinct()
+        //       ->limit(8)
+        //       ->pluck('makeid')
+        //       ->toArray();
 
-        if($yearItems){
-            $phone->year = $body;
-            $message .= "Year selected : $phone->year \n ";
-            $message .= "Please Select a your company manufacturer \n ";
+        // if($yearItems){
+        //     $phone->year = $body;
+        //     $message .= "Year selected : $phone->year \n ";
+        //     $message .= "Please Select a your company manufacturer \n ";
 
-            $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+        //     $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
 
-            foreach($makeids as $make){
-                $message .= $make->makeid . " - " . $make->company . " \n ";
-            }
+        //     foreach($makeids as $make){
+        //         $message .= $make->makeid . " - " . $make->company . " \n ";
+        //     }
 
-            if($makeids->count() > 8){
-              $message .= "Please Press *f8* to view full list \n ";
-            }
+        //     if($makeids->count() > 8){
+        //       $message .= "Please Press *f8* to view full list \n ";
+        //     }
             
-            $message .= "Please Press *f9* to go to previous \n ";
+        //     $message .= "Please Press *f9* to go to previous \n ";
 
-            $phone->stage_model = 'modelShortList';
+        //     $phone->stage_model = 'modelShortList';
 
-            $phone->save();
-        }else{
-            $message .= "Invalid Input \n ";
-            $message .= $this->makeShortTable($from, $body);
-        }
+        //     $phone->save();
+        // }else{
+        //     $message .= "Invalid Input \n ";
+        //     $message .= $this->makeShortTable($from, $body);
+        // }
         
         dd($phone, 4, $message);
 
