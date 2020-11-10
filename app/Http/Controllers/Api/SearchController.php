@@ -249,6 +249,11 @@ class SearchController extends Controller
 
             $phone->stage_model = 'makeShortList';
             $phone->save();
+
+            $message .= "Please Press *f8* to view full list \n ";
+            $message .= "Press *f9* to go to previous \n ";
+            $message .= "Press *x* to cancel session \n ";
+            
         }else{
             $message .= "No car was found for the selected car manufacturer \n ";
 
