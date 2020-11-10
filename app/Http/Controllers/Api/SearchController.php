@@ -376,7 +376,7 @@ class SearchController extends Controller
         return $message;
     }
 
-    public function modelFullList($body, $phone)
+    public function modelFullList($from, $body)
     {
         $phone = $this->dbSavedRequest($from, $body);
 
