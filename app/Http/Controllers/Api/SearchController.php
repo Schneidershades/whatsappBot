@@ -226,7 +226,6 @@ class SearchController extends Controller
               ->limit(8)
               ->pluck('makeid')
               ->toArray();
-        dd($yearItems);
 
         if($yearItems){
 
@@ -234,6 +233,8 @@ class SearchController extends Controller
             $message .= "Please Select a your company manufacturer \n ";
 
             $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+
+            dd($makeids);
 
             foreach($makeids as $make){
                 $message .= $make->makeid . " - " . $make->company . " \n ";
