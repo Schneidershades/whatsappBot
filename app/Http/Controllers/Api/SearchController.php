@@ -295,13 +295,10 @@ class SearchController extends Controller
         $phone = $this->dbSavedRequest($from, $body);
 
         if($body == 'f8'){
-            dd($phone, $from, $body);
             return $this->makeFullList($from, $body);
         }
 
         if($body == 'f9'){
-
-
             $phone->stage_model = 'yearShortList';
             $phone->terminate = true;
             $phone->finished = true;
