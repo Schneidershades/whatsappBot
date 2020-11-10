@@ -378,28 +378,37 @@ class SearchController extends Controller
 
     public function modelFullList($body, $phone)
     {
+        $phone = $this->dbSavedRequest($from, $body);
+
+        dd('full');
+
         $message = null;
         $message .= "Year selected : $phone->year \n ";
-        $message .= "Please Select a your company manufacturer \n ";
+        $message .= "Car Manufacturer Selection : $phone->make\n \n";
+        $message .= "Please Select the $phone->make Model \n ";
 
-        $yearItems = Year::where('year', $body)
-                    ->select('makeid')
-                    ->distinct()
-                    ->get()
-                    ->pluck('makeid')
-                    ->toArray();
+        $items = Year::where('year', $phone->year)
+              ->where('makeid', $phone->make_id)
+              ->select('modelid')
+              ->distinct()
+              ->get()
+              ->pluck('modelid')
+              ->toArray();
 
+        if($items){
+            $models = CarModel::whereIn('makeid', $items)->get();
 
-        if($yearItems){
-            $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
-
-            foreach($makeids as $make){
-                $message .= $make->makeid . " - " . $make->company . " \n ";
+            foreach($models as $model){
+                $message .= $model->modelid . " - " . $model->model . " \n ";
             }
+            
+            $message .= "Press *f9* to go to previous \n ";
+            $message .= "Press *x* to cancel session \n ";
 
-            $phone->stage_model = 'make';
+            $phone->stage_model = 'modelFullList';
+
             $phone->save();
-        }
+        } 
 
         return $message;
     }
@@ -407,8 +416,6 @@ class SearchController extends Controller
     public function modelResponseToComponentTable($from, $body)
     {
         $phone = $this->dbSavedRequest($from, $body);
-
-        dd($body);
 
         if($body == 'f8'){
             return $this->modelFullList($from, $body);
