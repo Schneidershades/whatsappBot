@@ -408,7 +408,7 @@ class SearchController extends Controller
     {
         $phone = $this->dbSavedRequest($from, $body);
 
-        dd($body)
+        dd($body);
 
         if($body == 'f8'){
             return $this->modelFullList($from, $body);
