@@ -147,8 +147,9 @@ class SearchController extends Controller
                 $message .= $year ." \n ";
             }
 
-            $message .= "Press *9* to view full list \n ";
-            $message .= "Press *10* to go to previous \n ";
+            $message .= "Please Press *f8* to view full list \n ";
+            $message .= "Press *f9* to go to previous \n ";
+            $message .= "Press *x* to cancel session \n ";
 
         }else{
 
@@ -196,8 +197,9 @@ class SearchController extends Controller
             }
 
             $message .= "Please Press *f8* to view full list \n ";
-            $message .= "Please Press *f9* to go to previous \n ";
-
+            $message .= "Press *f9* to go to previous \n ";
+            $message .= "Press *x* to cancel session \n ";
+            
             $phone->stage_model = 'makeShortList';
             $phone->save();
         }else{
@@ -271,6 +273,9 @@ class SearchController extends Controller
             foreach($makeids as $make){
                 $message .= $make->makeid . " - " . $make->company . " \n ";
             }
+
+            $message .= "Press *f9* to go to previous \n ";
+            $message .= "Press *x* to cancel session \n ";
 
             $phone->stage_model = 'makeFullList';
             $phone->save();
