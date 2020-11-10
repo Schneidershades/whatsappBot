@@ -275,8 +275,6 @@ class SearchController extends Controller
             $phone->stage_model = 'makeFullList';
             $phone->save();
     		}
-
-    		
         
         dd($phone, 3, $message);
 
