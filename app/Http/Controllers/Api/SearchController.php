@@ -175,8 +175,6 @@ class SearchController extends Controller
 
         if($body == 'f9' && $phone->stage_model = 'yearShortList'){
             $phone->stage_model = 'random';
-            $phone->terminate = true;
-            $phone->finished = true;
             $phone->save();
         }
 
@@ -244,8 +242,6 @@ class SearchController extends Controller
             $message .= "No car was found for the selected car manufacturer \n ";
 
             $phone->stage_model = 'yearShortList';
-            $phone->terminate = true;
-            $phone->finished = true;
             $phone->year = null;
             $phone->make_id = null;
             $phone->make = null;
@@ -309,8 +305,6 @@ class SearchController extends Controller
 
         if($body == 'f9'){
             $phone->stage_model = 'yearShortList';
-            $phone->terminate = true;
-            $phone->finished = true;
             $phone->year = null;
             $phone->save();
             return $this->yearShortList($from, $body);
