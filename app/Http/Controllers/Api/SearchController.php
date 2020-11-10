@@ -215,8 +215,6 @@ class SearchController extends Controller
     {
         $phone = $this->dbSavedRequest($from, $body);
 
-        dd($phone->make_id);
-
         $makeid = $phone ? $phone->make_id : $body;
 
         $message = null;
