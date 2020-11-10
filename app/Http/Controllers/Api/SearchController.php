@@ -251,7 +251,6 @@ class SearchController extends Controller
         }
 
         // return $message;
-        
         dd($phone, 2, $message);
     }
 
@@ -407,6 +406,8 @@ class SearchController extends Controller
 
     public function modelResponseToComponentTable($from, $body)
     {
+        $message = null;
+
         $phone = $this->dbSavedRequest($from, $body);
 
         if($body == 'f8'){
@@ -420,8 +421,6 @@ class SearchController extends Controller
             $phone->save();
             return $this->makeShortTable($from, $body);
         }
-
-        // $message = null;
 
         // $yearItems = Year::where('year', $body)
         //       ->select('makeid')
