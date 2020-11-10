@@ -215,6 +215,8 @@ class SearchController extends Controller
     {
         $phone = $this->dbSavedRequest($from, $body);
 
+        $makeid = $phone ? $phone->make_id : $body;
+
         $message = null;
 
         $yearItems = Year::where('year', $phone->year)
