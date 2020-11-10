@@ -290,9 +290,9 @@ class SearchController extends Controller
 
         $message = null;
         
-        return $phone = $this->dbSavedRequest($from, $body);
+        $phone = $this->dbSavedRequest($from, $body);
 
-        if($body == 'f8' && $phone->stage_model == 'makeShortList'){
+        if($body == 'f8' && $phone->stage_model == 'makeShortList' || $phone->stage_model == 'makeFullList'){
             return $this->makeFullList($from, $body);
         }
 
@@ -303,30 +303,29 @@ class SearchController extends Controller
             $phone->save();
         }
 
+        $yearItems = Year::where('year', $phone->year)
+              ->where('makeid', $body)->first();
 
-        // $yearItems = Year::where('year', $phone->year)
-        //       ->where('makeid', $body)->first();
+        if($yearItems){ 
 
-        // if($yearItems){ 
+            $make = Make::where('makeid', $yearItems->makeid)->first();
 
-        //     $make = Make::where('makeid', $yearItems->makeid)->first();
+            $phone->make = $make->company;
+            $phone->make_id = $make->makeid;
 
-        //     $phone->make = $make->company;
-        //     $phone->make_id = $make->makeid;
+            $message .= $this->modelShortList($from, $body);
 
-        //     $message .= $this->modelShortList($from, $body);
-
-        //     // $phone->stage_model = 'makeShortList';
-        //     $phone->save();
-        //     // return $phone;
-        // }else{
-        //     $message .= "Invalid Input \n ";
-        //     $message .= $this->makeShortTable($from, $body);
-        // }
+            // $phone->stage_model = 'makeShortList';
+            $phone->save();
+            // return $phone;
+        }else{
+            $message .= "Invalid Input \n ";
+            $message .= $this->makeShortTable($from, $body);
+        }
         
-        // dd($phone, 4, $message);
+        dd($phone, 4, $message);
 
-        return $message;
+        // return $message;
     }
 
     public function modelShortList($from, $body)
