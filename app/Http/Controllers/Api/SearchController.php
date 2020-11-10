@@ -294,7 +294,7 @@ class SearchController extends Controller
 
         $message = null;
         
-        return $phone = $this->dbSavedRequest($from, $body);
+        $phone = $this->dbSavedRequest($from, $body);
 
         if($body == 'f8'){
             return $this->makeFullList($from, $body);
@@ -312,8 +312,6 @@ class SearchController extends Controller
         $yearItems = Year::where('year', $phone->year)
               ->where('makeid', $body)->first();
 
-        dd('ss');
-
         if($yearItems){ 
 
             $make = Make::where('makeid', $yearItems->makeid)->first();
@@ -323,7 +321,7 @@ class SearchController extends Controller
 
             $message .= $this->modelShortList($from, $body);
 
-            // $phone->stage_model = 'makeShortList';
+            $phone->stage_model = 'modelShortList';
             $phone->save();
             // return $phone;
         }else{
@@ -395,8 +393,6 @@ class SearchController extends Controller
             $phone->stage_model = 'make';
             $phone->save();
         }
-
-            
 
         return $message;
     }
