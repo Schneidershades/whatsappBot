@@ -220,7 +220,7 @@ class SearchController extends Controller
         $message = null;
 
         $yearItems = Year::where('year', $phone->year)
-              ->where('makeid', $body)
+              ->where('makeid', $makeid)
               ->select('makeid')
               ->distinct()
               ->limit(8)
