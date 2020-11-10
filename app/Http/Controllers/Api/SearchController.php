@@ -253,6 +253,7 @@ class SearchController extends Controller
 
       	$message = null;
 
+        // colleting f9 to view all the list available under the year
     		$yearItems = Year::where('year', $phone->year)
               ->select('makeid')
               ->distinct()
