@@ -455,7 +455,7 @@ class SearchController extends Controller
             $message .= "Press *f9* to go to previous \n ";
             $message .= "Press *x* to cancel session \n ";
 
-            $phone->stage_model = 'modelFullList';
+            $phone->stage_model = 'componentFullList';
 
             $phone->save();
         }else{
