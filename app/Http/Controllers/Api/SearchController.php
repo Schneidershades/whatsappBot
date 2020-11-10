@@ -40,7 +40,7 @@ class SearchController extends Controller
             return $this->makeResponseToModelTable($from, $body);
         }
 
-        if($phone->stage_model == 'modelShortList' || $phone->stage_model == 'modelFullList' && $phone->model == null){
+        if($phone->stage_model == 'modelShortList' || $phone->stage_model == 'modelFullList' && $phone->car_model == null){
             return $this->modelResponseToComponentTable($from, $body);
         }
 
@@ -175,6 +175,8 @@ class SearchController extends Controller
 
         if($body == 'f9' && $phone->stage_model = 'yearShortList'){
             $phone->stage_model = 'random';
+            $phone->make = null;
+            $phone->make_id = null;
             $phone->save();
         }
 
