@@ -226,6 +226,7 @@ class SearchController extends Controller
               ->limit(8)
               ->pluck('makeid')
               ->toArray();
+        dd($yearItems);
 
         if($yearItems){
 
