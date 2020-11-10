@@ -243,8 +243,8 @@ class SearchController extends Controller
             $phone->stage_model = 'makeShortList';
             $phone->save();
         }else{
-            // $message .= "No car was found for the selected car manufacturer \n ";
-            // $message .= $this->yearShortList($from, $body);
+            $message .= "No car was found for the selected car manufacturer \n ";
+            $message .= $this->yearShortList($from, $body);
         }
 
         // return $message;
