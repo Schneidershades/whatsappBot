@@ -436,6 +436,33 @@ class SearchController extends Controller
             return $this->makeShortTable($from, $body);
         }
 
+        $items = Year::where('year', $phone->year)
+              ->where('makeid', $phone->make_id)
+              ->select('modelid')
+              ->distinct()
+              ->limit(8)
+              ->pluck('modelid')
+              ->toArray();
+
+        if($items){
+            $models = CarModel::whereIn('modelid', $items)->get();
+
+            foreach($models as $model){
+                $message .= $model->modelid . " - " . $model->model . " \n ";
+            }
+            
+            $message .= "Please Press *f8* to view full list \n ";
+            $message .= "Press *f9* to go to previous \n ";
+            $message .= "Press *x* to cancel session \n ";
+
+            $phone->stage_model = 'modelFullList';
+
+            $phone->save();
+        }else{
+            $message .= "Invalid Input \n ";
+            $message .= $this->makeShortTable($from, $body);
+        }
+
         // $yearItems = Year::where('year', $body)
         //       ->select('makeid')
         //       ->distinct()
