@@ -315,6 +315,8 @@ class SearchController extends Controller
         if($body == 'f9'){
             $phone->stage_model = 'yearShortList';
             $phone->year = null;
+            $phone->make = null;
+            $phone->make_id = null;
             $phone->save();
             return $this->yearShortList($from, $body);
         }
