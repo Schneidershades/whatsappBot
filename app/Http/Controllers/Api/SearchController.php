@@ -261,8 +261,6 @@ class SearchController extends Controller
               ->pluck('makeid')
               ->toArray();
 
-        dd($yearItems);
-
     		if($yearItems){
 
             $message .= "Year selected : $phone->year \n ";
