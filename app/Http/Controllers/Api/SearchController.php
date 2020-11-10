@@ -291,8 +291,6 @@ class SearchController extends Controller
     {
 
         $message = null;
-
-        dd($from, $body);
         
         $phone = $this->dbSavedRequest($from, $body);
 
@@ -301,6 +299,9 @@ class SearchController extends Controller
         }
 
         if($body == 'f9' && $phone->stage_model == 'makeShortList' || $phone->stage_model == 'makeFullList'){
+
+
+            dd(44, $from, $body);
             $phone->stage_model = 'yearShortList';
             $phone->terminate = true;
             $phone->finished = true;
