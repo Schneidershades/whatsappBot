@@ -226,14 +226,6 @@ class SearchController extends Controller
                     ->pluck('makeid')
                     ->toArray();
 
-        // $yearItems = Year::where('year', $phone->year)
-        //       ->where('makeid', $makeid)
-        //       ->select('makeid')
-        //       ->distinct()
-        //       ->limit(8)
-        //       ->pluck('makeid')
-        //       ->toArray();
-
         if($yearItems){
 
             $message .= "Year selected : $phone->year \n ";
@@ -253,7 +245,7 @@ class SearchController extends Controller
             $message .= "Please Press *f8* to view full list \n ";
             $message .= "Press *f9* to go to previous \n ";
             $message .= "Press *x* to cancel session \n ";
-            
+
         }else{
             $message .= "No car was found for the selected car manufacturer \n ";
 
