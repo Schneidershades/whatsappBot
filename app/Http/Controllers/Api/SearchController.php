@@ -380,8 +380,6 @@ class SearchController extends Controller
     {
         $phone = $this->dbSavedRequest($from, $body);
 
-        dd('full');
-
         $message = null;
         $message .= "Year selected : $phone->year \n ";
         $message .= "Car Manufacturer Selection : $phone->make\n \n";
