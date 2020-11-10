@@ -227,9 +227,9 @@ class SearchController extends Controller
               ->pluck('makeid')
               ->toArray();
 
+        $message .= "Year selected : $phone->year \n ";
+        
         if($yearItems){
-
-            $message .= "Year selected : $phone->year \n ";
             $message .= "Please Select a your company manufacturer \n ";
 
             $phone->year = $body;
@@ -244,7 +244,7 @@ class SearchController extends Controller
             $phone->save();
         }else{
             $message .= "No car was found for the selected car manufacturer \n ";
-            $message .= $this->yearShortList($from, $body);
+            $message .= $this->makeShortList($from, $body);
         }
 
         // return $message;
