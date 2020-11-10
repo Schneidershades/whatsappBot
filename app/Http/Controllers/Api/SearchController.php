@@ -399,7 +399,7 @@ class SearchController extends Controller
               ->toArray();
 
         if($items){
-            $models = CarModel::whereIn('makeid', $items)->get();
+            $models = CarModel::whereIn('modelid', $items)->get();
 
             dd($models);
 
