@@ -219,13 +219,20 @@ class SearchController extends Controller
 
         $message = null;
 
-        $yearItems = Year::where('year', $phone->year)
-              ->where('makeid', $makeid)
-              ->select('makeid')
-              ->distinct()
-              ->limit(8)
-              ->pluck('makeid')
-              ->toArray();
+         $yearItems = Year::where('year', $body)
+                    ->select('makeid')
+                    ->distinct()
+                    ->limit(8)
+                    ->pluck('makeid')
+                    ->toArray();
+
+        // $yearItems = Year::where('year', $phone->year)
+        //       ->where('makeid', $makeid)
+        //       ->select('makeid')
+        //       ->distinct()
+        //       ->limit(8)
+        //       ->pluck('makeid')
+        //       ->toArray();
 
         if($yearItems){
 
@@ -234,7 +241,7 @@ class SearchController extends Controller
 
             $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
 
-            dd($makeids);
+            // dd($makeids);
 
             foreach($makeids as $make){
                 $message .= $make->makeid . " - " . $make->company . " \n ";
