@@ -292,7 +292,7 @@ class SearchController extends Controller
 
         $message = null;
         
-        $phone = $this->dbSavedRequest($from, $body);
+        return $phone = $this->dbSavedRequest($from, $body);
 
         if($body == 'f8'){
             return $this->makeFullList($from, $body);
