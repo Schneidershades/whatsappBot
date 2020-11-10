@@ -291,6 +291,8 @@ class SearchController extends Controller
     {
 
         $message = null;
+
+        dd($from, $body);
         
         $phone = $this->dbSavedRequest($from, $body);
 
