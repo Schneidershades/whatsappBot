@@ -9,6 +9,7 @@ use App\Models\Make;
 use App\Models\CarModel;
 use App\Models\Component;
 use App\Models\Search;
+use App\Models\Chat;
 use Twilio\Rest\Client;
 
 class SearchController extends Controller
