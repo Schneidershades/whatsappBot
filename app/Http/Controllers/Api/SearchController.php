@@ -339,6 +339,8 @@ class SearchController extends Controller
             $phone->make_id = $make->makeid;
             $phone->save();
 
+            dd($phone); 
+
             $message .= $this->modelShortList($from, $body);
 
             $phone->stage_model = 'modelShortList';
