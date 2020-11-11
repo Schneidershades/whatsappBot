@@ -15,7 +15,7 @@ class SearchController extends Controller
 {
     public function store(Request $request)
     {
-    	  $from = $request->input('From');
+    	$from = $request->input('From');
         $body = strtolower($request->input('Body'));
 
         $client = new \GuzzleHttp\Client();
@@ -451,8 +451,8 @@ class SearchController extends Controller
 
             $phone->car_model_id = $carModel->modelid;
             $phone->car_model = $carModel->model;
+            $phone->save();
 
-            dd($phone,30);
         }else{
             $message .= "Invalid Input \n ";
             $message .= $this->makeShortTable($from, $body);
@@ -528,6 +528,7 @@ class SearchController extends Controller
 
     public function componentResponse()
     {
+
     }
 
     public function chatModel()
