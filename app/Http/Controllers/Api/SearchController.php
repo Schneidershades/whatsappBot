@@ -586,7 +586,7 @@ class SearchController extends Controller
 
         foreach($chats as $chat){
 
-            $array2 = explode(" ", $chat['incoming_message']);
+            $array2 = explode(" ", strtolower($chat['incoming_message']));
 
             $similar = array_intersect($array1, $array2);
 
