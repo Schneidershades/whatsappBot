@@ -337,11 +337,11 @@ class SearchController extends Controller
             $make = Make::where('makeid', $body)->first();
             $phone->make = $make->company;
             $phone->make_id = $make->makeid;
+            $phone->save();
 
             $message .= $this->modelShortList($from, $body);
 
             $phone->stage_model = 'modelShortList';
-            $phone->save();
             // return $phone;
         }else{
             $message .= "Invalid Input \n ";
