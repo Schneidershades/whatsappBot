@@ -33,6 +33,14 @@ class SearchController extends Controller
             }
         }
 
+        if($body == 'cancel'){
+            $phone->terminate = true;
+            $phone->finished = true;
+            $phone->save();
+
+            $message .= "Search Session was cancelled. Type menu to proceed";
+        }
+
         if($phone->stage_model == 'yearShortList' || $phone->stage_model == 'yearFullList' && $phone->year == null){
             return $this->yearResponseToMakeTable($from, $body);
         }
@@ -50,19 +58,6 @@ class SearchController extends Controller
         }
 
         $message = $this->chatModel($from, $body);
-
-        // dd($phone,90);
-
-
-        // if($body == 'cancel'){
-        //     $phone->terminate = true;
-        //     $phone->finished = true;
-        //     $phone->save();
-
-        //     $message .= "Search Session was cancelled. Type menu to proceed";
-        // }
-
-        // return $message;
         
 
         return $message;
@@ -482,8 +477,6 @@ class SearchController extends Controller
         $message = null;
 
         $phone = $this->dbSavedRequest($from, $body);
-        $phone->stage_model = 'yearShortList';
-        $phone->save();
 
         $message = null;
         $message .= "Year selected : $phone->year \n ";
