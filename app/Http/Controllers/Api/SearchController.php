@@ -15,7 +15,7 @@ class SearchController extends Controller
 {
     public function store(Request $request)
     {
-    	$from = $request->input('From');
+        $from = $request->input('From');
         $body = strtolower($request->input('Body'));
 
         $client = new \GuzzleHttp\Client();
@@ -69,33 +69,33 @@ class SearchController extends Controller
 
     public function dbSavedRequest($from, $body)
     {
-    	  $phone = Search::where('phone', $from)
-        			->where('terminate', false)
-        			->where('finished', false)
-        			->first();
+          $phone = Search::where('phone', $from)
+                    ->where('terminate', false)
+                    ->where('finished', false)
+                    ->first();
 
-    		if(!$phone){
-    			$phone = new Search;
+            if(!$phone){
+                $phone = new Search;
           $phone->phone = $from;
           $phone->stage_model = 'new';
           $phone->request_received = $body;
           $phone->save();
           return $phone;
-    		}
+            }
 
-    		return $phone;
+            return $phone;
     }
 
     public function shortCarYearsList()
     {
-      	$year = Year::select('year')
-  	    		->distinct()
-  	    		->orderBy('year', 'desc')
-  	    		->limit(8)
-  	    		->pluck('year')
-  	    		->toArray()
-  	    		;
-  	    return $year;
+        $year = Year::select('year')
+                ->distinct()
+                ->orderBy('year', 'desc')
+                ->limit(8)
+                ->pluck('year')
+                ->toArray()
+                ;
+        return $year;
     }
 
     public function fullCarYearsList()
@@ -268,17 +268,17 @@ class SearchController extends Controller
     {
         $phone = $this->dbSavedRequest($from, $body);
 
-      	$message = null;
+        $message = null;
 
         // colleting f9 to view all the list available under the year
-    		$yearItems = Year::where('year', $phone->year)
+            $yearItems = Year::where('year', $phone->year)
               ->select('makeid')
               ->distinct()
               ->get()
               ->pluck('makeid')
               ->toArray();
 
-    		if($yearItems){
+            if($yearItems){
 
             $message .= "Year selected : $phone->year \n ";
             $message .= "Please Select a your company manufacturer \n ";
@@ -294,11 +294,11 @@ class SearchController extends Controller
 
             $phone->stage_model = 'makeFullList';
             $phone->save();
-    		}
+            }
         
         dd($phone, 3, $message);
 
-    		// return $message;
+            // return $message;
     }
 
     public function makeResponseToModelTable($from, $body)
