@@ -546,7 +546,7 @@ class SearchController extends Controller
             $phone->finished = true;
             $phone->save();
 
-            $message .= "Thank you for your request our agent would contact you in 1 business day \n \n";
+            $message .= "Thank you!! Your request has been received. Our agent would contact you in 1 business day \n \n";
             $message .= "Car Specification - $phone->year $phone->make $phone->car_model - $phone->component \n ";
 
         }else{
