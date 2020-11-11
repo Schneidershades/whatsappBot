@@ -29,7 +29,7 @@ class SearchController extends Controller
             if($body == "f2"){
                 $phone->stage_model = 'yearShortList';
                 $phone->save();
-                $message = $this->yearShortList($from, $body);
+                return $this->sendWhatsAppMessage($this->yearShortList($from, $body), $from);
             }
         }
 
