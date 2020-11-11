@@ -128,7 +128,8 @@ class SearchController extends Controller
         $message .= "Press *f9* to go to previous \n ";
         $message .= "Press *x* to cancel session \n ";
 
-        return $message;
+        // return $message;
+        return $this->sendWhatsAppMessage($message, $from);
     }
 
     public function yearFullList($from, $body)
@@ -158,7 +159,8 @@ class SearchController extends Controller
 
         }
 
-        return $message;
+        // return $message;
+        return $this->sendWhatsAppMessage($message, $from);
     }
 
     public function yearResponseToMakeTable($from, $body)
@@ -168,7 +170,9 @@ class SearchController extends Controller
         $phone = $this->dbSavedRequest($from, $body);
 
         if($body == 'f8' && $phone->stage_model = 'yearShortList'){
-            return $this->yearFullList($from, $body);
+            $message =  $this->yearFullList($from, $body);
+
+            return $this->sendWhatsAppMessage($message, $from);
         }
 
         if($body == 'f9' && $phone->stage_model = 'yearShortList'){
@@ -217,7 +221,8 @@ class SearchController extends Controller
             $message .= $this->yearShortList($from, $body);
         }
 
-        return $message;
+        // return $message;
+        return $this->sendWhatsAppMessage($message, $from);
     }
 
     public function makeShortTable($from, $body)
@@ -267,7 +272,8 @@ class SearchController extends Controller
             $message .= $this->yearShortList($from, $body);
         }
 
-        return $message;
+        // return $message;
+        return $this->sendWhatsAppMessage($message, $from);
     }
 
     public function makeFullList($from, $body)
@@ -302,7 +308,8 @@ class SearchController extends Controller
             $phone->save();
         }
         
-        return $message;
+        // return $message;
+        return $this->sendWhatsAppMessage($message, $from);
     }
 
     public function makeResponseToModelTable($from, $body)
@@ -321,7 +328,8 @@ class SearchController extends Controller
             $phone->make = null;
             $phone->make_id = null;
             $phone->save();
-            return $this->yearShortList($from, $body);
+            $message = $this->yearShortList($from, $body);
+            return $this->sendWhatsAppMessage($message, $from);
         }
 
         $yearItems = Year::where('year', $phone->year)
@@ -341,7 +349,8 @@ class SearchController extends Controller
             $message .= $this->modelShortList($from, $body);
         }
         
-        return $message;
+        // return $message;
+        return $this->sendWhatsAppMessage($message, $from);
     }
 
     public function modelShortList($from, $body)
@@ -376,7 +385,8 @@ class SearchController extends Controller
 
             $phone->save();
         } 
-        return $message;
+        // return $message;
+        return $this->sendWhatsAppMessage($message, $from);
     }
 
     public function modelFullList($from, $body)
@@ -412,7 +422,8 @@ class SearchController extends Controller
             $phone->save();
         } 
 
-        return $message;
+        // return $message;
+        return $this->sendWhatsAppMessage($message, $from);
     }
 
     public function modelResponseToComponentTable($from, $body)
@@ -422,7 +433,8 @@ class SearchController extends Controller
         $phone = $this->dbSavedRequest($from, $body);
 
         if($body == 'f8'){
-            return $this->modelFullList($from, $body);
+            $message = $this->modelFullList($from, $body);
+            return $this->sendWhatsAppMessage($message, $from);
         }
 
         if($body == 'f9'){
@@ -432,7 +444,8 @@ class SearchController extends Controller
             $phone->car_model_id = null;
             $phone->car_model = null;
             $phone->save();
-            return $this->makeShortTable($from, $body);
+            $message = $this->makeShortTable($from, $body);
+            return $this->sendWhatsAppMessage($message, $from);
         }
 
         if(is_numeric($body)){
@@ -459,7 +472,7 @@ class SearchController extends Controller
         }
         
 
-        return $message;
+        return $this->sendWhatsAppMessage($message, $from);
     }
 
     public function componentShortList($from, $body)
@@ -484,7 +497,7 @@ class SearchController extends Controller
         $message .= "Press *f9* to go to previous \n ";
         $message .= "Press *x* to cancel session \n ";
 
-        return $message;
+        return $this->sendWhatsAppMessage($message, $from);
     }
 
     public function componentFullList($from, $body)
@@ -511,7 +524,7 @@ class SearchController extends Controller
         $message .= "Press *f9* to go to previous \n ";
         $message .= "Press *x* to cancel session \n ";
 
-        return $message;
+        return $this->sendWhatsAppMessage($message, $from);
     }
 
     public function componentResponse($from, $body)
@@ -521,7 +534,8 @@ class SearchController extends Controller
         $phone = $this->dbSavedRequest($from, $body);
 
         if($body == 'f8'){
-            return $this->componentFullList($from, $body);
+            $message =  $this->componentFullList($from, $body);
+            return $this->sendWhatsAppMessage($message, $from);
         }
 
         if($body == 'f9'){
@@ -529,7 +543,8 @@ class SearchController extends Controller
             $phone->car_model_id = null;
             $phone->car_model = null;
             $phone->save();
-            return $this->modelShortList($from, $body);
+            $message = $this->modelShortList($from, $body);
+            return $this->sendWhatsAppMessage($message, $from);
         }
 
         if(is_numeric($body)){
@@ -554,7 +569,8 @@ class SearchController extends Controller
             $message .= $this->componentShortList($from, $body);
         }
         
-        return $message;
+        // return $message;
+        return $this->sendWhatsAppMessage($message, $from);
     }
 
     public function chatModel($from, $body)
@@ -607,8 +623,8 @@ class SearchController extends Controller
             $message .= "I am here to assist you\n";
             $message .= "Please kindly press *menu* to access our support features\n";
 
-            return $message;
-            // return $this->sendWhatsAppMessage($message, $from);
+            // return $message;
+            return $this->sendWhatsAppMessage($message, $from);
         }
 
         $maximum_number = (max(array_column($replies, "average")));
