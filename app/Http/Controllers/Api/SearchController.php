@@ -370,11 +370,12 @@ class SearchController extends Controller
               ->get()
               ->pluck('modelid')
               ->toArray();
-              
-        dd($items);
+
 
         if($items){
             $models = CarModel::whereIn('makeid', $items)->limit(10);
+
+            dd($items);
 
             foreach($models as $model){
                 $message .= $model->modelid . " - " . $model->model . " \n ";
