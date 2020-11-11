@@ -316,8 +316,6 @@ class SearchController extends Controller
     public function makeResponseToModelTable($from, $body)
     {
         $message = null;
-
-        dd('ff');
         
         $phone = $this->dbSavedRequest($from, $body);
 
@@ -336,6 +334,8 @@ class SearchController extends Controller
 
         $yearItems = Year::where('year', $phone->year)
               ->where('makeid', $body)->first();
+
+        dd($yearItems);
 
         if($yearItems){ 
 
