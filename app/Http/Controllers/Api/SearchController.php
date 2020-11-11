@@ -362,13 +362,13 @@ class SearchController extends Controller
               ->where('makeid', $phone->make_id)
               ->select('modelid')
               ->distinct()
-              ->get()
+              ->limit(10)
               ->pluck('modelid')
               ->toArray();
 
 
         if($items){
-            $models = CarModel::whereIn('makeid', $items)->limit(10)->get();
+            $models = CarModel::whereIn('makeid', $items)->get();
 
             foreach($models as $model){
                 $message .= $model->modelid . " - " . $model->model . " \n ";
