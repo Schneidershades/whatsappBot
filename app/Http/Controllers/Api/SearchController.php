@@ -340,8 +340,9 @@ class SearchController extends Controller
             $make = Make::where('makeid', $yearItems->makeid)->first();
             $phone->make = $make->company;
             $phone->make_id = $make->makeid;
-            $phone->stage_model = 'modelShortList';
             $phone->save();
+
+            dd($phone, 40);
 
             $message .= $this->modelShortList($from, $body);
             // return $phone;
