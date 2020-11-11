@@ -48,7 +48,9 @@ class SearchController extends Controller
             return $this->componentResponse($from, $body);
         }
 
-        dd($phone,90);
+        $message = $this->chatModel($from, $body);
+
+        // dd($phone,90);
 
 
         // if($body == 'cancel'){
@@ -564,7 +566,7 @@ class SearchController extends Controller
         dd($phone, 4, $message);
     }
 
-    public function chatModel()
+    public function chatModel($from, $body)
     {
         $array1 = explode(" ", $body);
 
