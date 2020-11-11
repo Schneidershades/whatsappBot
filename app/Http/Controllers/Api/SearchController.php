@@ -368,7 +368,7 @@ class SearchController extends Controller
 
 
         if($items){
-            $models = CarModel::whereIn('makeid', $items)->limit(10)->get();
+            $models = CarModel::whereIn('makeid', $items)->get();
 
             dd($items, $models, $phone->year, $phone->make_id);
 
