@@ -42,25 +42,25 @@ class SearchController extends Controller
         }
 
         if($phone->stage_model == 'yearShortList' || $phone->stage_model == 'yearFullList' && $phone->year == null){
-            return $this->yearResponseToMakeTable($from, $body);
+            $message = $this->yearResponseToMakeTable($from, $body);
         }
 
         if($phone->stage_model == 'makeShortList' || $phone->stage_model == 'makeFullList' && $phone->make == null){
-            return $this->makeResponseToModelTable($from, $body);
+            $message = $this->makeResponseToModelTable($from, $body);
         }
 
         if($phone->stage_model == 'modelShortList' || $phone->stage_model == 'modelFullList' && $phone->car_model == null){
-            return $this->modelResponseToComponentTable($from, $body);
+            $message = $this->modelResponseToComponentTable($from, $body);
         }
 
         if($phone->stage_model == 'componentShortList' || $phone->stage_model == 'componentFullList' && $phone->component == null){
-            return $this->componentResponse($from, $body);
+            $message = $this->componentResponse($from, $body);
         }
 
         $message = $this->chatModel($from, $body);
         
 
-        return $message;
+        return $this->sendWhatsAppMessage($message, $from);
         
 
     }
@@ -217,7 +217,7 @@ class SearchController extends Controller
             $message .= $this->yearShortList($from, $body);
         }
 
-        dd($phone, 1, $message);
+        return $message;
     }
 
     public function makeShortTable($from, $body)
@@ -267,8 +267,7 @@ class SearchController extends Controller
             $message .= $this->yearShortList($from, $body);
         }
 
-        // return $message;
-        dd($phone, 2, $message);
+        return $message;
     }
 
     public function makeFullList($from, $body)
@@ -303,9 +302,7 @@ class SearchController extends Controller
             $phone->save();
         }
         
-        dd($phone, 3, $message);
-
-            // return $message;
+        return $message;
     }
 
     public function makeResponseToModelTable($from, $body)
@@ -344,9 +341,7 @@ class SearchController extends Controller
             $message .= $this->modelShortList($from, $body);
         }
         
-        dd($phone, 4, $message);
-
-        // return $message;
+        return $message;
     }
 
     public function modelShortList($from, $body)
@@ -365,8 +360,6 @@ class SearchController extends Controller
               ->limit(8)
               ->pluck('modelid')
               ->toArray();
-
-        // dd($items, $phone->year, $phone->make_id);
 
         if($items){
             $models = CarModel::whereIn('modelid', $items)->get();
@@ -443,12 +436,6 @@ class SearchController extends Controller
         }
 
         if(is_numeric($body)){
-            // $item = Year::where('year', $phone->year)
-            //     ->where('makeid', $phone->make_id)
-            //     ->where('modelid', $body)
-            //     ->first();
-
-            // dd($phone->year, $phone->make_id, $body);
 
             $carModel = CarModel::where('modelid', $body)->first();
 
@@ -471,7 +458,6 @@ class SearchController extends Controller
             $message .= $this->makeShortTable($from, $body);
         }
         
-        dd($phone, 5, $message);
 
         return $message;
     }
@@ -568,7 +554,7 @@ class SearchController extends Controller
             $message .= $this->componentShortList($from, $body);
         }
         
-        dd($phone, 6, $message);
+        return $message;
     }
 
     public function chatModel($from, $body)
