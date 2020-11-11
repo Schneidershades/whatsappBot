@@ -371,8 +371,6 @@ class SearchController extends Controller
         if($items){
             $models = CarModel::whereIn('makeid', $items)->limit(10)->get();
 
-            dd($models, $phone, 59);
-            
             foreach($models as $model){
                 $message .= $model->modelid . " - " . $model->model . " \n ";
             }
