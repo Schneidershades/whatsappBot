@@ -637,6 +637,19 @@ class SearchController extends Controller
         return $message['reply'];
     }
 
+    public function arraySearch($products, $field, $value)
+    {
+       foreach($products as $key => $product)
+       {
+            if ( $product[$field] === $value ){
+                return($product);
+            }
+
+            return false;
+       }
+       return false;
+    }
+
     public function sendWhatsAppMessage(string $message, string $recipient)
     {
         $twilio_whatsapp_number = getenv('TWILIO_WHATSAPP_NUMBER');
