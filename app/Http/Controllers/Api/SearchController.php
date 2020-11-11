@@ -436,7 +436,7 @@ class SearchController extends Controller
             return $this->makeShortTable($from, $body);
         }
 
-        if(int($body)){
+        if((int)$body){
             $items = Year::where('year', $phone->year)
                 ->where('makeid', $phone->make_id)
                 ->where('modelid', $body)
