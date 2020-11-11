@@ -283,14 +283,14 @@ class SearchController extends Controller
         $message = null;
 
         // colleting f9 to view all the list available under the year
-        $yearItems = Year::where('year', $phone->year)
-          ->select('makeid')
-          ->distinct()
-          ->get()
-          ->pluck('makeid')
-          ->toArray();
+            $yearItems = Year::where('year', $phone->year)
+              ->select('makeid')
+              ->distinct()
+              ->get()
+              ->pluck('makeid')
+              ->toArray();
 
-        if($yearItems){
+            if($yearItems){
 
             $message .= "Year selected : $phone->year \n ";
             $message .= "Please Select a your company manufacturer \n ";
@@ -306,7 +306,7 @@ class SearchController extends Controller
 
             $phone->stage_model = 'makeFullList';
             $phone->save();
-        }
+            }
         
         dd($phone, 3, $message);
 
@@ -332,21 +332,25 @@ class SearchController extends Controller
             return $this->yearShortList($from, $body);
         }
 
-        if((int)$body){ 
+        dd('44');
 
-            $make = Make::where('makeid', $body)->first();
+        $yearItems = Year::where('year', $phone->year)
+              ->where('makeid', $body)->first();
+
+        if($yearItems){ 
+
+            $make = Make::where('makeid', $yearItems->makeid)->first();
+
             $phone->make = $make->company;
             $phone->make_id = $make->makeid;
-            $phone->save();
-
-            dd($phone); 
 
             $message .= $this->modelShortList($from, $body);
 
             $phone->stage_model = 'modelShortList';
+            $phone->save();
             // return $phone;
         }else{
-            $message .= "Invalid Input \n ";
+            $message .= "Item Not found \n ";
             $message .= $this->makeShortTable($from, $body);
         }
         
