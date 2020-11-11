@@ -533,8 +533,6 @@ class SearchController extends Controller
 
         $phone = $this->dbSavedRequest($from, $body);
 
-        dd($body);
-
         if($body == 'f8'){
             return $this->componentFullList($from, $body);
         }
@@ -547,10 +545,14 @@ class SearchController extends Controller
             return $this->modelShortList($from, $body);
         }
 
+
+
         if(is_numeric($body)){
             $component = Component::where('component_id', $body)->first();
 
-            if($item == null){
+            dd($component);
+
+            if($component == null){
                 $message .= "Car component not found \n ";
                 $message .= $this->componentShortList($from, $body);
             }
