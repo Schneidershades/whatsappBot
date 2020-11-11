@@ -336,9 +336,8 @@ class SearchController extends Controller
               ->where('makeid', $body)->first();
 
         if($yearItems){ 
-
+            
             $make = Make::where('makeid', $yearItems->makeid)->first();
-
             $phone->make = $make->company;
             $phone->make_id = $make->makeid;
             $phone->stage_model = 'modelShortList';
@@ -348,7 +347,7 @@ class SearchController extends Controller
             // return $phone;
         }else{
             $message .= "Item Not found \n ";
-            $message .= $this->makeShortTable($from, $body);
+            $message .= $this->modelShortList($from, $body);
         }
         
         dd($phone, 4, $message);
