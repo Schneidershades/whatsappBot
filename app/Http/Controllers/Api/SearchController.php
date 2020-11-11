@@ -332,17 +332,9 @@ class SearchController extends Controller
             return $this->yearShortList($from, $body);
         }
 
-        // $yearItems = Year::where('year', $phone->year)
-        //       ->where('makeid', $body)->get();
-
-        // dd($yearItems);
-
         if((int)$body){ 
 
             $make = Make::where('makeid', $body)->first();
-
-            dd($make);
-
             $phone->make = $make->company;
             $phone->make_id = $make->makeid;
 
