@@ -366,12 +366,12 @@ class SearchController extends Controller
               ->pluck('modelid')
               ->toArray();
         
-        dd($items, $phone->year, $phone->make_id);
+        // dd($items, $phone->year, $phone->make_id);
 
         if($items){
             $models = CarModel::whereIn('makeid', $items)->get();
 
-            // dd($items, $models, $phone->year, $phone->make_id);
+            dd($items, $models, $phone->year, $phone->make_id);
 
             foreach($models as $model){
                 $message .= $model->modelid . " - " . $model->model . " \n ";
