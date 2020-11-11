@@ -405,7 +405,7 @@ class SearchController extends Controller
               ->toArray();
 
         if($items){
-            $models = CarModel::whereIn('modelid', $items)->get();
+            $models = CarModel::whereIn('modelid', $items)->limit(10)->get();
 
             foreach($models as $model){
                 $message .= $model->modelid . " - " . $model->model . " \n ";
