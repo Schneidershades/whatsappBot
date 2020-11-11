@@ -336,8 +336,6 @@ class SearchController extends Controller
         $yearItems = Year::where('year', $phone->year)
               ->where('makeid', $body)->first();
 
-        dd($yearItems);
-
         if($yearItems){ 
 
             $make = Make::where('makeid', $yearItems->makeid)->first();
@@ -477,7 +475,7 @@ class SearchController extends Controller
             $message .= $this->makeShortTable($from, $body);
         }
         
-        dd($phone, 4, $message);
+        dd($phone, 5, $message);
 
         return $message;
     }
@@ -579,7 +577,7 @@ class SearchController extends Controller
             $message .= $this->componentShortList($from, $body);
         }
         
-        dd($phone, 5, $message);
+        dd($phone, 6, $message);
     }
 
     public function chatModel($from, $body)
