@@ -365,11 +365,11 @@ class SearchController extends Controller
               ->limit(8)
               ->pluck('modelid')
               ->toArray();
-        
+
         // dd($items, $phone->year, $phone->make_id);
 
         if($items){
-            $models = CarModel::whereIn('makeid', $items)->get();
+            $models = CarModel::whereIn('modelid', $items)->get();
 
             dd($items, $models, $phone->year, $phone->make_id);
 
