@@ -550,8 +550,6 @@ class SearchController extends Controller
         if(is_numeric($body)){
             $component = Component::where('component_id', $body)->first();
 
-            dd($component);
-
             if($component == null){
                 $message .= "Car component not found \n ";
                 $message .= $this->componentShortList($from, $body);
@@ -559,8 +557,8 @@ class SearchController extends Controller
 
             $phone->component_id = $component->component_id;
             $phone->component = $component->component;
-
-            $phone->stage_model = 'componentShortList';
+            $phone->terminate = true;
+            $phone->finished = true;
 
             $phone->save();
 
