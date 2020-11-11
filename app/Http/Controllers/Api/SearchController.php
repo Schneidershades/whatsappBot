@@ -451,84 +451,67 @@ class SearchController extends Controller
 
             $phone->car_model_id = $carModel->modelid;
             $phone->car_model = $carModel->model;
+
+            $phone->stage_model = 'componentShortList';
+
             $phone->save();
 
         }else{
             $message .= "Invalid Input \n ";
             $message .= $this->makeShortTable($from, $body);
         }
-
-            
-
-
-        // $items = Year::where('year', $phone->year)
-        //       ->where('makeid', $phone->make_id)
-        //       ->select('modelid')
-        //       ->distinct()
-        //       ->limit(8)
-        //       ->pluck('modelid')
-        //       ->toArray();
-
-        // if($items){
-        //     $models = CarModel::whereIn('modelid', $items)->get();
-
-        //     foreach($models as $model){
-        //         $message .= $model->modelid . " - " . $model->model . " \n ";
-        //     }
-            
-        //     $message .= "Please Press *f8* to view full list \n ";
-        //     $message .= "Press *f9* to go to previous \n ";
-        //     $message .= "Press *x* to cancel session \n ";
-
-        //     $phone->stage_model = 'componentFullList';
-
-        //     $phone->save();
-
-        // }else{
-        //     $message .= "Invalid Input \n ";
-        //     $message .= $this->modelShortList($from, $body);
-        // }
-
-        // $yearItems = Year::where('year', $body)
-        //       ->select('makeid')
-        //       ->distinct()
-        //       ->limit(8)
-        //       ->pluck('makeid')
-        //       ->toArray();
-
-        // if($yearItems){
-        //     $phone->year = $body;
-        //     $message .= "Year selected : $phone->year \n ";
-        //     $message .= "Please Select a your company manufacturer \n ";
-
-        //     $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
-
-        //     foreach($makeids as $make){
-        //         $message .= $make->makeid . " - " . $make->company . " \n ";
-        //     }
-
-        //     if($makeids->count() > 8){
-        //       $message .= "Please Press *f8* to view full list \n ";
-        //     }
-            
-        //     $message .= "Please Press *f9* to go to previous \n ";
-
-        //     $phone->stage_model = 'modelShortList';
-
-        //     $phone->save();
-        // }else{
-        //     $message .= "Invalid Input \n ";
-        //     $message .= $this->makeShortTable($from, $body);
-        // }
         
         dd($phone, 4, $message);
 
         return $message;
     }
 
-    public function componentResponse()
+    public function componentShortList($from, $body)
     {
+        $message = null;
 
+        $phone = $this->dbSavedRequest($from, $body);
+        $phone->stage_model = 'yearShortList';
+        $phone->save();
+
+        $message = null;
+        $message .= "Year selected : $phone->year \n ";
+        $message .= "Car Manufacturer Selection : $phone->make\n";
+        $message .= "$phone->make Model Selected $phone->car_model \n ";
+        $message .= "Please Select a car component \n ";
+
+        $components = Component::limit(8)->get();
+
+        foreach($components as $component){
+            $message .= $component->component_id . " - " . $component->component . " \n ";
+        }
+
+        $message .= "Please Press *f8* to view full list \n ";
+        $message .= "Press *f9* to go to previous \n ";
+        $message .= "Press *x* to cancel session \n ";
+
+        return $message;
+    }
+
+    public function componentResponse($from, $body)
+    {
+        $message = null;
+
+        $phone = $this->dbSavedRequest($from, $body);
+
+        if($body == 'f8'){
+            return $this->modelFullList($from, $body);
+        }
+
+        if($body == 'f9'){
+            $phone->stage_model = 'modelShortList';
+            $phone->car_model_id = null;
+            $phone->car_model = null;
+            $phone->save();
+            return $this->modelShortList($from, $body);
+        }
+
+        
     }
 
     public function chatModel()
