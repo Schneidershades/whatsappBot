@@ -336,6 +336,8 @@ class SearchController extends Controller
         $yearItems = Year::where('year', $phone->year)
               ->where('makeid', $body)->first();
 
+        dd($yearItems);
+
         if($yearItems){ 
 
             $make = Make::where('makeid', $yearItems->makeid)->first();
