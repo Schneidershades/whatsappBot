@@ -545,8 +545,6 @@ class SearchController extends Controller
             return $this->modelShortList($from, $body);
         }
 
-
-
         if(is_numeric($body)){
             $component = Component::where('component_id', $body)->first();
 
