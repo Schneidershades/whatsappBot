@@ -362,7 +362,7 @@ class SearchController extends Controller
               ->where('makeid', $phone->make_id)
               ->select('modelid')
               ->distinct()
-              ->get()
+              ->limit(8)
               ->pluck('modelid')
               ->toArray();
 
