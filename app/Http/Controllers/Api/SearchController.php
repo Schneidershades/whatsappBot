@@ -442,14 +442,16 @@ class SearchController extends Controller
         }
 
         if(is_numeric($body)){
-            $item = Year::where('year', $phone->year)
-                ->where('makeid', $phone->make_id)
-                ->where('modelid', $body)
-                ->first();
+            // $item = Year::where('year', $phone->year)
+            //     ->where('makeid', $phone->make_id)
+            //     ->where('modelid', $body)
+            //     ->first();
 
-            dd($phone->year, $phone->make_id, $body);
+            // dd($phone->year, $phone->make_id, $body);
 
-            $carModel = CarModel::where('modelid', $item->modelid)->first();
+            $carModel = CarModel::where('modelid', $body)->first();
+
+            dd($carModel);
 
             if($item == null){
                 $message .= "Car models not found \n ";
