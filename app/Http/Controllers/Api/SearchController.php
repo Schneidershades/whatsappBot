@@ -451,9 +451,9 @@ class SearchController extends Controller
 
             $carModel = CarModel::where('modelid', $body)->first();
 
-            if($item == null){
+            if($carModel == null){
                 $message .= "Car models not found \n ";
-                $message .= $this->makeShortTable($from, $body);
+                $message .= $this->modelShortList($from, $body);
             }
 
             $phone->car_model_id = $carModel->modelid;
