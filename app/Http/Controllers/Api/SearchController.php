@@ -447,7 +447,7 @@ class SearchController extends Controller
                 ->where('modelid', $body)
                 ->first();
 
-            dd($item);
+            dd($phone->year, $phone->make_id, $body);
 
             $carModel = CarModel::where('modelid', $item->modelid)->first();
 
