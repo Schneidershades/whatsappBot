@@ -370,8 +370,6 @@ class SearchController extends Controller
               ->pluck('modelid')
               ->toArray();
 
-        dd($items);
-
         if($items){
             $models = CarModel::whereIn('makeid', $items)->limit(10);
 
