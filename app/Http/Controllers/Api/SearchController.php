@@ -366,7 +366,7 @@ class SearchController extends Controller
               ->pluck('modelid')
               ->toArray();
 
-        dd($items, $phone, 59)
+        dd($items, $phone, 59);
 
 
         if($items){
