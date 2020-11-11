@@ -14,7 +14,9 @@ class ChatBotController extends Controller
     {
         $newChat = new Chat;
         $newChat->incoming_message = $request->in;
-        $newChat->outgoint_message = $request->out;
+        $newChat->outgoing_message = $request->out;
         $newChat->save();
+
+        return "saved";
     }
 }
