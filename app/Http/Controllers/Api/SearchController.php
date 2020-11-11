@@ -493,6 +493,33 @@ class SearchController extends Controller
         return $message;
     }
 
+    public function componentFullList($from, $body)
+    {
+        $message = null;
+
+        $phone = $this->dbSavedRequest($from, $body);
+        $phone->stage_model = 'yearShortList';
+        $phone->save();
+
+        $message = null;
+        $message .= "Year selected : $phone->year \n ";
+        $message .= "Car Manufacturer Selection : $phone->make\n";
+        $message .= "$phone->make Model Selected $phone->car_model \n ";
+        $message .= "Please Select a car component \n ";
+
+        $components = Component::all();
+
+        foreach($components as $component){
+            $message .= $component->component_id . " - " . $component->component . " \n ";
+        }
+
+        $message .= "Please Press *f8* to view full list \n ";
+        $message .= "Press *f9* to go to previous \n ";
+        $message .= "Press *x* to cancel session \n ";
+
+        return $message;
+    }
+
     public function componentResponse($from, $body)
     {
         $message = null;
@@ -500,7 +527,7 @@ class SearchController extends Controller
         $phone = $this->dbSavedRequest($from, $body);
 
         if($body == 'f8'){
-            return $this->modelFullList($from, $body);
+            return $this->componentFullList($from, $body);
         }
 
         if($body == 'f9'){
@@ -511,7 +538,30 @@ class SearchController extends Controller
             return $this->modelShortList($from, $body);
         }
 
+        if((int)$body){
+            $component = Component::where('component_id', $body)->first();
+
+            if($item == null){
+                $message .= "Car component not found \n ";
+                $message .= $this->componentShortList($from, $body);
+            }
+
+            $phone->component_id = $component->component_id;
+            $phone->component = $component->component;
+
+            $phone->stage_model = 'componentShortList';
+
+            $phone->save();
+
+            $message .= "Thank you for your request our agent would contact you in 1 business day \n \n";
+            $message .= "Car Specification $phone->year $phone->make $phone->car_model - $phone->component \n ";
+
+        }else{
+            $message .= "Invalid Input \n ";
+            $message .= $this->componentShortList($from, $body);
+        }
         
+        dd($phone, 4, $message);
     }
 
     public function chatModel()
