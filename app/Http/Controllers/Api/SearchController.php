@@ -437,12 +437,12 @@ class SearchController extends Controller
         }
 
         if((int)$body){
-            $items = Year::where('year', $phone->year)
+            $item = Year::where('year', $phone->year)
                 ->where('makeid', $phone->make_id)
                 ->where('modelid', $body)
                 ->first();
 
-            $carModel = CarModel::where('modelid', $items->modelid)->first();
+            $carModel = CarModel::where('modelid', $item->modelid)->first();
 
             if($item == null){
                 $message .= "Car models not found \n ";
