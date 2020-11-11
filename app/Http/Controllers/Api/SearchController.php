@@ -335,7 +335,7 @@ class SearchController extends Controller
         $yearItems = Year::where('year', $phone->year)
               ->where('makeid', $body)->first();
 
-        dd($yearItems);
+        dd($phone, $yearItems);
 
         if($yearItems){ 
 
