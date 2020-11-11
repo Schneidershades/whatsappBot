@@ -557,7 +557,6 @@ class SearchController extends Controller
             $phone->component = $component->component;
             $phone->terminate = true;
             $phone->finished = true;
-
             $phone->save();
 
             $message .= "Thank you for your request our agent would contact you in 1 business day \n \n";
