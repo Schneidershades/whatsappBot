@@ -29,7 +29,7 @@ class SearchController extends Controller
             if($body == "f2"){
                 $phone->stage_model = 'yearShortList';
                 $phone->save();
-                return $this->yearShortList($from, $body);
+                $message = $this->yearShortList($from, $body);
             }
         }
 
