@@ -365,7 +365,8 @@ class SearchController extends Controller
               ->limit(8)
               ->pluck('modelid')
               ->toArray();
-
+        
+        dd($items, $phone->year, $phone->make_id);
 
         if($items){
             $models = CarModel::whereIn('makeid', $items)->get();
@@ -404,7 +405,6 @@ class SearchController extends Controller
               ->pluck('modelid')
               ->toArray();
 
-        dd($items, $phone->year, $phone->make_id);
 
         if($items){
             $models = CarModel::whereIn('modelid', $items)->limit(10)->get();
