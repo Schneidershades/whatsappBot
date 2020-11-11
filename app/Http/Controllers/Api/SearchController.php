@@ -185,7 +185,7 @@ class SearchController extends Controller
 
         
 
-        if((int)$body){
+        if(is_numeric($body)){
             $yearItems = Year::where('year', $body)
                     ->select('makeid')
                     ->distinct()
@@ -341,11 +341,10 @@ class SearchController extends Controller
 
             $phone->make = $make->company;
             $phone->make_id = $make->makeid;
-
-            $message .= $this->modelShortList($from, $body);
-
             $phone->stage_model = 'modelShortList';
             $phone->save();
+
+            $message .= $this->modelShortList($from, $body);
             // return $phone;
         }else{
             $message .= "Item Not found \n ";
@@ -447,7 +446,7 @@ class SearchController extends Controller
             return $this->makeShortTable($from, $body);
         }
 
-        if((int)$body){
+        if(is_numeric($body)){
             $item = Year::where('year', $phone->year)
                 ->where('makeid', $phone->make_id)
                 ->where('modelid', $body)
@@ -553,7 +552,7 @@ class SearchController extends Controller
             return $this->modelShortList($from, $body);
         }
 
-        if((int)$body){
+        if(is_numeric($body)){
             $component = Component::where('component_id', $body)->first();
 
             if($item == null){
