@@ -29,7 +29,7 @@ class SearchController extends Controller
             if($body == "f2"){
                 $phone->stage_model = 'yearShortList';
                 $phone->save();
-                return $this->sendWhatsAppMessage($this->yearShortList($from, $body), $from);
+                return $this->yearShortList($from, $body);
             }
         }
 
@@ -42,25 +42,25 @@ class SearchController extends Controller
         }
 
         if($phone->stage_model == 'yearShortList' || $phone->stage_model == 'yearFullList' && $phone->year == null){
-            $message = $this->yearResponseToMakeTable($from, $body);
+            return $this->yearResponseToMakeTable($from, $body);
         }
 
         if($phone->stage_model == 'makeShortList' || $phone->stage_model == 'makeFullList' && $phone->make == null){
-            $message = $this->makeResponseToModelTable($from, $body);
+            return $this->makeResponseToModelTable($from, $body);
         }
 
         if($phone->stage_model == 'modelShortList' || $phone->stage_model == 'modelFullList' && $phone->car_model == null){
-            $message = $this->modelResponseToComponentTable($from, $body);
+            return $this->modelResponseToComponentTable($from, $body);
         }
 
         if($phone->stage_model == 'componentShortList' || $phone->stage_model == 'componentFullList' && $phone->component == null){
-            $message = $this->componentResponse($from, $body);
+            return $this->componentResponse($from, $body);
         }
 
         $message = $this->chatModel($from, $body);
         
 
-        return $this->sendWhatsAppMessage($message, $from);
+        return $message;
         
 
     }
