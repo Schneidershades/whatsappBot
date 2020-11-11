@@ -575,7 +575,7 @@ class SearchController extends Controller
             $message .= $this->componentShortList($from, $body);
         }
         
-        dd($phone, 4, $message);
+        dd($phone, 5, $message);
     }
 
     public function chatModel($from, $body)
