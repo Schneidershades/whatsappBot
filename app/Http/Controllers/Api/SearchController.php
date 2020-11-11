@@ -512,7 +512,7 @@ class SearchController extends Controller
         $message = null;
 
         $phone = $this->dbSavedRequest($from, $body);
-        $phone->stage_model = 'yearShortList';
+        $phone->stage_model = 'componentFullList';
         $phone->save();
 
         $message = null;
@@ -539,6 +539,8 @@ class SearchController extends Controller
         $message = null;
 
         $phone = $this->dbSavedRequest($from, $body);
+
+        dd($body);
 
         if($body == 'f8'){
             return $this->componentFullList($from, $body);
