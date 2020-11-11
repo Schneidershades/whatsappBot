@@ -283,14 +283,14 @@ class SearchController extends Controller
         $message = null;
 
         // colleting f9 to view all the list available under the year
-            $yearItems = Year::where('year', $phone->year)
-              ->select('makeid')
-              ->distinct()
-              ->get()
-              ->pluck('makeid')
-              ->toArray();
+        $yearItems = Year::where('year', $phone->year)
+          ->select('makeid')
+          ->distinct()
+          ->get()
+          ->pluck('makeid')
+          ->toArray();
 
-            if($yearItems){
+        if($yearItems){
 
             $message .= "Year selected : $phone->year \n ";
             $message .= "Please Select a your company manufacturer \n ";
@@ -306,7 +306,7 @@ class SearchController extends Controller
 
             $phone->stage_model = 'makeFullList';
             $phone->save();
-            }
+        }
         
         dd($phone, 3, $message);
 
