@@ -436,32 +436,58 @@ class SearchController extends Controller
             return $this->makeShortTable($from, $body);
         }
 
-        $items = Year::where('year', $phone->year)
-              ->where('makeid', $phone->make_id)
-              ->select('modelid')
-              ->distinct()
-              ->limit(8)
-              ->pluck('modelid')
-              ->toArray();
+        if(int($body)){
+            $items = Year::where('year', $phone->year)
+                ->where('makeid', $phone->make_id)
+                ->where('modelid', $body)
+                ->first();
 
-        if($items){
-            $models = CarModel::whereIn('modelid', $items)->get();
+            $carModel = CarModel::where('modelid', $items->modelid)->first();
 
-            foreach($models as $model){
-                $message .= $model->modelid . " - " . $model->model . " \n ";
+            if($item == null){
+                $message .= "Car models not found \n ";
+                $message .= $this->makeShortTable($from, $body);
             }
-            
-            $message .= "Please Press *f8* to view full list \n ";
-            $message .= "Press *f9* to go to previous \n ";
-            $message .= "Press *x* to cancel session \n ";
 
-            $phone->stage_model = 'componentFullList';
+            $phone->car_model_id = $carModel->modelid;
+            $phone->car_model = $carModel->model;
 
-            $phone->save();
+            dd($phone,30);
         }else{
             $message .= "Invalid Input \n ";
             $message .= $this->makeShortTable($from, $body);
         }
+
+            
+
+
+        // $items = Year::where('year', $phone->year)
+        //       ->where('makeid', $phone->make_id)
+        //       ->select('modelid')
+        //       ->distinct()
+        //       ->limit(8)
+        //       ->pluck('modelid')
+        //       ->toArray();
+
+        // if($items){
+        //     $models = CarModel::whereIn('modelid', $items)->get();
+
+        //     foreach($models as $model){
+        //         $message .= $model->modelid . " - " . $model->model . " \n ";
+        //     }
+            
+        //     $message .= "Please Press *f8* to view full list \n ";
+        //     $message .= "Press *f9* to go to previous \n ";
+        //     $message .= "Press *x* to cancel session \n ";
+
+        //     $phone->stage_model = 'componentFullList';
+
+        //     $phone->save();
+
+        // }else{
+        //     $message .= "Invalid Input \n ";
+        //     $message .= $this->modelShortList($from, $body);
+        // }
 
         // $yearItems = Year::where('year', $body)
         //       ->select('makeid')
