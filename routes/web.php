@@ -9,8 +9,8 @@ Route::get('/', function () {
 
 Route::get('/tables', function () {
 	Schema::drop('migrations');
-	// Schema::drop('chats');
-	// Schema::drop('bot_search_requests');
+	Schema::drop('searches');
+	Schema::drop('chats');
     return $tables = DB::select('SHOW TABLES'); // returns an array of stdObjects
 });
 
