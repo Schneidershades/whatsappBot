@@ -332,10 +332,10 @@ class SearchController extends Controller
             return $this->yearShortList($from, $body);
         }
 
-        dd($body);
-
         $yearItems = Year::where('year', $phone->year)
               ->where('makeid', $body)->first();
+
+        dd($yearItems);
 
         if($yearItems){ 
 
