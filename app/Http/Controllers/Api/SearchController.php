@@ -183,31 +183,40 @@ class SearchController extends Controller
             $phone->save();
         }
 
-        $yearItems = Year::where('year', $body)
+        
+
+        if((int)$body){
+            $yearItems = Year::where('year', $body)
                     ->select('makeid')
                     ->distinct()
                     ->limit(8)
                     ->pluck('makeid')
                     ->toArray();
 
-        if($yearItems){
-            $phone->year = $body;
+            if($yearItems){
+                $phone->year = $body;
 
-            $message .= "Year selected : $phone->year \n ";
-            $message .= "Please Select a your company manufacturer \n ";
+                $message .= "Year selected : $phone->year \n ";
+                $message .= "Please Select a your company manufacturer \n ";
 
-            $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
+                $makeids = Make::whereIn('makeid', $yearItems)->orderBy('company', 'asc')->get();
 
-            foreach($makeids as $make){
-                $message .= $make->makeid . " - " . $make->company . " \n ";
+                foreach($makeids as $make){
+                    $message .= $make->makeid . " - " . $make->company . " \n ";
+                }
+
+                $message .= "Please Press *f8* to view full list \n ";
+                $message .= "Press *f9* to go to previous \n ";
+                $message .= "Press *x* to cancel session \n ";
+
+                $phone->stage_model = 'makeShortList';
+                $phone->save();
+            }else{
+                $message .= "Year Input not found \n ";
+                $message .= $this->yearShortList($from, $body);
             }
 
-            $message .= "Please Press *f8* to view full list \n ";
-            $message .= "Press *f9* to go to previous \n ";
-            $message .= "Press *x* to cancel session \n ";
-
-            $phone->stage_model = 'makeShortList';
-            $phone->save();
+                
         }else{
             $message .= "Invalid Input \n ";
             $message .= $this->yearShortList($from, $body);
