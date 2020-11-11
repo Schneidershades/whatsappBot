@@ -447,6 +447,8 @@ class SearchController extends Controller
                 ->where('modelid', $body)
                 ->first();
 
+            dd($item);
+
             $carModel = CarModel::where('modelid', $item->modelid)->first();
 
             if($item == null){
