@@ -468,6 +468,8 @@ class SearchController extends Controller
 
             $phone->save();
 
+            $message .= $this->componentShortList($from, $body);
+
         }else{
             $message .= "Invalid Input \n ";
             $message .= $this->makeShortTable($from, $body);
