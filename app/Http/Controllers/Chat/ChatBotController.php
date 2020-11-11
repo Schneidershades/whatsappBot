@@ -10,6 +10,11 @@ use App\Models\Chat;
 
 class ChatBotController extends Controller
 {   
+    public function index()
+    {
+        return Chat::all();
+    }
+
     public function store(Request $request)
     {
         $newChat = new Chat;
