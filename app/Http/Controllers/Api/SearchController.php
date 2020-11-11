@@ -617,7 +617,8 @@ class SearchController extends Controller
             $message .= "I am here to assist you\n";
             $message .= "Please kindly press *menu* to access our support features\n";
 
-            return $this->sendWhatsAppMessage($message, $from);
+            return $message;
+            // return $this->sendWhatsAppMessage($message, $from);
         }
 
         $maximum_number = (max(array_column($replies, "average")));
