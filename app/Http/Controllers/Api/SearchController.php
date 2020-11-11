@@ -453,8 +453,6 @@ class SearchController extends Controller
                 ->where('makeid', $phone->make_id)
                 ->where('modelid', $body)
                 ->first();
-                
-            dd($item);
 
             $carModel = CarModel::where('modelid', $item->modelid)->first();
 
