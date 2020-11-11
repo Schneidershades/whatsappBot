@@ -342,8 +342,6 @@ class SearchController extends Controller
             $phone->make_id = $make->makeid;
             $phone->save();
 
-            dd($phone, 40);
-
             $message .= $this->modelShortList($from, $body);
             // return $phone;
         }else{
@@ -372,6 +370,8 @@ class SearchController extends Controller
               ->get()
               ->pluck('modelid')
               ->toArray();
+              
+        dd($items);
 
         if($items){
             $models = CarModel::whereIn('makeid', $items)->limit(10);
