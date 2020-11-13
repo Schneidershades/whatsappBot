@@ -614,10 +614,10 @@ class SearchController extends Controller
         // dd($message);
 
         if($replies == null || $replies == []){
-            $newChat = new Chat;
-            $newChat->incoming_message = $body;
-            $newChat->phone = $from;
-            $newChat->save();
+            // $newChat = new Chat;
+            // $newChat->incoming_message = $body;
+            // $newChat->phone = $from;
+            // $newChat->save();
 
             $message = "*Welcome To AutoPartz!!!*\n";
             $message .= "I am here to assist you\n";
