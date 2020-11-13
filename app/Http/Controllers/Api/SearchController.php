@@ -60,7 +60,7 @@ class SearchController extends Controller
         $message = $this->chatModel($from, $body);
         
 
-        return $message;
+        return $this->sendWhatsAppMessage($message, $from);
         
 
     }
