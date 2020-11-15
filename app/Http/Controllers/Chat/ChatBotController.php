@@ -39,4 +39,11 @@ class ChatBotController extends Controller
         return $chat;
     }
 
+    public function destroy($id)
+    {
+        $chat = Chat::find($id);
+        $chat->delete();
+        return 'deleted';
+    }
+
 }
