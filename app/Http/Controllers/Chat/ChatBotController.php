@@ -34,7 +34,7 @@ class ChatBotController extends Controller
     public function update(Request $request, $id)
     {
         $chat = Chat::find($id);
-        $chat->outgoing_message = $request->in;
+        $chat->incoming_message = $request->in;
         $chat->save();
         return $chat;
     }
